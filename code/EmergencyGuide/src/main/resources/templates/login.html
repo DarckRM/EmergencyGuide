@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="css/login.css">
+</head>
+<body style="background-color: #d6d6d6">
+<div class="login">
+    <div id="loginPanelTitle" class="alignCenter">
+        <p id="mainTitle">应急指南 开发中</p>
+        <p id="viceTitle">EmergencyGuide Devloping</p>
+    </div>
+    <form action="/doLogin" method="post">
+        <div class="loginInputDiv alignCenter">
+            <input name="username" type="text" class="loginInput" placeholder="请输入用户名">
+            <input name="password" type="password" class="loginInput" placeholder="请输入密码">
+            <button type="submit" class="loginBtn">登 录</button>
+        </div>
+    </form>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,81 @@
+.alignCenter{
+    margin: 0 auto;
+}
+.login{
+    margin: 200px auto;
+    padding: 10px;
+    height: 330px;
+    width: 510px;
+    border-radius: 5px;
+    background: white;
+    box-shadow: 0px 5px 20px #a5a5a5;
+}
+#loginPanelTitle{
+    text-align: center
+}
+#mainTitle{
+    height: 14px;
+    font-size: 38px;
+    font-weight: bold;
+}
+#viceTitle{
+    color: #616161;
+    font-size: 9px;
+    margin-bottom: 30px;
+}
+.loginInputDiv{
+    width: 480px;
+    height: 180px;
+    padding: 5px;
+}
+.loginInput{
+    -webkit-appearance:none;
+    -moz-appearance: none;
+    outline: none;
+    transition: 0.5s box-shadow ease;
+
+    width: 480px;
+    height: 30px;
+    border-radius: 10px;
+    border: 0.13em solid #b0b0b0;
+    font-size: 14px;
+    font-family: "Microsoft JhengHei";
+    text-align: center;
+    margin-bottom: 15px;
+}
+.loginInput:hover{
+    box-shadow: 0px 3px 4px #d0d0d0;
+}
+.loginInput:focus{
+    box-shadow: 0px 3px 4px #d0d0d0;
+}
+.loginBtn{
+    -webkit-appearance:none;
+    -moz-appearance: none;
+    transition: 0.8s background ease,
+                0.5s box-shadow ease,
+                0.5s border-radius ease;
+
+    background: #34a5d9;
+    width: 460px;
+    height: 38px;
+    border-radius: 10px;
+    border: 0;
+    font-size: 21px;
+    font-family: "Microsoft JhengHei";
+    font-weight: bold;
+    color: white;
+    text-align: center;
+    margin: 10px;
+
+}
+.loginBtn:hover{
+    background: #1fbaf7;
+    box-shadow: 0px 3px 4px #d0d0d0;
+    border-radius: 30px;
+    cursor: pointer;
+}
+@keyframes shadowDisplay {
+    0% { box-shadow: none; }
+    100% { box-shadow: 0px 3px 4px #d0d0d0; }
+}

@@ -1,0 +1,13 @@
+#application.yml
+spring:
+  application:
+    name: ${APP_NAME:unnamed}
+  datasource:
+    url: jdbc:mysql://localhost:3306/emergencyguide?serverTimezone=GMT%2B8
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+server:
+  port: 8096
+mybatis:
+  type-aliases-package: com.emergencyguide.Entity
