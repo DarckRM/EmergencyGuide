@@ -6,20 +6,48 @@
     <title>Title</title>
     <link rel="stylesheet" type="text/css" href="css/login.css">
 </head>
+
 <body style="background-color: #d6d6d6">
 <div class="login">
     <div id="loginPanelTitle" class="alignCenter">
         <p id="mainTitle">应急指南 开发中</p>
         <p id="viceTitle">EmergencyGuide Devloping</p>
     </div>
-    <form action="/doLogin" method="post">
+    <form class="layui-form">
         <div class="loginInputDiv alignCenter">
             <input name="username" type="text" class="loginInput" placeholder="请输入用户名">
             <input name="password" type="password" class="loginInput" placeholder="请输入密码">
-            <button type="submit" class="loginBtn">登 录</button>
+            <button lay-submit lay-filter="loginEvent" class="loginBtn">登 录</button>
         </div>
     </form>
-
 </div>
+
+<!--layui-->
+<script src="layui/layui.js"></script>
+<script>
+    layui.use(['layer', 'form'], function(){
+        var layer = layui.layer,
+                $ = layui.jquery,
+             form = layui.form;
+
+        form.on('submit(loginEvent)', function (data) {
+            $.ajax({
+                url : '/doLogin',
+                method : 'post',
+                data:JSON.stringify(data.field),
+                contentType : 'application/json',
+                dataType : 'JSON',
+                success: function (data) {
+                    console.log(data);
+                    window.location = '/index';
+                }
+            });
+            return false;
+        })
+
+
+    });
+</script>
+
 </body>
 </html>

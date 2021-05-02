@@ -1,13 +1,16 @@
 package com.emergencyguide.Controller;
 
+import com.emergencyguide.Entity.Result;
 import com.emergencyguide.Entity.User;
 import com.emergencyguide.Service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
 
 @Controller
@@ -20,25 +23,16 @@ public class LoginController {
     public String webServiceDemo(){
         return "/login";
     }
+
     @PostMapping("/doLogin")
     @ResponseBody
-    public ModelAndView login(@RequestParam Map<String, Object> params, HttpServletRequest servletRequest, User user){
-        user.setUsername(params.get("username").toString());
-        user.setPassword(params.get("password").toString());
+    public String login(@RequestBody(required = false) User user, HttpServletResponse response, HttpServletRequest request){
 
-        ModelAndView mav = new ModelAndView();
-
-        user = loginService.doLogin(user);
-        if (user == null) {
-            User nulluser = new User();
-            nulluser.setUsername("未找到");
-            nulluser.setPassword("未找到");
-            mav.addObject("data", nulluser);
+        String token = loginService.doLogin(user, response, request);
+        if (token != null && !token.isEmpty()) {
+            return new Result<>().success("操作成功").toString();
         } else {
-            mav.addObject("data", user);
+            return new Result<>().success("操作失败").toString();
         }
-        mav.setViewName("/index");
-
-        return mav;
     }
 }
