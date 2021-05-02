@@ -15,8 +15,8 @@
     </div>
     <form class="layui-form">
         <div class="loginInputDiv alignCenter">
-            <input name="username" type="text" class="loginInput" placeholder="请输入用户名">
-            <input name="password" type="password" class="loginInput" placeholder="请输入密码">
+            <input lay-vertify="required" name="username" type="text" class="loginInput" placeholder="请输入用户名">
+            <input lay-vertify="required" name="password" type="password" class="loginInput" placeholder="请输入密码">
             <button lay-submit lay-filter="loginEvent" class="loginBtn">登 录</button>
         </div>
     </form>
@@ -39,7 +39,12 @@
                 dataType : 'JSON',
                 success: function (data) {
                     console.log(data);
-                    window.location = '/index';
+                    if(data.msg == '操作失败') {
+                        layer.msg("用户名或密码错误");
+
+                    } else {
+                        window.location = 'index';
+                    }
                 }
             });
             return false;

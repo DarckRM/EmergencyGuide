@@ -31,8 +31,9 @@ public class LoginServiceImpl implements LoginService {
     public String doLogin(User user, HttpServletResponse response, HttpServletRequest request){
 
         User dbUser = userDao.selectByUserName(user.getUsername());
-
-        if (dbUser.getPassword().equals(user.getPassword())) {
+        if (dbUser == null) {
+            return "";
+        } else if (dbUser.getPassword().equals(user.getPassword())) {
             // 生成cookie
             HttpSession session = request.getSession();
             session.setAttribute("username",dbUser.getUsername());
