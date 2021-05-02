@@ -2,12 +2,25 @@
 spring:
   application:
     name: ${APP_NAME:unnamed}
+  #数据连接池配置信息
   datasource:
     url: jdbc:mysql://localhost:3306/emergencyguide?serverTimezone=GMT%2B8
     username: root
     password: root
     driver-class-name: com.mysql.cj.jdbc.Driver
+  redis:
+    database: 0
+    host: 192.168.0.24
+    port: 6379
+    password:
+      pool:
+        max-active: 200
+        max-wait: -1
+        max-idle: 10
+        min-idle: 0
+        timeout: 1000
 server:
+  #服务器部署端口
   port: 8096
 mybatis:
   type-aliases-package: com.emergencyguide.Entity
