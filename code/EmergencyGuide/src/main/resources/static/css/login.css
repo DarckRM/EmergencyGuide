@@ -1,14 +1,29 @@
 .alignCenter{
     margin: 0 auto;
 }
+.blurDiv{
+    position: absolute; left: 0; top: -50px; right: 0; bottom: 0;
+    margin: auto;    /* 有了这个就自动居中了 */
+    height: 350px;
+    width: 530px;
+    border-radius: 10px;
+    background: url(/img/loginimage.png);
+    background-repeat: no-repeat;
+    background-position-y: -160px;
+    background-position-x: -475px;
+    background-size: 280%;
+    filter: blur(8px);
+    z-index: -1;
+}
 .login{
     margin: 200px auto;
     padding: 10px;
     height: 330px;
     width: 510px;
-    border-radius: 5px;
-    background: white;
+    border-radius: 10px;
+    background: rgba(255,255,255,0.8);
     box-shadow: 0px 5px 20px #a5a5a5;
+    z-index: 1;
 }
 #loginPanelTitle{
     text-align: center
