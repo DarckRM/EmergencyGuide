@@ -6,6 +6,8 @@ import com.emergencyguide.Dao.UserDao;
 import com.emergencyguide.Entity.User;
 import com.emergencyguide.Service.LoginService;
 import com.emergencyguide.Utils.RedisUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Service;
@@ -18,6 +20,8 @@ import java.util.UUID;
 
 @Service
 public class LoginServiceImpl implements LoginService {
+
+    Logger logger = LoggerFactory.getLogger(LoginServiceImpl.class);
 
     @Autowired
     UserDao userDao;
@@ -37,6 +41,7 @@ public class LoginServiceImpl implements LoginService {
             // 生成cookie
             HttpSession session = request.getSession();
             session.setAttribute("username",dbUser.getUsername());
+            logger.trace("当前登录用户"+session.getAttribute("username"));
             String token = UUID.randomUUID().toString().replace("-", "");
             addCookie(response, token, user);
             return token;
