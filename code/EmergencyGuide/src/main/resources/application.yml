@@ -4,7 +4,7 @@ spring:
     name: ${APP_NAME:unnamed}
   #数据连接池配置信息
   datasource:
-    url: jdbc:mysql://localhost:3306/emergencyguide?serverTimezone=GMT%2B8
+    url: jdbc:mysql://192.168.1.131:3306/emergencyguide?serverTimezone=GMT%2B8
     username: root
     password: root
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -25,3 +25,5 @@ server:
   port: 8096
 mybatis:
   type-aliases-package: com.emergencyguide.Entity
+  mapper-locations: classpath:com/emergencyguide/Dao/Mapper/System/*.xml
+  config-location: classpath:mybatis-config.xml

@@ -23,7 +23,7 @@ public class IndexController extends BaseController {
         // 获取系统配置
         ModelAndView mav = new ModelAndView();
         mav.setViewName("index");
-        mav.addObject("data", getCurUserName());
+        mav.addObject("curUsername", getCurUserName());
         return mav;
     }
 

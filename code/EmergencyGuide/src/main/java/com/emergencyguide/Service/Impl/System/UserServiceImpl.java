@@ -1,27 +1,31 @@
-package com.emergencyguide.Service.Impl;
+package com.emergencyguide.Service.Impl.System;
 
 import com.alibaba.fastjson.JSON;
 import com.emergencyguide.Config.ContextConfig;
 import com.emergencyguide.Dao.UserDao;
 import com.emergencyguide.Entity.User;
-import com.emergencyguide.Service.LoginService;
+import com.emergencyguide.Service.System.UserService;
 import com.emergencyguide.Utils.RedisUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 import java.util.UUID;
 
+/**
+ * @author DarckLH
+ * @date 2021/5/5 20:39
+ * @Description
+ */
 @Service
-public class LoginServiceImpl implements LoginService {
-
-    Logger logger = LoggerFactory.getLogger(LoginServiceImpl.class);
+public class UserServiceImpl implements UserService {
+    Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 
     @Autowired
     UserDao userDao;
@@ -32,6 +36,44 @@ public class LoginServiceImpl implements LoginService {
     // 缓存单数据Key值
     private String REDISINFOKEY = "USER_";
 
+    @Override
+    public List<User> selectList(int page, int llimit, String searchParams) {
+        List<User> user = userDao.selectAllList();
+        logger.info(user.toString());
+        return user;
+    }
+
+    @Override
+    public int selectListCount(String searchParams) {
+        return userDao.selectListCount();
+    }
+
+    @Override
+    public List<User> selectAllList() {
+        return (List)new User();
+    }
+
+    @Override
+    public User selectById(long id) {
+        return new User();
+    }
+
+    @Override
+    public int deleteById(long id) {
+        return 1;
+    }
+
+    @Override
+    public int updateById(User model) {
+        return 0;
+    }
+
+    @Override
+    public int insert(User model) {
+        return 0;
+    }
+
+    @Override
     public String doLogin(User user, HttpServletResponse response, HttpServletRequest request){
 
         User dbUser = userDao.selectByUserName(user.getUsername());
@@ -49,6 +91,12 @@ public class LoginServiceImpl implements LoginService {
         return "";
 
     }
+
+    @Override
+    public int selectByName(){
+        return 0;
+    }
+
     private void addCookie(HttpServletResponse response, String token, User user) {
         // 将token存入到redis
         redisUtil.set(ContextConfig.COOKIE_NAME_TOKEN + "::" + token, JSON.toJSONString(user),
@@ -59,5 +107,4 @@ public class LoginServiceImpl implements LoginService {
         cookie.setPath("/");
         response.addCookie(cookie);
     }
-
 }

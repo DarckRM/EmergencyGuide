@@ -34,7 +34,7 @@
 
         form.on('submit(loginEvent)', function (data) {
             $.ajax({
-                url : '/doLogin',
+                url : 'user/doLogin',
                 method : 'post',
                 data:JSON.stringify(data.field),
                 contentType : 'application/json',

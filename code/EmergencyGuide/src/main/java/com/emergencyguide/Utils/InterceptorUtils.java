@@ -24,7 +24,7 @@ public class InterceptorUtils implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         String username = (String)request.getSession().getAttribute("username");
-        logger.info(username);
+        logger.info("当前登录用户"+username);
         if(username == null) {
             response.sendRedirect(request.getContextPath()+"/login");
             return false;
@@ -33,11 +33,11 @@ public class InterceptorUtils implements HandlerInterceptor {
     }
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
-        logger.info("postHandle...");
+        logger.debug("postHandle...");
     }
 
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
-        logger.info("afterCompletion...");
+        logger.debug("afterCompletion...");
     }
 }

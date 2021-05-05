@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>用户页</title>
+    <link rel="stylesheet" type="text/css" href="./layui/css/layui.css">
+</head>
+<body>
+
+<table class="layui-hide" id="userTable" lay-filter="userTableFilter"></table>
+
+<script src="layui/layui.js"></script>
+<script>
+    //JavaScript代码区域
+    layui.use(['element', 'layer', 'table'], function(){
+        var element = layui.element,
+            layer = layui.layer,
+            table = layui.table;
+
+    });
+</script>
+</body>
+</html>
