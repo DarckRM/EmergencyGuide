@@ -7,7 +7,7 @@
     <title>首页</title>
     <link rel="stylesheet" type="text/css" href="./layui/css/layui.css">
 </head>
-<body>
+<body style="background: white">
     <div class="layui-layout layui-layout-admin">
         <div class="layui-header">
             <div class="layui-logo">应急指南 开发中</div>
@@ -43,15 +43,18 @@
             <div class="layui-side-scroll">
                 <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
                 <ul class="layui-nav layui-nav-tree"  lay-filter="leftNav">
+                    <li class="layui-nav-item" style="cursor: pointer">
+                        <dd><a lay-id="indexPage">首页</a></dd>
+                    </li>
                     <li class="layui-nav-item layui-nav-itemed">
-                        <a class="" href="javascript:;">系统管理</a>
+                        <a class="navFather" href="javascript:;">系统管理</a>
                         <dl class="layui-nav-child">
-                            <dd><a href="javascript:;" id="demo">用户管理</a></dd>
-                            <dd><a href="javascript:;">配置信息</a></dd>
+                            <dd><a href="javascript:;" lay-id="userManagement">用户管理</a></dd>
+                            <dd><a href="javascript:;" lay-id="configInfo">配置信息</a></dd>
                         </dl>
                     </li>
                     <li class="layui-nav-item">
-                        <a href="javascript:;">menu group 2</a>
+                        <a class="navFather" href="javascript:;">menu group 2</a>
                         <dl class="layui-nav-child">
                             <dd><a href="javascript:;">list 2-1</a></dd>
                             <dd><a href="javascript:;">list 2-2</a></dd>
@@ -64,11 +67,17 @@
             </div>
         </div>
 
-        <div class="layui-body">
+        <div class="layui-body" style="padding: 10px">
             <!-- 内容主体区域 -->
-            <div class="layui-tab" lay-filter="mainTabs">
-                <ul class="layui-tab-title" >
+            <div class="layui-tab layui-tab-card" id="mainTabs" lay-allowClose="true" lay-filter="mainTabs">
+                <ul class="layui-tab-title">
+                    <li lay-id="indexPage" class="layui-this">首页</li>
                 </ul>
+                <div class="layui-tab-content">
+                    <div class="layui-tab-item layui-show">
+                        <iframe frameborder="0" src= "/content" width="100%" height="700px"></iframe>
+                    </div>
+                </div>
             </div>
             <table class="layui-hide" id="userTable" lay-filter="userTableFilter"></table>
 
@@ -80,34 +89,53 @@
         </div>
     </div>
     <script src="layui/layui.js"></script>
-    <script th:inline="none">
+    <script>
         //JavaScript代码区域
         layui.use(['element','layer', 'table'], function(){
             var element = layui.element,
                 layer = layui.layer,
-                table = layui.table;
+                table = layui.table,
+                $ = layui.$;
 
             //监听导航栏点击事件
             element.on('nav(leftNav)', function (data) {
+
+                //阻止点击父级菜单创建页面
+                if(data.attr("class") == 'navFather') {
+                    return;
+                }
+
+                //判断点击的导航标签决定Tab展示页面
+                var directPage = data.attr("lay-id");
+                var title = data.context.innerHTML;
+
+                //避免重复添加tab
+                var tabs = document.getElementById("mainTabs");//获取Tab的容器
+                var tabUl = tabs.getElementsByTagName("ul");//获取容器里的ul标签
+                var tabLi = tabUl[0].getElementsByTagName("li");//获取li
+
+                for( li of tabLi) {
+                    if (li.getAttribute("lay-id") == directPage) {
+                        //切换到刚刚创建的Tab页
+                        element.tabChange('mainTabs',data.attr("lay-id"));
+                        return;
+                    }
+                }
+
+                switch (directPage) {
+                    case 'userManagement': directPage = 'user/page'; break;
+                    case 'configInfo': directPage = 'user/page'; break;
+                    case 'indexPage': directPage = '/content'; break;
+                }
+
                 //响应导航栏添加Tab
                 element.tabAdd('mainTabs', {
-                    title: data.context.innerHTML,
-                    content: '', //支持传入html
-                    id: '选项卡标题的lay-id属性值'
+                    title: title,
+                    content: '<div class="layui-tab-content"><iframe frameborder="0" src= "'+directPage+'" width="100%" height="600px"></iframe></div>', //支持传入html
+                    id: data.attr("lay-id")
                 });
-            });
-            //执行渲染
-            table.render({
-                elem: '#userTable',
-                url: 'user/findall',
-                cols: [[
-                    {field: 'id', title: 'ID', width:80},
-                    {field: 'username', title: '用户名', width:80},
-                    {field: 'password', title: '密码', width:80},
-                    {field: 'avatar', title: '头像', width:80},
-                    {field: 'authority', title: '权限级别', width:80},
-                    {field: 'status', title: '状态', width:80}
-                ]] //设置表头
+                //切换到刚刚创建的Tab页
+                element.tabChange('mainTabs',data.attr("lay-id"));
             });
         });
     </script>

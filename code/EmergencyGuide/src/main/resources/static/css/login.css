@@ -2,17 +2,14 @@
     margin: 0 auto;
 }
 .blurDiv{
-    position: absolute; left: 0; top: -50px; right: 0; bottom: 0;
-    margin: auto;    /* 有了这个就自动居中了 */
+    position: absolute; left: 0; top: 0; right: 0; bottom: 0;
+    margin: 200px auto;    /* 有了这个就自动居中了 */
     height: 350px;
     width: 530px;
     border-radius: 10px;
-    background: url(/img/loginimage.png);
-    background-repeat: no-repeat;
-    background-position-y: -160px;
-    background-position-x: -475px;
-    background-size: 280%;
-    filter: blur(8px);
+    background: url(/img/loginimage.png) no-repeat fixed;
+    background-size: 100%;
+    filter: blur(15px);
     z-index: -1;
 }
 .login{
@@ -21,17 +18,22 @@
     height: 330px;
     width: 510px;
     border-radius: 10px;
-    background: rgba(255,255,255,0.8);
+    background: rgba(255,255,255,0.6);
     box-shadow: 0px 5px 20px #a5a5a5;
     z-index: 1;
 }
 #loginPanelTitle{
-    text-align: center
+    cursor: default;
+    text-align: center;
 }
 #mainTitle{
     height: 14px;
     font-size: 38px;
     font-weight: bold;
+    transition: color 0.3s ease-in-out;
+}
+#mainTitle:hover{
+    color: #39aac4;
 }
 #viceTitle{
     color: #616161;
@@ -59,10 +61,10 @@
     margin-bottom: 15px;
 }
 .loginInput:hover{
-    box-shadow: 0px 3px 4px #d0d0d0;
+    box-shadow: 0px 3px 8px #ABABAB;
 }
 .loginInput:focus{
-    box-shadow: 0px 3px 4px #d0d0d0;
+    box-shadow: 0px 3px 8px #ababab;
 }
 .loginBtn{
     -webkit-appearance:none;
@@ -86,8 +88,8 @@
 }
 .loginBtn:hover{
     background: #1fbaf7;
-    box-shadow: 0px 3px 4px #d0d0d0;
-    border-radius: 30px;
+    box-shadow: 0px 3px 4px #ababab;
+    border-radius: 15px;
     cursor: pointer;
 }
 @keyframes shadowDisplay {

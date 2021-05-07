@@ -5,6 +5,20 @@
 
     </resultMap>
     <select id="selectAllList" resultMap="BaseResultMap">
-        SELECT * FROM T_SystemUser;
+        SELECT * FROM T_SystemUser t1;
+    </select>
+
+    <select id="selectList" resultMap="BaseResultMap">
+        SELECT * FROM T_SystemUser t1
+        WHERE 1 = 1
+        <if test="params.username != null and params.username != '' " >
+            AND t1.username LIKE '%${params.username}%'
+        </if>
+        <if test="params.realname != null and params.realname!='' " >
+            AND t1.realname = '${params.realname}'
+        </if>
+        <if test="params.authority != null and params.authority!='' " >
+            AND t1.authority = '${params.authority}'
+        </if>
     </select>
 </mapper>

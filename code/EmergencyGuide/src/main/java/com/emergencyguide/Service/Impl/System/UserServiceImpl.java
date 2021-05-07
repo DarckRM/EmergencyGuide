@@ -1,6 +1,7 @@
 package com.emergencyguide.Service.Impl.System;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.emergencyguide.Config.ContextConfig;
 import com.emergencyguide.Dao.UserDao;
 import com.emergencyguide.Entity.User;
@@ -15,7 +16,9 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 /**
@@ -38,7 +41,24 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> selectList(int page, int llimit, String searchParams) {
-        List<User> user = userDao.selectAllList();
+
+        String username = "";
+        String realname = "";
+        String authority = "";
+        if (searchParams != null) {
+            JSONObject json = JSONObject.parseObject(searchParams);
+            username = json.getString("username");
+            realname = json.getString("realname");
+            authority = json.getString("authority");
+        }
+
+        Map<String, Object> params = new HashMap<>();
+
+        params.put("username", username.isEmpty() ? null : username);
+        params.put("realname", realname.isEmpty() ? null : realname);
+        params.put("authority", authority.isEmpty() ? null : authority);
+
+        List<User> user = userDao.selectList(params);
         logger.info(user.toString());
         return user;
     }

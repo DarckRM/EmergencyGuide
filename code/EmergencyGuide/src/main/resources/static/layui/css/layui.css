@@ -494,7 +494,7 @@ a cite{font-style: normal; *cursor:pointer;}
 .layui-colla-icon{position: absolute; left: 15px; top: 0; font-size: 14px;}
 
 /* 卡片面板 */
-.layui-card{margin-bottom: 15px; border-radius: 2px; background-color: #fff; box-shadow: 0 1px 2px 0 rgba(0,0,0,.05);}
+.layui-card{margin-bottom: 15px; border-radius: 2px; background-color: #fff; box-shadow: 0 0 10px 0 rgba(0,0,0,.05);}
 .layui-card:last-child{margin-bottom: 0;}
 .layui-card-header{position: relative; height: 42px; line-height: 42px; padding: 0 15px; border-bottom: 1px solid #f6f6f6; color: #333; border-radius: 2px 2px 0 0; font-size: 14px;}
 .layui-card-body{position: relative; padding: 10px 15px; line-height: 24px;}
@@ -1175,7 +1175,7 @@ body .layui-table-tips .layui-layer-content{background: none; padding: 0; box-sh
 .layui-tab-more .layui-tab-bar .layui-icon{top: -2px; top: 3px\0; -webkit-transform: rotate(180deg); transform: rotate(180deg);}
 :root .layui-tab-more .layui-tab-bar .layui-icon{top: -2px\0/IE9;}
 
-.layui-tab-content{padding: 15px 0;}
+.layui-tab-content{padding: 15px 0; background: #f6f6f6}
 
 /* Tab关闭 */.layui-tab-title li .layui-tab-close{position: relative; display: inline-block; width: 18px; height: 18px; line-height: 20px; margin-left: 8px; top: 1px; text-align: center; font-size: 14px; color: #c2c2c2; transition: all .2s; -webkit-transition: all .2s;}
 .layui-tab-title li .layui-tab-close:hover{border-radius: 2px; background-color: #FF5722; color: #fff;}

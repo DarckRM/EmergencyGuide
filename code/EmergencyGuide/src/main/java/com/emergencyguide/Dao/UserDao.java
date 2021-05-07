@@ -2,9 +2,11 @@ package com.emergencyguide.Dao;
 
 import com.emergencyguide.Entity.User;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface UserDao {
@@ -18,4 +20,6 @@ public interface UserDao {
 
     @Select("SELECT COUNT(id) FROM T_SystemUser")
     public int selectListCount();
+
+    public List<User> selectList(@Param("params") Map<String, Object> params);
 }

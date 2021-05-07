@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -46,17 +47,23 @@ public class UserController {
     }
 
     @RequestMapping("/findall")
-    public String findAll() {
+    public String findAll(String searchParams) {
 
         Result<User> result = new Result<>();
         int page  = 1;
         int limit = 1;
-        String searchParams = "aasd";
         List<User> datas = userService.selectList(page, limit, searchParams);
         result.setCount(userService.selectListCount(searchParams));
         result.setData(datas);
         result.setMsg("请求成功");
         return result.toString();
 
+    }
+
+    @RequestMapping("/page")
+    public ModelAndView userPage() {
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("system/user");
+        return mav;
     }
 }

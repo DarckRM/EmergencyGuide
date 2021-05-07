@@ -4,19 +4,94 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <title>用户页</title>
-    <link rel="stylesheet" type="text/css" href="./layui/css/layui.css">
+    <link rel="stylesheet" type="text/css" href="../layui/css/layui.css">
+    <link rel="stylesheet" type="text/css" href="../css/uniform.css">
 </head>
 <body>
+<div class="layui-card">
+    <div class="layui-card-body">
+        <fieldset class="divContainer">
+            <legend style="font-size: 19px">搜索信息</legend>
+            <form class="layui-form layui-form-pane" action="">
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <input type="text" name="id" class="layui-hide">
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">用户名</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="username" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">真实姓名</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="realname" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">权限等级</label>
+                        <div class="layui-input-block" style="width: 120px">
+                            <select name="authority">
+                                <option></option>
+                                <option>管理员</option>
+                                <option>物资管理员</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <button type="submit" class="layui-btn layui-btn-primary"  lay-submit lay-filter="data-search-btn"><i class="layui-icon"></i> 搜 索</button>
+                    </div>
+                </div>
+            </form>
+        </fieldset>
+    </div>
+    <div class="layui-card-header">用户列表</div>
+    <div class="layui-card-body">
+        <table class="layui-hide" id="userTable" lay-filter="userTableFilter"></table>
+    </div>
+</div>
 
-<table class="layui-hide" id="userTable" lay-filter="userTableFilter"></table>
-
-<script src="layui/layui.js"></script>
-<script>
+<script src="../layui/layui.js"></script>
+<script th:inline="none">
     //JavaScript代码区域
-    layui.use(['element', 'layer', 'table'], function(){
+    layui.use(['element', 'layer', 'table', 'form'], function(){
         var element = layui.element,
             layer = layui.layer,
+            form = layui.form,
             table = layui.table;
+
+        //执行渲染
+        table.render({
+            elem: '#userTable',
+            url: 'findall',
+            cols: [[
+                {field: 'id', title: 'ID', width:80},
+                {field: 'username', title: '用户名', width:80},
+                {field: 'password', title: '密码', width:80},
+                {field: 'realname', title: '真实姓名', width:80},
+                {field: 'avatar', title: '头像', width:80},
+                {field: 'authority', title: '权限级别', width:80},
+                {field: 'status', title: '状态', width:80}
+            ]] //设置表头
+        });
+
+        //执行搜索
+        form.on('submit(data-search-btn)', function (data) {
+            var result = JSON.stringify(data.field);
+
+            //执行搜索重载
+            table.reload('userTable', {
+                page: {
+                    curr: 1
+                }
+                , where: {
+                    searchParams: result
+                }
+            }, 'data');
+            return false;
+
+        })
 
     });
 </script>

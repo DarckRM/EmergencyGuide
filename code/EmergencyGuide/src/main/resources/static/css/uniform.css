@@ -1,0 +1,8 @@
+.basePanel{
+    margin: 10px;
+}
+.divContainer{
+    margin: 10px 0;
+    border: 1px solid rgba(0,0,0,0.1);
+    padding: 10px;
+}

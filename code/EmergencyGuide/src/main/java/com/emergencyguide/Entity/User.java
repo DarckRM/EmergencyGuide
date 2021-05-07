@@ -6,6 +6,7 @@ public class User {
     private int id;
     private String username;
     private String password;
+    private String realname;
     private String avatar;
     private int authority;
     private String status;
@@ -32,6 +33,14 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getRealname() {
+        return realname;
+    }
+
+    public void setRealname(String realname) {
+        this.realname = realname;
     }
 
     public String getAvatar() {
@@ -64,6 +73,7 @@ public class User {
                 "id=" + id +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
+                ", realname='" + realname + '\'' +
                 ", avatar='" + avatar + '\'' +
                 ", authority=" + authority +
                 ", status='" + status + '\'' +
