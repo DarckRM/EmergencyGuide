@@ -9,7 +9,7 @@
     </select>
 
     <select id="selectList" resultMap="BaseResultMap">
-        SELECT * FROM T_SystemUser t1
+        SELECT * FROM t_systemuser t1
         WHERE 1 = 1
         <if test="params.username != null and params.username != '' " >
             AND t1.username LIKE '%${params.username}%'

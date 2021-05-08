@@ -4,7 +4,7 @@ spring:
     name: ${APP_NAME:unnamed}
   #数据连接池配置信息
   datasource:
-    url: jdbc:mysql://192.168.1.131:3306/emergencyguide?serverTimezone=GMT%2B8
+    url: jdbc:mysql://121.4.179.240:3306/emergencyguide?serverTimezone=GMT%2B8
     username: root
     password: root
     driver-class-name: com.mysql.cj.jdbc.Driver

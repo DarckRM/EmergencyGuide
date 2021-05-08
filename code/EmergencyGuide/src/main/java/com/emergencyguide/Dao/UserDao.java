@@ -18,7 +18,7 @@ public interface UserDao {
 
     public List<User> selectAllList();
 
-    @Select("SELECT COUNT(id) FROM T_SystemUser")
+    @Select("SELECT COUNT(id) FROM t_systemuser")
     public int selectListCount();
 
     public List<User> selectList(@Param("params") Map<String, Object> params);

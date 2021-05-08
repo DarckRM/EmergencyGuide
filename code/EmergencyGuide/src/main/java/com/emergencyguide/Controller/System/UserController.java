@@ -30,7 +30,7 @@ public class UserController {
 
     @GetMapping("/login")
     public String webServiceDemo(){
-        return "/login";
+        return "/index";
     }
 
     @PostMapping("/doLogin")
