@@ -4,6 +4,15 @@
     <resultMap id="BaseResultMap" type="com.emergencyguide.Entity.User">
 
     </resultMap>
+
+    <sql id="Base_SQL">
+        username, password, realname, avatar, authority, status
+    </sql>
+
+    <sql id="Base_MyBatis_Var">
+        #{username}, #{password}, #{realname}, #{avatar}, #{authority}, #{status}
+    </sql>
+
     <select id="selectAllList" resultMap="BaseResultMap">
         SELECT * FROM t_systemuser t1;
     </select>
@@ -21,4 +30,20 @@
             AND t1.authority = '${params.authority}'
         </if>
     </select>
+
+    <insert id="insert" parameterType="com.emergencyguide.Entity.User">
+        INSERT INTO t_systemuser (<include refid="Base_SQL"></include>)
+        VALUES (<include refid="Base_MyBatis_Var"></include>)
+    </insert>
+    
+    <update id="updateById" parameterType="com.emergencyguide.Entity.User">
+        UPDATE t_systemuser SET
+        username = #{username},
+        password = #{password},
+        realname = #{realname},
+        avatar = #{avatar},
+        authority = #{authority},
+        status = #{status}
+        WHERE id = #{id};
+    </update>
 </mapper>

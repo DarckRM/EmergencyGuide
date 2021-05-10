@@ -16,4 +16,6 @@ public interface UserService extends BaseService<User> {
     public int selectByName();
 
     public String doLogin(User user, HttpServletResponse response, HttpServletRequest request);
+
+    public User selectById(long id);
 }
