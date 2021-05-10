@@ -44,4 +44,14 @@ public class SystemConfigServiceImpl implements SystemConfigService {
 
         return systemConfig;
     }
+
+    public int updateSystemConfig(SystemConfig systemConfig) {
+        String key = REDISINFOKEY;
+        int update = systemConfigDao.updateSystemConfig(systemConfig);
+        if (update > 0) {
+            redisUtil.del(key);
+            logger.debug(this.getClass() + ">>从缓存中删除记录");
+        }
+        return update;
+    }
 }

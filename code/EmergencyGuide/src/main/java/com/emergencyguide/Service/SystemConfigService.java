@@ -11,4 +11,5 @@ public interface SystemConfigService {
 
     public SystemConfig selectSystemConfig();
 
+    public int updateSystemConfig(SystemConfig systemConfig);
 }

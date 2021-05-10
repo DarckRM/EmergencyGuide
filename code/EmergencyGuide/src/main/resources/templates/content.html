@@ -58,7 +58,7 @@
             <div>
                 <div class="layui-card-header">系统参数</div>
                 <div class="layui-card-body">
-                    <form class="layui-form" action="">
+                    <form class="layui-form" id="systemConfigForm">
                         <div class="layui-form-item">
                             <label class="layui-form-label">支付时长</label>
                             <div class="layui-input-inline">
@@ -86,7 +86,7 @@
                         <div class="layui-form-item">
                             <label class="layui-form-label">退款电话</label>
                             <div class="layui-input-inline">
-                                <input th:value="${systemconfig.refundphone}" type="text" name="refundohone" autocomplete="off" class="layui-input">
+                                <input th:value="${systemconfig.refundphone}" type="text" name="refundphone" autocomplete="off" class="layui-input">
                             </div>
                         </div>
                         <div class="layui-form-item">
@@ -104,7 +104,7 @@
 
                         <div class="layui-form-item">
                             <div class="layui-input-block">
-                                <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+                                <button class="layui-btn" lay-submit lay-filter="saveBtn">立即提交</button>
                                 <button type="reset" class="layui-btn layui-btn-primary">重置</button>
                             </div>
                         </div>
@@ -117,11 +117,60 @@
 
 <script src="./layui/layui.js"></script>
 <script>
-    layui.use(['element','layer', 'table'], function(){
+    layui.use(['element','layer', 'table', 'form'], function(){
         var element = layui.element,
             layer = layui.layer,
             table = layui.table,
+            form = layui.form,
             $ = layui.$;
+
+        //获取表单初始数据 用于判断是否修改表单
+        var formInit = $("#systemConfigForm").serializeArray();
+        var TextInit = {};
+        $.each(formInit, function (i, v) {
+            TextInit[v.name] = v.value;
+        })
+        var TextBefore = JSON.stringify(TextInit);
+
+        form.on('submit(saveBtn)', function (data) {
+
+            //判断是否有修改
+            var TextAfter = JSON.stringify(data.field);
+
+            if (TextBefore == TextAfter) {
+                layer.msg("您没有做任何修改!");
+                return false;
+            }
+
+            $('#systemconfigSubmit').attr("disabled","true");
+            $.ajax({
+                url : '/updateSystemConfig',
+                method : 'post',
+                data : JSON.stringify(data.field),
+                contentType : 'application/json',
+                dataType : 'JSON',
+                success : function(res) {
+                    if (res.code = '0') {
+                        var index = layer.alert(res.msg, function() {
+                            // 关闭弹出层
+                            layer.close(index);
+                            var iframeIndex = parent.layer
+                                .getFrameIndex(window.name);
+                            parent.layer.close(iframeIndex);
+                            window.parent.location.reload();
+                        });
+                    } else {
+                        layer.alert(res.msg)
+                    }
+                    $('#systemconfigSubmit').attr("disabled","false");
+                },
+                error : function(data) {
+                    layer.alert(JSON.stringify(data));
+                    $('#systemconfigSubmit').attr("disabled","false");
+                }
+            });
+            return false;
+        });
     });
 </script>
 </body>

@@ -5,8 +5,27 @@
 
     </resultMap>
 
+    <sql id="Base_SQL">
+
+    </sql>
+
+    <sql id="Update_SQL">
+
+    </sql>
+
     <select id="selectSystemConfig" resultMap="BaseResultMap">
         SELECT * FROM t_systemconfig t1
     </select>
+    
+    <update id="updateSystemConfig">
+        UPDATE t_systemconfig t1 SET
+        paytime = #{paytime},
+        autofinishtime = #{autofinishtime},
+        servicephone = #{servicephone},
+        ordercanceltime = #{ordercanceltime},
+        refundphone = #{refundphone},
+        msgcount = #{msgcount},
+        msgtime = #{msgtime} WHERE id = 1;
+    </update>
 
 </mapper>

@@ -13,4 +13,6 @@ public interface SystemConfigDao {
 
     public SystemConfig selectSystemConfig();
 
+    public int updateSystemConfig(SystemConfig systemConfig);
+
 }

@@ -1,15 +1,20 @@
 package com.emergencyguide.Controller;
 
+import com.emergencyguide.Entity.Result;
+import com.emergencyguide.Entity.SystemConfig;
 import com.emergencyguide.Service.Impl.SystemConfigServiceImpl;
 import com.emergencyguide.Service.System.UserService;
 import com.emergencyguide.Service.SystemConfigService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import com.emergencyguide.Controller.Base.BaseController;
 
-@Controller
+@RestController
 public class IndexController extends BaseController {
 
     @Autowired
@@ -45,4 +50,14 @@ public class IndexController extends BaseController {
         return mav;
     }
 
+    @PostMapping("/updateSystemConfig")
+    public String updateSystemConfig(@RequestBody SystemConfig systemConfig) {
+
+        if (systemConfigService.updateSystemConfig(systemConfig) > 0) {
+            return new Result<>().success("操作成功").toString();
+        } else {
+            return new Result<>().failed("操作失败").toString();
+        }
+
+    }
 }
