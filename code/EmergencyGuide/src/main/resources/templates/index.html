@@ -67,7 +67,7 @@
             </div>
         </div>
 
-        <div class="layui-body" style="padding: 10px">
+        <div class="layui-body">
             <!-- 内容主体区域 -->
             <div class="layui-tab layui-tab-card" id="mainTabs" lay-allowClose="true" lay-filter="mainTabs">
                 <ul class="layui-tab-title">
@@ -75,7 +75,7 @@
                 </ul>
                 <div class="layui-tab-content">
                     <div class="layui-tab-item layui-show">
-                        <iframe frameborder="0" src= "/content" width="100%" height="700px"></iframe>
+                        <iframe frameborder="0" src= "/content" width="100%" height="100%" onload="SetWinHeight(this)"></iframe>
                     </div>
                 </div>
             </div>
@@ -131,13 +131,35 @@
                 //响应导航栏添加Tab
                 element.tabAdd('mainTabs', {
                     title: title,
-                    content: '<div class="layui-tab-content"><iframe frameborder="0" src= "'+directPage+'" width="100%" height="600px"></iframe></div>', //支持传入html
+                    content: '<iframe frameborder="0" src= "'+directPage+'" scrolling="no" height="100%" width="100%" marginwidth="0" marginheight="0" hspace="0" onload="SetWinHeight(this)"></iframe>', //支持传入html
                     id: data.attr("lay-id")
                 });
                 //切换到刚刚创建的Tab页
                 element.tabChange('mainTabs',data.attr("lay-id"));
             });
         });
+    </script>
+    <script>
+        function SetWinHeight(obj)
+        {
+            var win=obj;
+            if (document.getElementById)
+            {
+                if (win && !window.opera)
+                {
+                    if (win.contentDocument && win.contentDocument.body.offsetHeight)
+                    {
+                        if(win.contentDocument.body.offsetHeight<420){
+                            win.height = 420;//设置最小高度
+                        }else{
+                            win.height = win.contentDocument.body.offsetHeight;
+                        }
+                    }
+                    else if(win.Document && win.Document.body.scrollHeight)
+                        win.height = win.Document.body.scrollHeight;
+                }
+            }
+        }
     </script>
 </body>
 </html>

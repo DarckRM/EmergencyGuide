@@ -1,4 +1,4 @@
-package com.emergencyguide.Dao;
+package com.emergencyguide.Dao.System;
 
 import com.emergencyguide.Entity.User;
 import org.apache.ibatis.annotations.Mapper;

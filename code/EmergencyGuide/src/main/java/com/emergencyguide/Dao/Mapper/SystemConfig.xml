@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.emergencyguide.Dao.SystemConfigDao">
+    <resultMap id="BaseResultMap" type="com.emergencyguide.Entity.SystemConfig">
+
+    </resultMap>
+
+    <select id="selectSystemConfig" resultMap="BaseResultMap">
+        SELECT * FROM t_systemconfig t1
+    </select>
+
+</mapper>

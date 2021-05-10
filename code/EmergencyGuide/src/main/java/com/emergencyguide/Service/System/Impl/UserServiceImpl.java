@@ -1,9 +1,9 @@
-package com.emergencyguide.Service.Impl.System;
+package com.emergencyguide.Service.System.Impl;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.emergencyguide.Config.ContextConfig;
-import com.emergencyguide.Dao.UserDao;
+import com.emergencyguide.Dao.System.UserDao;
 import com.emergencyguide.Entity.User;
 import com.emergencyguide.Service.System.UserService;
 import com.emergencyguide.Utils.RedisUtil;
@@ -31,13 +31,13 @@ public class UserServiceImpl implements UserService {
     Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 
     @Autowired
-    UserDao userDao;
+    private UserDao userDao;
     @Autowired
     private RedisUtil redisUtil;
     // 缓存集合Key值
-    private String REDISLISTKEY = "USER_LIST";
+    private String REDISLISTKEY = "SYSTEMUSER_LIST";
     // 缓存单数据Key值
-    private String REDISINFOKEY = "USER_";
+    private String REDISINFOKEY = "SYSTEMUSER_";
 
     @Override
     public List<User> selectList(int page, int llimit, String searchParams) {
@@ -70,7 +70,18 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> selectAllList() {
-        return (List)new User();
+
+        logger.debug(this.getClass() + "-selectAllList");
+        Boolean hasKey = redisUtil.hasKey(REDISLISTKEY);
+        if (hasKey) {
+            List<User> redisList = redisUtil.getList(REDISLISTKEY, User.class);
+            return redisList;
+        }
+        List<User> list = userDao.selectAllList();
+        // 存在到缓存中
+        redisUtil.set(REDISLISTKEY, list);
+        return list;
+
     }
 
     @Override
