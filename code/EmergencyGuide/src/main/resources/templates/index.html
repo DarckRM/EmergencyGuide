@@ -65,7 +65,7 @@
                     <li class="layui-nav-item">
                         <a class="navFather" href="javascript:;">应急资料</a>
                         <dl class="layui-nav-child">
-                            <dd><a href="javascript:;">处理方案</a></dd>
+                            <dd><a href="javascript:;" lay-id="findMainHtml">处理方案</a></dd>
                             <dd><a href="javascript:;">风险类型</a></dd>
                             <dd><a href="javascript:;">随机贴士</a></dd>
                             <dd><a href="javascript:;">分析题库</a></dd>
@@ -143,6 +143,7 @@
                     case 'userManagement': directPage = 'user/page'; break;
                     case 'configInfo': directPage = 'user/page'; break;
                     case 'indexPage': directPage = '/content'; break;
+                    case 'findMainHtml': directPage = 'disaster/findMainHtml'; break;
                 }
 
                 //响应导航栏添加Tab

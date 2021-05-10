@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.emergencyguide.Dao.EmergencyInformation.DisasterDao">
+    <resultMap id="BaseResultMap" type="com.emergencyguide.Entity.Disaster">
+        <id property="id" column="id"></id>
+        <result property="disasterType" column="disasterType"></result>
+        <result property="solution" column="solution"></result>
+    </resultMap>
+    <select id="selectAllList" resultMap="BaseResultMap">
+        SELECT * FROM t_disaster t1
+        where 1=1
+        <if test="params.disasterType != null and params.disasterType != '' " >
+             and t1.disasterType LIKE '%${params.disasterType}%'
+        </if>
+        limit #{page},#{limit}
+    </select>
+
+    <select id="selectListCount" resultType="Integer">
+        select count(t1.id)
+        from t_disaster t1
+        where 1=1
+        <if test="params.disasterType != null and params.disasterType != '' " >
+          and t1.disasterType LIKE '%${params.disasterType}%'
+        </if>
+    </select>
+    <update id="updateById"  parameterType="com.emergencyguide.Entity.Disaster">
+        update t_disaster
+        <set>
+            <if test="disasterType!=null and disasterType !=''">
+                disasterType=#{disasterType},
+            </if>
+            <if test="solution!=null and solution !=''">
+                solution=#{solution},
+            </if>
+        </set>
+
+        where id=#{id}
+    </update>
+
+    <insert id="disasterAdd"  parameterType="com.emergencyguide.Entity.Disaster">
+        insert  into t_disaster  (disasterType,solution) values (#{disasterType}, #{solution})
+    </insert>
+
+</mapper>

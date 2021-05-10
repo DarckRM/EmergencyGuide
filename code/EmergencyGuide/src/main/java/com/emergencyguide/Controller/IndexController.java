@@ -7,14 +7,11 @@ import com.emergencyguide.Service.System.UserService;
 import com.emergencyguide.Service.SystemConfigService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import com.emergencyguide.Controller.Base.BaseController;
 
-@RestController
+@Controller
 public class IndexController extends BaseController {
 
     @Autowired
@@ -49,7 +46,7 @@ public class IndexController extends BaseController {
         mav.addObject("curUsername", getCurUserName());
         return mav;
     }
-
+    @ResponseBody
     @PostMapping("/updateSystemConfig")
     public String updateSystemConfig(@RequestBody SystemConfig systemConfig) {
 
