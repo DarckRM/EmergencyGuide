@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>用户页</title>
+    <title>权限页</title>
     <link rel="stylesheet" type="text/css" href="../layui/css/layui.css">
     <link rel="stylesheet" type="text/css" href="../css/uniform.css">
 </head>
@@ -18,22 +18,18 @@
                         <input type="text" name="id" class="layui-hide">
                     </div>
                     <div class="layui-inline">
-                        <label class="layui-form-label">用户名</label>
+                        <label class="layui-form-label">角色名</label>
                         <div class="layui-input-inline">
-                            <input type="text" name="username" autocomplete="off" class="layui-input">
-                        </div>
-                    </div>
-                    <div class="layui-inline">
-                        <label class="layui-form-label">真实姓名</label>
-                        <div class="layui-input-inline">
-                            <input type="text" name="realname" autocomplete="off" class="layui-input">
+                            <input type="text" name="role" autocomplete="off" class="layui-input">
                         </div>
                     </div>
                     <div class="layui-inline">
                         <label class="layui-form-label">权限等级</label>
                         <div class="layui-input-block" style="width: 120px">
                             <select name="authority">
-                                <option th:each="role : ${roles}" th:value="${role.authority}" th:text="${role.role}" ></option>
+                                <option></option>
+                                <option>管理员</option>
+                                <option>物资管理员</option>
                             </select>
                         </div>
                     </div>
@@ -51,21 +47,13 @@
 
 <script type="text/html" id="userToolBar">
     <div class="layui-btn-container">
-        <button class="layui-btn layui-btn-radius layui-btn-normal" lay-event="add"> 添加用户 </button>
+        <button class="layui-btn layui-btn-radius layui-btn-normal" lay-event="add"> 添加角色 </button>
     </div>
 </script>
 
 <script type="text/html" id="currentTableBar">
     <a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="edit" style="height:24px; width:50px; border-radius: 15px">编辑</a>
     <a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete" style="height:24px; width:50px; border-radius: 15px">删除</a>
-</script>
-
-<script type="text/html" id="switchStatus" >
-    {{#  if(d.status == '启用'){ }}
-    <a class="layui-btn" lay-event="statusEvent" value = "启用" style="height:24px;width:70px; border-radius: 15px; background: rgba(36,156,59,0.77); line-height: 24px">启用</a>
-    {{#  } else{ }}
-    <a class="layui-btn" lay-event="statusEvent" value = "禁用" style="height:24px;width:70px; border-radius: 15px; background: rgba(156,30,36,0.77); line-height: 24px">禁用</a>
-    {{#  } }}
 </script>
 
 <script src="../layui/layui.js"></script>
@@ -86,11 +74,8 @@
             page: 'true',
             cols: [[
                 {field: 'id', title: 'ID', width:80},
-                {field: 'username', title: '用户名', width:180},
-                {field: 'password', title: '密码', width:180},
-                {field: 'realname', title: '真实姓名', width:150},
-                {field: 'avatar', title: '头像', width:180},
-                {field: 'authority', title: '权限级别', width:100},
+                {field: 'role', title: '角色名', width:180},
+                {field: 'authority', title: '权限级别', width:180},
                 {title: '状态', toolbar: '#switchStatus', width:100, align: 'center'},
                 {title: '操作', toolbar: '#currentTableBar', width:150, align: 'center'}
             ]] //设置表头

@@ -10,16 +10,14 @@ import com.emergencyguide.Utils.RedisUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * @author DarckLH
@@ -40,7 +38,7 @@ public class UserServiceImpl implements UserService {
     private String REDISINFOKEY = "SYSTEMUSER_";
 
     @Override
-    public List<User> selectList(int page, int llimit, String searchParams) {
+    public List<User> selectList(int page, int limit, String searchParams) {
 
         String username = "";
         String realname = "";
@@ -86,7 +84,18 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User selectById(long id) {
-        return new User();
+
+        logger.debug(this.getClass() + "-selectById");
+        Boolean hasKey = redisUtil.hasKey(REDISLISTKEY+id);
+        if (hasKey) {
+            User user = redisUtil.getModel(REDISLISTKEY, User.class);
+            return user;
+        }
+        User user = userDao.selectById(id);
+        // 存在到缓存中
+        redisUtil.set(REDISLISTKEY, user);
+        return user;
+
     }
 
     @Override
@@ -95,13 +104,25 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public int updateById(User model) {
-        return 0;
+    public int updateById(User user) {
+        String key = REDISINFOKEY + user.getId();
+        int update = userDao.updateById(user);
+        if (update > 0) {
+            redisUtil.del(key);
+            logger.debug(this.getClass() + ">>从缓存中删除编号 >>" + user.getId());
+        }
+        return update;
     }
 
     @Override
-    public int insert(User model) {
-        return 0;
+    public int insert(User user) {
+
+        user.setStatus("启用");
+        int insert = userDao.insert(user);
+        if (insert > 0) {
+            redisUtil.del(REDISLISTKEY);
+        }
+        return insert;
     }
 
     @Override

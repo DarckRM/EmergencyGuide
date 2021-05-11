@@ -2,7 +2,9 @@ package com.emergencyguide.Controller.System;
 
 import com.emergencyguide.Entity.Result;
 import com.emergencyguide.Entity.User;
+import com.emergencyguide.Service.System.RoleService;
 import com.emergencyguide.Service.System.UserService;
+import org.apache.ibatis.annotations.Param;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +28,9 @@ public class UserController {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    private RoleService roleService;
 
     @GetMapping("/login")
     public String webServiceDemo(){
@@ -62,7 +67,45 @@ public class UserController {
     @RequestMapping("/page")
     public ModelAndView userPage() {
         ModelAndView mav = new ModelAndView();
+        mav.addObject("roles",roleService.selectAllList());
         mav.setViewName("system/user");
         return mav;
     }
+
+    @RequestMapping("/toEdit")
+    public ModelAndView toEdit(@Param("id") int id) {
+        User data = null;
+        if (id != -1 && id != 0) {
+            data = userService.selectById(id);
+        } else {
+            data = new User();
+        }
+        ModelAndView mav = new ModelAndView();
+        System.out.println(data);
+        mav.setViewName("/system/user_edit");
+        mav.addObject("roles",roleService.selectAllList());
+        mav.addObject("data", data);
+
+        return mav;
+    }
+
+    @RequestMapping("/save")
+    public String save(@RequestBody User user) {
+
+        Result<User> result = new Result<>();
+        int count = 0;
+
+        if (user.getId() > 0) {
+            count = userService.updateById(user);
+        } else {
+            count = userService.insert(user);
+        }
+        if (count > 0) {
+            result.setMsg("保存成功");
+        } else {
+            result.setMsg("保存失败");
+        }
+        return result.toString();
+    }
+
 }

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.emergencyguide.Dao.System.RoleDao">
+    <resultMap id="BaseResultMap" type="com.emergencyguide.Entity.Role">
+
+    </resultMap>
+
+    <select id="selectAllList" resultMap="BaseResultMap">
+        SELECT * FROM t_role t1;
+    </select>
+
+    <select id="selectList" resultMap="BaseResultMap">
+        SELECT * FROM t_role t1
+        WHERE 1 = 1
+        <if test="params.role != null and params.role != '' " >
+            AND t1.role LIKE '%${params.username}%'
+        </if>
+        <if test="params.authority != null and params.authority!='' " >
+            AND t1.authority = '${params.authority}'
+        </if>
+    </select>
+
+</mapper>

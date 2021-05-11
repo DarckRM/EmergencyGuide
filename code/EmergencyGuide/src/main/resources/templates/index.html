@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <title>首页</title>
     <link rel="stylesheet" type="text/css" href="./layui/css/layui.css">
+    <link rel="stylesheet" type="text/css" href="./css/uniform.css">
 </head>
 <body style="background: white">
     <div class="layui-layout layui-layout-admin">
@@ -50,7 +51,7 @@
                         <a class="navFather" href="javascript:;">系统管理</a>
                         <dl class="layui-nav-child">
                             <dd><a href="javascript:;" lay-id="userManagement">用户管理</a></dd>
-                            <dd><a href="javascript:;" lay-id="authorityManage">权限信息</a></dd>
+                            <dd><a href="javascript:;" lay-id="authorityInfo">权限信息</a></dd>
                             <dd><a href="javascript:;" lay-id="configInfo">配置信息</a></dd>
                         </dl>
                     </li>
@@ -92,7 +93,7 @@
                 </ul>
                 <div class="layui-tab-content">
                     <div class="layui-tab-item layui-show">
-                        <iframe frameborder="0" src= "/content" width="100%" height="100%" onload="SetWinHeight(this)"></iframe>
+                        <iframe frameborder="0" src= "/content" width="100%" height="100%"></iframe>
                     </div>
                 </div>
             </div>
@@ -141,6 +142,7 @@
 
                 switch (directPage) {
                     case 'userManagement': directPage = 'user/page'; break;
+                    case 'authorityInfo': directPage = 'role/page'; break;
                     case 'configInfo': directPage = 'user/page'; break;
                     case 'indexPage': directPage = '/content'; break;
                     case 'findMainHtml': directPage = 'disaster/findMainHtml'; break;
@@ -149,7 +151,7 @@
                 //响应导航栏添加Tab
                 element.tabAdd('mainTabs', {
                     title: title,
-                    content: '<iframe frameborder="0" src= "'+directPage+'" scrolling="no" height="100%" width="100%" marginwidth="0" marginheight="0" hspace="0" onload="SetWinHeight(this)"></iframe>', //支持传入html
+                    content: '<iframe frameborder="0" src= "'+directPage+'" scrolling="no" height="100%" width="100%"></iframe>', //支持传入html
                     id: data.attr("lay-id")
                 });
                 //切换到刚刚创建的Tab页
@@ -167,8 +169,8 @@
                 {
                     if (win.contentDocument && win.contentDocument.body.offsetHeight)
                     {
-                        if(win.contentDocument.body.offsetHeight<420){
-                            win.height = 420;//设置最小高度
+                        if(win.contentDocument.body.offsetHeight<500){
+                            win.height = 500;//设置最小高度
                         }else{
                             win.height = win.contentDocument.body.offsetHeight;
                         }

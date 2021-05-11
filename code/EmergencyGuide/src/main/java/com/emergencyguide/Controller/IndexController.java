@@ -46,6 +46,7 @@ public class IndexController extends BaseController {
         mav.addObject("curUsername", getCurUserName());
         return mav;
     }
+
     @ResponseBody
     @PostMapping("/updateSystemConfig")
     public String updateSystemConfig(@RequestBody SystemConfig systemConfig) {
