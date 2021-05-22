@@ -1,5 +1,6 @@
 package com.emergencyguide;
 
+import com.emergencyguide.Dao.Community.CustomerDao;
 import com.emergencyguide.Dao.System.RoleDao;
 import com.emergencyguide.Dao.System.UserDao;
 import com.emergencyguide.Dao.SystemConfigDao;
@@ -14,6 +15,9 @@ import org.springframework.boot.autoconfigure.cache.CacheProperties;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.web.WebAppConfiguration;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @SpringBootTest
 @WebAppConfiguration
 class DemoApplicationTests {
@@ -24,20 +28,16 @@ class DemoApplicationTests {
     RedisUtil redisUtil;
     @Autowired
     UserDao userDao;
+    @Autowired
+    CustomerDao customerDao;
 
     @Test
     void contextLoads() {
 
-        User user = new User();
-        user.setAuthority(0);
-        user.setPassword("123213");
-        user.setUsername("test");
-        user.setAvatar("test");
-        user.setStatus("禁用");
+        Map<String, Object> params = new HashMap<>();
 
-        userDao.insert(user);
-
-        System.out.println(roleService.selectAllList());
+        params.put("nickname", null);
+        params.put("email", null);
 
     }
 

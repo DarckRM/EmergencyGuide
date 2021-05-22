@@ -25,5 +25,5 @@ server:
   port: 8096
 mybatis:
   type-aliases-package: com.emergencyguide.Entity
-  mapper-locations: classpath:com/emergencyguide/Dao/Mapper/System/*.xml,classpath:com/emergencyguide/Dao/Mapper/EmergencyInformation/*.xml,classpath:com/emergencyguide/Dao/Mapper/*.xml
+  mapper-locations: classpath:com/emergencyguide/Dao/Mapper/System/*.xml,classpath:com/emergencyguide/Dao/Mapper/EmergencyInformation/*.xml,classpath:com/emergencyguide/Dao/Mapper/*.xml,classpath:com/emergencyguide/Dao/Mapper/Community/*.xml
   config-location: classpath:mybatis-config.xml

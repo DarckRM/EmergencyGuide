@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.emergencyguide.Dao.Community.CustomerDao">
+    <resultMap id="BaseResultMap" type="com.emergencyguide.Entity.Customer">
+
+    </resultMap>
+
+    <sql id="Base_SQL">
+        id, openid, nickname, realname, gender, avatar, mobilephone, email, registertime, profession
+    </sql>
+
+    <sql id="Base_MyBatis_Var">
+        #{id}, #{openid}, #{nickname}, #{realname}, #{gender}, #{avatar}, #{mobilephone}, #{email}, #{registertime}, #{profession}
+    </sql>
+
+    <select id="selectList" resultMap="BaseResultMap">
+        SELECT * FROM t_customer t1
+        WHERE 1 = 1
+        <if test="params.nickname != null and params.nickname != '' " >
+            AND t1.nickname LIKE '%${params.nickname}%'
+        </if>
+        <if test="params.email != null and params.email!='' " >
+            AND t1.email = '${params.email}'
+        </if>
+    </select>
+    
+    <select id="selectListCount" resultType="int">
+        SELECT COUNT(id) FROM t_customer t1 WHERE 1=1
+        <if test="params.nickname != null and params.nickname != '' ">
+            AND ti.nickname LIKE '%${params.nickname}'
+        </if>
+        <if test="params.email != null and params.email != '' ">
+            AND t1.email = '${params.email}'
+        </if>
+    </select>
+    
+    <update id="updateById" parameterType="com.emergencyguide.Entity.Customer">
+        UPDATE t_customer SET
+        realname = #{realname},
+        nickname = #{nickname},
+        gender = #{gender},
+        avatar = #{avatar},
+        mobilephone = #{mobilephone},
+        email = #{email},
+        profession = #{profession}
+        WHERE id = #{id};
+    </update>
+
+</mapper>
