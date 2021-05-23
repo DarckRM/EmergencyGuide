@@ -77,7 +77,7 @@
                     <li class="layui-nav-item">
                         <a class="navFather" href="javascript:;">社区管理</a>
                         <dl class="layui-nav-child">
-                            <dd><a href="javascript:;">发帖记录</a></dd>
+                            <dd><a href="javascript:;" lay-id="postPage">发帖记录</a></dd>
                             <dd><a href="javascript:;">回复记录</a></dd>
                             <dd><a href="javascript:;" lay-id="customerInfo">客户信息</a></dd>
                             <dd><a href="javascript:;">救助站</a></dd>
@@ -103,7 +103,7 @@
 
         </div>
 
-        <div class="layui-footer">
+        <div class="layui-footer" style="z-index: 0">
             <!-- 底部固定区域 -->
             底部固定区域
         </div>
@@ -150,6 +150,7 @@
                     case 'indexPage': directPage = '/content'; break;
                     case 'customerInfo': directPage = 'customer/page'; break;
                     case 'findMainHtml': directPage = 'disaster/findMainHtml'; break;
+                    case 'postPage': directPage = 'post/page'; break;
                 }
 
                 //响应导航栏添加Tab

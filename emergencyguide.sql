@@ -11,7 +11,7 @@
  Target Server Version : 80024
  File Encoding         : 65001
 
- Date: 24/05/2021 01:48:11
+ Date: 24/05/2021 04:16:27
 */
 
 SET NAMES utf8mb4;
@@ -63,6 +63,7 @@ CREATE TABLE `t_customer`  (
 -- ----------------------------
 -- Records of t_customer
 -- ----------------------------
+INSERT INTO `t_customer` VALUES (0, '0', '男', 'Root', 'Root', '匿名用户', '0000000', '2021-05-24 04:10:21', '0000000@00.com', 'Root');
 INSERT INTO `t_customer` VALUES (1, '1', '男', NULL, 'Aran', 'mr.quin', '6141096', '2021-05-12 00:07:25', '954144190@qq.com', '学生');
 INSERT INTO `t_customer` VALUES (2, '222', '女', NULL, 'ななひら', 'AAA', '7777777', '2021-05-22 16:04:23', '7777777@77.com', '公司狗');
 INSERT INTO `t_customer` VALUES (3, '222', '女', NULL, 'ななひら', NULL, '7777777', '2021-05-22 16:04:23', '7777777@77.com', '歌手');
@@ -147,10 +148,11 @@ CREATE TABLE `t_post`  (
 -- ----------------------------
 -- Records of t_post
 -- ----------------------------
-INSERT INTO `t_post` VALUES (1, '摸鱼到底有多吸引人', '超爽的啊', 99, 2, 30, NULL, '2021-05-22 18:26:48', 1);
+INSERT INTO `t_post` VALUES (1, '摸鱼到底有多吸引人', '超爽的啊!!!', 0, 0, 0, NULL, '2021-05-22 18:26:48', 1);
 INSERT INTO `t_post` VALUES (2, 'asds', '213213ses', NULL, NULL, NULL, 'qi', '2021-05-23 21:11:13', 2);
 INSERT INTO `t_post` VALUES (3, 'asds', '213213ses', NULL, 11, 11, 'qi', '2021-05-23 21:11:13', 2);
 INSERT INTO `t_post` VALUES (4, '测试主题', '测试', 0, 1, 22, '启动', '2021-05-23 21:16:37', 2);
+INSERT INTO `t_post` VALUES (9, '测试主题', '123123', 0, 0, 0, NULL, '2021-05-24 04:12:37', 0);
 
 -- ----------------------------
 -- Table structure for t_questionAnswer
@@ -240,5 +242,6 @@ INSERT INTO `t_systemuser` VALUES (4, 'chenjie', '123', '陈杰', '陈杰', 1, '
 INSERT INTO `t_systemuser` VALUES (5, 'Atest', '123', 'Aran', 'test', 1, '禁用');
 INSERT INTO `t_systemuser` VALUES (7, '412543224@qq.com', '123', NULL, NULL, 3, '启用');
 INSERT INTO `t_systemuser` VALUES (8, '11803060217', '123', '林海', 'rua', 3, '启用');
+INSERT INTO `t_systemuser` VALUES (9, '远程测试', '123456', '是我哦', '', 2, '启用');
 
 SET FOREIGN_KEY_CHECKS = 1;

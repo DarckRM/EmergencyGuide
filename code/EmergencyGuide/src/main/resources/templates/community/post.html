@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>用户页</title>
+    <title>主题页</title>
     <link rel="stylesheet" type="text/css" href="../layui/css/layui.css">
     <link rel="stylesheet" type="text/css" href="../css/uniform.css">
 </head>
@@ -18,24 +18,15 @@
                         <input type="text" name="id" class="layui-hide">
                     </div>
                     <div class="layui-inline">
-                        <label class="layui-form-label">用户名</label>
+                        <label class="layui-form-label">主题</label>
                         <div class="layui-input-inline">
-                            <input type="text" name="username" autocomplete="off" class="layui-input">
+                            <input type="text" name="topic" autocomplete="off" class="layui-input">
                         </div>
                     </div>
                     <div class="layui-inline">
-                        <label class="layui-form-label">真实姓名</label>
+                        <label class="layui-form-label">主题ID</label>
                         <div class="layui-input-inline">
-                            <input type="text" name="realname" autocomplete="off" class="layui-input">
-                        </div>
-                    </div>
-                    <div class="layui-inline">
-                        <label class="layui-form-label">权限等级</label>
-                        <div class="layui-input-block" style="width: 120px">
-                            <select name="authority">
-                                <option value="">无</option>
-                                <option th:each="role : ${roles}" th:value="${role.authority}" th:text="${role.role}" ></option>
-                            </select>
+                            <input type="text" name="postid" autocomplete="off" class="layui-input">
                         </div>
                     </div>
                     <div class="layui-inline">
@@ -50,23 +41,15 @@
     </div>
 </div>
 
-<script type="text/html" id="curToolBar">
-    <div class="layui-btn-container">
-        <button class="layui-btn layui-btn-radius layui-btn-normal" lay-event="add"> 添加用户 </button>
-    </div>
-</script>
-
 <script type="text/html" id="currentTableBar">
     <a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="edit" style="height:24px; width:50px; border-radius: 15px">编辑</a>
     <a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete" style="height:24px; width:50px; border-radius: 15px">删除</a>
 </script>
 
-<script type="text/html" id="switchStatus" >
-    {{#  if(d.status == '启用'){ }}
-    <a class="layui-btn" lay-event="statusEvent" value = "启用" style="height:24px;width:70px; border-radius: 15px; background: rgba(36,156,59,0.77); line-height: 24px">启用</a>
-    {{#  } else{ }}
-    <a class="layui-btn" lay-event="statusEvent" value = "禁用" style="height:24px;width:70px; border-radius: 15px; background: rgba(156,30,36,0.77); line-height: 24px">禁用</a>
-    {{#  } }}
+<script type="text/html" id="curToolBar">
+    <div class="layui-btn-container">
+        <button class="layui-btn layui-btn-radius layui-btn-normal" lay-event="add"> 发表主题 </button>
+    </div>
 </script>
 
 <script src="../layui/layui.js"></script>
@@ -86,13 +69,15 @@
             url: 'findall',
             page: 'true',
             cols: [[
-                {field: 'id', title: 'ID', width:80},
-                {field: 'username', title: '用户名', width:180},
-                {field: 'password', title: '密码', width:180},
-                {field: 'realname', title: '真实姓名', width:150},
-                {field: 'avatar', title: '头像', width:180},
-                {field: 'authority', title: '权限级别', width:100},
-                {title: '状态', toolbar: '#switchStatus', width:100, align: 'center'},
+                {field: 'postid', title: '主题ID', width:80},
+                {field: 'topic', title: '主题', width:180},
+                {field: 'content', title: '主题内容', width:180},
+                {field: 'likes', title: '点赞数', width:150},
+                {field: 'dislike', title: '点踩数', width:150},
+                {field: 'reply', title: '回复数', width:180},
+                {field: 'status', title: '状态', width:100},
+                {field: 'time', title: '发表时间', width:100},
+                {field: 'customername', title: '发表用户', width:100},
                 {title: '操作', toolbar: '#currentTableBar', width:150, align: 'center'}
             ]] //设置表头
         });
@@ -123,7 +108,7 @@
                     maxmin:true,
                     shadeClose: true,
                     area: ['600px', '350px'],
-                    content: '/user/toEdit?id=0',
+                    content: '/post/toEdit?postid=0',
                     end:function () {
                     }
                 });
@@ -137,45 +122,18 @@
          * toolbar监听事件
          */
         table.on('tool(curTableFilter)', function (obj) {
-            var tag = 0;
+
             var data = obj.data;
-            switch (obj.event) {
-                case 'statusEvent':
-                    data.isFree = data.isFree == '启用' ? '禁用':'启用';tag =1;break;
-            }
-            if (tag){
-                $.ajax({
-                    url : '/user/save',
-                    method : 'post',
-                    data : JSON.stringify(data),
-                    contentType : 'application/json',
-                    dataType : 'JSON',
-                    success : function(res) {
-                        if (res.code = '0') {
-                            var index = layer.alert(res.msg, function() {
-                                layer.close(index);
-                                location.reload();
-                            });
-                        } else {
-                            layer.alert(res.msg);
-                        }
-                    },
-                    error : function(data) {
-                        layer.alert(JSON.stringify(data));
-                    }
-                });
-                tag = 0;
-            }
 
             if (obj.event === 'edit') {
                 var index = layer.open({
-                    title: '编辑用户',
+                    title: '编辑主题',
                     type: 2,
                     shade: 0.2,
                     maxmin:true,
                     shadeClose: true,
-                    area: ['600px', '350px'],
-                    content: '/user/toEdit?id='+data.id,
+                    area: ['600px', '480px'],
+                    content: '/post/toEdit?postid='+data.postid,
                     end:function () {
                         return false;
                     }
@@ -186,7 +144,7 @@
             } else if (obj.event === 'delete') {
                 layer.confirm('真的删除行么', function (index) {
                     $.ajax({
-                        url : '/user/delete?id='+data.id,
+                        url : '/customer/delete?id='+data.id,
                         method : 'get',
                         dataType : 'JSON',
                         success : function(res) {

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>主题编辑</title>
+    <link rel="stylesheet" type="text/css" href="../layui/css/layui.css">
+    <link rel="stylesheet" type="text/css" href="../css/uniform.css">
+</head>
+<body>
+<div class="layui-form" id="curForm" style="padding-top: 20px; padding-right: 120px">
+    <!--用于接收上一层所查询的结果的id-->
+    <input type="hidden" name="postid" th:value="${data.postid}">
+
+    <div class="layui-form-item layui-row" id="pwdForm">
+        <div class="layui-col-md3">
+            <label class="required layui-form-label">主题</label>
+            <div class="layui-input-block">
+                <input type="text" name="topic" lay-verify="required"
+                       lay-reqtext="昵称不能为空" placeholder="请输入主题" th:value="${data.topic}"
+                       class="layui-input">
+            </div>
+        </div>
+    </div>
+    <div class="layui-form-item layui-row">
+        <div class="layui-col-md3">
+            <label class="required layui-form-label">请输入主题内容</label>
+            <div class="layui-input-block">
+                <input type="text" name="content" placeholder="请输入主题内容" th:value="${data.content}"
+                       class="layui-input">
+            </div>
+        </div>
+    </div>
+    <div class="layui-row">
+        <div class="layui-col-md10">
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn layui-btn-normal" lay-submit lay-filter="saveBtn">确认保存</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="../layui/layui.js"></script>
+<script th:inline="javascript">
+
+    layui.use(['element', 'layer', 'form'], function() {
+        var element = layui.element,
+            layer = layui.layer,
+            form = layui.form,
+            $ = layui.$;
+
+        //获取表单初始数据 用于判断是否修改表单
+        var formInit = $("#curForm").serializeArray();
+        var TextInit = {};
+        $.each(formInit, function (i, v) {
+            TextInit[v.name] = v.value;
+        })
+        var TextBefore = JSON.stringify(TextInit);
+
+        form.on('submit(saveBtn)', function (data) {
+
+            //判断是否有修改
+            var TextAfter = JSON.stringify(data.field);
+
+            console.log(TextBefore);
+            console.log(TextAfter);
+
+            if (TextBefore == TextAfter) {
+                layer.msg("您没有做任何修改!");
+                return false;
+            }
+
+            $('#saveBtn').attr("disabled","true");
+            $.ajax({
+                url : '/post/save',
+                method : 'post',
+                data : JSON.stringify(data.field),
+                contentType : 'application/json',
+                dataType : 'JSON',
+                success : function(res) {
+                    if (res.code = '0') {
+                        var index = layer.alert(res.msg, function() {
+                            // 关闭弹出层
+                            layer.close(index);
+                            var iframeIndex = parent.layer
+                                .getFrameIndex(window.name);
+                            parent.layer.close(iframeIndex);
+                            window.parent.location.reload();
+                        });
+                    } else {
+                        layer.alert(res.msg)
+                    }
+                    $('#saveBtn').attr("disabled","false");
+                },
+                error : function(data) {
+                    layer.alert(JSON.stringify(data));
+                    $('#saveBtn').attr("disabled","false");
+                }
+            });
+            return false;
+        });
+
+    });
+
+</script>
+</body>
+</html>

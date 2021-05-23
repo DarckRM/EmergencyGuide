@@ -19,6 +19,7 @@ public class Post {
     private String status;
     private Timestamp time;
     private int customerid;
+    private String customername;
 
     public int getPostid() {
         return postid;
@@ -92,6 +93,14 @@ public class Post {
         this.customerid = customerid;
     }
 
+    public String getCustomername() {
+        return customername;
+    }
+
+    public void setCustomername(String customername) {
+        this.customername = customername;
+    }
+
     @Override
     public String toString() {
         return "Post{" +
@@ -104,6 +113,7 @@ public class Post {
                 ", status='" + status + '\'' +
                 ", time=" + time +
                 ", customerid=" + customerid +
+                ", customername=" + customername +
                 '}';
     }
 }
