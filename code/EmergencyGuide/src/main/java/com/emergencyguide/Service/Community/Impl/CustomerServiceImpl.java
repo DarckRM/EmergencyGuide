@@ -1,11 +1,9 @@
-package com.emergencyguide.Service.Customer.Impl;
+package com.emergencyguide.Service.Community.Impl;
 
 import com.alibaba.fastjson.JSONObject;
 import com.emergencyguide.Dao.Community.CustomerDao;
 import com.emergencyguide.Entity.Customer;
-import com.emergencyguide.Entity.User;
-import com.emergencyguide.Service.Customer.CustomerService;
-import com.emergencyguide.Service.System.Impl.UserServiceImpl;
+import com.emergencyguide.Service.Community.CustomerService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

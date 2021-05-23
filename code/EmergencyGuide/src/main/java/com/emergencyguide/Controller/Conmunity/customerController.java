@@ -2,12 +2,9 @@ package com.emergencyguide.Controller.Conmunity;
 
 import com.emergencyguide.Entity.Customer;
 import com.emergencyguide.Entity.Result;
-import com.emergencyguide.Entity.User;
-import com.emergencyguide.Service.Customer.CustomerService;
-import com.emergencyguide.Service.System.UserService;
+import com.emergencyguide.Service.Community.CustomerService;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -44,7 +41,7 @@ public class customerController {
         }
         ModelAndView mav = new ModelAndView();
         System.out.println(data);
-        mav.setViewName("/community/customer_edit");
+        mav.setViewName("community/customer_edit");
         mav.addObject("data", data);
 
         return mav;

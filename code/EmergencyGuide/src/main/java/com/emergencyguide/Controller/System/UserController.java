@@ -82,7 +82,7 @@ public class UserController {
         }
         ModelAndView mav = new ModelAndView();
         System.out.println(data);
-        mav.setViewName("/system/user_edit");
+        mav.setViewName("system/user_edit");
         mav.addObject("roles",roleService.selectAllList());
         mav.addObject("data", data);
 

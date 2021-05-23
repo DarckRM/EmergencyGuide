@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.emergencyguide.Dao.Community.PostDao">
+    <resultMap id="BaseResultMap" type="com.emergencyguide.Entity.Post">
+
+    </resultMap>
+
+    <sql id="Base_SQL">
+        postid, topic, content, likes, dislike, reply, status, time, customerid
+    </sql>
+
+    <sql id="Base_MyBatis_Var">
+        #{postid}, #{topic}, #{content}, #{likes}, #{dislike}, #{reply}, #{status}, #{time}, #{customerid}
+    </sql>
+
+    <select id="selectList" resultMap="BaseResultMap">
+        SELECT * FROM t_post t1
+        WHERE 1 = 1
+        <if test="params.topic != null and params.topic != '' " >
+            AND t1.topic LIKE '%${params.topic}%'
+        </if>
+        <if test="params.customerid != null and params.customerid!='' " >
+            AND t1.customerid = '${params.customerid}'
+        </if>
+    </select>
+
+    <select id="selectListCount" resultType="int">
+        SELECT COUNT(postid) FROM t_post t1 WHERE 1=1
+        <if test="params.topic != null and params.topic != '' ">
+            AND t1.topic LIKE '%${params.topic}'
+        </if>
+        <if test="params.customerid != null and params.customerid != '' ">
+            AND t1.customerid = '${params.customerid}'
+        </if>
+    </select>
+
+    <update id="updateById" parameterType="com.emergencyguide.Entity.Post">
+        UPDATE t_post SET
+        topic = #{topic},
+        content = #{content},
+        likes = #{likes},
+        dislike = #{dislike},
+        reply = #{reply},
+        status = #{status}
+        WHERE postid = #{postid};
+    </update>
+
+    <update id="insert" parameterType="com.emergencyguide.Entity.Post">
+        INSERT INTO t_post (postid, topic, content, likes, dislike, reply, status, time, customerid)
+        VALUES (#{postid}, #{topic}, #{content}, #{likes}, #{dislike}, #{reply}, #{status}, #{time}, #{customerid})
+    </update>
+
+</mapper>

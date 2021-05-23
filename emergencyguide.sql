@@ -11,18 +11,43 @@
  Target Server Version : 80024
  File Encoding         : 65001
 
- Date: 22/05/2021 15:47:32
+ Date: 24/05/2021 01:48:11
 */
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
 
 -- ----------------------------
+-- Table structure for t_comment
+-- ----------------------------
+DROP TABLE IF EXISTS `t_comment`;
+CREATE TABLE `t_comment`  (
+  `commentid` int(0) NOT NULL COMMENT '评论的帖子的ID',
+  `replyid` int(0) NULL DEFAULT NULL COMMENT '回复的ID',
+  `content` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '回复内容',
+  `reply` int(0) NULL DEFAULT NULL COMMENT '回复数',
+  `time` datetime(0) NULL DEFAULT NULL COMMENT '发表的时间',
+  `like` int(0) NULL DEFAULT NULL COMMENT '点赞数',
+  `dislike` int(0) NULL DEFAULT NULL COMMENT '点踩数',
+  `customerid` int(0) NULL DEFAULT NULL COMMENT '发表的用户ID',
+  PRIMARY KEY (`commentid`) USING BTREE,
+  INDEX `FK_3`(`customerid`) USING BTREE,
+  INDEX `FK_2`(`replyid`) USING BTREE,
+  CONSTRAINT `FK_2` FOREIGN KEY (`replyid`) REFERENCES `t_post` (`postid`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `FK_3` FOREIGN KEY (`customerid`) REFERENCES `t_customer` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of t_comment
+-- ----------------------------
+INSERT INTO `t_comment` VALUES (1, 1, '我认为你说得对', 5, '2021-05-22 18:33:53', 999, 0, 2);
+
+-- ----------------------------
 -- Table structure for t_customer
 -- ----------------------------
 DROP TABLE IF EXISTS `t_customer`;
 CREATE TABLE `t_customer`  (
-  `id` int(0) NOT NULL,
+  `id` int(0) NOT NULL AUTO_INCREMENT,
   `openId` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `gender` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `avatar` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
@@ -33,12 +58,14 @@ CREATE TABLE `t_customer`  (
   `email` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `profession` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '职业',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of t_customer
 -- ----------------------------
-INSERT INTO `t_customer` VALUES (1, '1', '男', NULL, '陈杰', NULL, '18302394623', '2021-05-12 00:07:25', '2425496695@qq.com', '学生');
+INSERT INTO `t_customer` VALUES (1, '1', '男', NULL, 'Aran', 'mr.quin', '6141096', '2021-05-12 00:07:25', '954144190@qq.com', '学生');
+INSERT INTO `t_customer` VALUES (2, '222', '女', NULL, 'ななひら', 'AAA', '7777777', '2021-05-22 16:04:23', '7777777@77.com', '公司狗');
+INSERT INTO `t_customer` VALUES (3, '222', '女', NULL, 'ななひら', NULL, '7777777', '2021-05-22 16:04:23', '7777777@77.com', '歌手');
 
 -- ----------------------------
 -- Table structure for t_customerQuestion
@@ -97,6 +124,33 @@ INSERT INTO `t_disasterType` VALUES (2, 1, '家用电器着火', '要先切断�
 INSERT INTO `t_disasterType` VALUES (5, 1, '水灾', '水灾');
 INSERT INTO `t_disasterType` VALUES (7, 6, '小型泥石流', '芜湖');
 INSERT INTO `t_disasterType` VALUES (8, 1, '水灾', '水灾');
+
+-- ----------------------------
+-- Table structure for t_post
+-- ----------------------------
+DROP TABLE IF EXISTS `t_post`;
+CREATE TABLE `t_post`  (
+  `postid` int(0) NOT NULL AUTO_INCREMENT COMMENT '帖子ID',
+  `topic` varchar(120) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '帖子主题',
+  `content` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '帖子内容',
+  `likes` int(0) NULL DEFAULT NULL COMMENT '点赞数',
+  `dislike` int(0) NULL DEFAULT NULL COMMENT '点踩数',
+  `reply` int(0) NULL DEFAULT NULL COMMENT '回复数',
+  `status` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '审核状态',
+  `time` datetime(0) NULL DEFAULT NULL COMMENT '发帖日期',
+  `customerid` int(0) NULL DEFAULT NULL COMMENT '发帖用户的ID',
+  PRIMARY KEY (`postid`) USING BTREE,
+  INDEX `FK_1`(`customerid`) USING BTREE,
+  CONSTRAINT `FK_1` FOREIGN KEY (`customerid`) REFERENCES `t_customer` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of t_post
+-- ----------------------------
+INSERT INTO `t_post` VALUES (1, '摸鱼到底有多吸引人', '超爽的啊', 99, 2, 30, NULL, '2021-05-22 18:26:48', 1);
+INSERT INTO `t_post` VALUES (2, 'asds', '213213ses', NULL, NULL, NULL, 'qi', '2021-05-23 21:11:13', 2);
+INSERT INTO `t_post` VALUES (3, 'asds', '213213ses', NULL, 11, 11, 'qi', '2021-05-23 21:11:13', 2);
+INSERT INTO `t_post` VALUES (4, '测试主题', '测试', 0, 1, 22, '启动', '2021-05-23 21:16:37', 2);
 
 -- ----------------------------
 -- Table structure for t_questionAnswer
@@ -183,7 +237,7 @@ INSERT INTO `t_systemuser` VALUES (1, 'DarckLH', '123', '林海', '', 1, '启用
 INSERT INTO `t_systemuser` VALUES (2, 'Nanahira', '123', 'sdkf', 'asdsa', 1, '禁用');
 INSERT INTO `t_systemuser` VALUES (3, 'Koikatsu', '123', 'lianhuo', '中文测试', 1, '启用');
 INSERT INTO `t_systemuser` VALUES (4, 'chenjie', '123', '陈杰', '陈杰', 1, '启用');
-INSERT INTO `t_systemuser` VALUES (5, 'test', '123', NULL, 'test', 1, '禁用');
+INSERT INTO `t_systemuser` VALUES (5, 'Atest', '123', 'Aran', 'test', 1, '禁用');
 INSERT INTO `t_systemuser` VALUES (7, '412543224@qq.com', '123', NULL, NULL, 3, '启用');
 INSERT INTO `t_systemuser` VALUES (8, '11803060217', '123', '林海', 'rua', 3, '启用');
 

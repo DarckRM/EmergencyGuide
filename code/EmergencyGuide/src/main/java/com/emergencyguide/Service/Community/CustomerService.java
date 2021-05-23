@@ -1,4 +1,4 @@
-package com.emergencyguide.Service.Customer;
+package com.emergencyguide.Service.Community;
 
 import com.emergencyguide.Entity.Customer;
 import com.emergencyguide.Service.BaseService;
