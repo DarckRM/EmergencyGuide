@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.emergencyguide.Dao.Logo.PersonalLogoDao">
+
+
+    <select id="selectAllList" resultType="com.emergencyguide.Entity.PersonalLogo">
+        SELECT * FROM t_personalLogo t1
+        where 1=1
+        <if test="params.personalLogoName != null and params.personalLogoName != '' " >
+            and t1.personalLogoName LIKE '%${params.personalLogoName}%'
+        </if>
+        limit #{page},#{limit}
+    </select>
+
+    <select id="selectListCount" resultType="Integer">
+        select count(t1.id)
+        from t_personalLogo t1
+        where 1=1
+        <if test="params.personalLogoName != null and params.personalLogoName != '' " >
+            and t1.personalLogoName LIKE '%${params.personalLogoName}%'
+        </if>
+    </select>
+    <update id="updateById"  parameterType="com.emergencyguide.Entity.PersonalLogo">
+        update t_personalLogo
+        <set>
+            <if test="personalLogoName!=null and personalLogoName !=''">
+                personalLogoName=#{personalLogoName},
+            </if>
+            <if test="description!=null and description !=''">
+                description=#{description},
+            </if>
+        </set>
+        where id=#{id}
+    </update>
+
+    <insert id="personalLogoAdd"  parameterType="com.emergencyguide.Entity.PersonalLogo">
+        insert  into t_personalLogo (personalLogoName,description) values (#{personalLogoName}, #{description})
+    </insert>
+</mapper>

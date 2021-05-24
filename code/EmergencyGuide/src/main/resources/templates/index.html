@@ -71,7 +71,14 @@
                             <dd><a href="javascript:;" lay-id="findMainHtml">处理方案</a></dd>
                             <dd><a href="javascript:;">风险类型</a></dd>
                             <dd><a href="javascript:;">随机贴士</a></dd>
-                            <dd><a href="javascript:;">分析题库</a></dd>
+                            <dd><a href="javascript:;" lay-id="findQuestionAnswerHtml">分析题库</a></dd>
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a class="navFather" href="javascript:;">标识管理</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="javascript:;" lay-id="findRank">答题段位</a></dd>
+                            <dd><a href="javascript:;" lay-id="findPersonaLogo">用户标签</a></dd>
                         </dl>
                     </li>
                     <li class="layui-nav-item">
@@ -152,6 +159,9 @@
                     case 'findMainHtml': directPage = 'disaster/findMainHtml'; break;
                     case 'postPage': directPage = 'post/page'; break;
                     case 'commentPage': directPage = 'comment/page'; break;
+                    case 'findQuestionAnswerHtml': directPage = 'questionAnswer/findQuestionAnswerHtml'; break;
+                    case 'findRank': directPage = 'rank/findRankHtml'; break;
+                    case 'findPersonaLogo': directPage = 'personalLogo/findPersonalLogoHtml'; break;
                 }
 
                 //响应导航栏添加Tab

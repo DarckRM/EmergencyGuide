@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.emergencyguide.Dao.EmergencyInformation.QuestionAnswerDao">
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <select id="selectAllList" resultType="com.emergencyguide.Entity.QuestionAnswer">
+        SELECT * FROM t_questionAnswer t1
+        where 1=1
+        <if test="params.question != null and params.question != '' " >
+            and t1.question LIKE '%${params.question}%'
+        </if>
+        limit #{page},#{limit}
+    </select>
+
+    <select id="selectListCount" resultType="Integer">
+        select count(t1.id)
+        from t_questionAnswer t1
+        where 1=1
+        <if test="params.question != null and params.question != '' " >
+            and t1.question LIKE '%${params.question}%'
+        </if>
+    </select>
+    <update id="updateById"  parameterType="com.emergencyguide.Entity.QuestionAnswer">
+        update t_questionAnswer
+        <set>
+            <if test="question!=null and question !=''">
+                question=#{question},
+            </if>
+            <if test="optionA!=null and optionA !=''">
+                optionA=#{optionA},
+            </if>
+            <if test="optionB!=null and optionB !=''">
+                optionB=#{optionB},
+            </if>
+            <if test="optionC!=null and optionC !=''">
+                optionC=#{optionC},
+            </if>
+            <if test="answer!=null and answer !=''">
+                answer=#{answer},
+            </if>
+        </set>
+        where id=#{id}
+    </update>
+
+    <insert id="questionAnswerAdd"  parameterType="com.emergencyguide.Entity.QuestionAnswer">
+        insert  into t_questionAnswer (question,optionA,optionB,optionC,answer) values (#{question}, #{optionA},#{optionB}, #{optionC},#{answer})
+    </insert>
+</mapper>

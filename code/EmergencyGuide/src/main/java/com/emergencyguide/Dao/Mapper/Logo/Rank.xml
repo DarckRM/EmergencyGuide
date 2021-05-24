@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.emergencyguide.Dao.Logo.RankDao">
+
+    <select id="selectAllList" resultType="com.emergencyguide.Entity.Rank">
+        SELECT * FROM t_rank t1
+        where 1=1
+        <if test="params.description != null and params.description != '' " >
+            and t1.description LIKE '%${params.description}%'
+        </if>
+        limit #{page},#{limit}
+    </select>
+
+    <select id="selectListCount" resultType="Integer">
+        select count(t1.id)
+        from t_rank t1
+        where 1=1
+        <if test="params.description != null and params.description != '' " >
+            and t1.description LIKE '%${params.description}%'
+        </if>
+    </select>
+    <update id="updateById"  parameterType="com.emergencyguide.Entity.Rank">
+        update t_rank
+        <set>
+            <if test="photo!=null and photo !=''">
+                photo=#{photo},
+            </if>
+            <if test="percentage!=null and percentage !=''">
+                percentage=#{percentage},
+            </if>
+            <if test="description!=null and description !=''">
+                description=#{description},
+            </if>
+        </set>
+        where id=#{id}
+    </update>
+
+    <insert id="rankAdd"  parameterType="com.emergencyguide.Entity.Rank">
+        insert  into t_rank (photo,percentage,description) values (#{photo}, #{percentage},#{description})
+    </insert>
+</mapper>
