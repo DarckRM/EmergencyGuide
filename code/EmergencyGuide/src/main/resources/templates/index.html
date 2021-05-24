@@ -58,17 +58,16 @@
                     <li class="layui-nav-item">
                         <a class="navFather" href="javascript:;">仓库管理</a>
                         <dl class="layui-nav-child">
-                            <dd><a href="javascript:;">个人物资</a></dd>
+                            <dd><a href="javascript:;" lay-id="findProductType">物资类别</a></dd>
+                            <dd><a href="javascript:;" lay-id="findProductUnit">物资单位</a></dd>
                             <dd><a href="javascript:;">客户设定</a></dd>
-                            <dd><a href="javascript:;">物资类别</a></dd>
+
                         </dl>
                     </li>
                     <li class="layui-nav-item">
                         <a class="navFather" href="javascript:;">应急资料</a>
                         <dl class="layui-nav-child">
                             <dd><a href="javascript:;" lay-id="findMainHtml">处理方案</a></dd>
-                            <dd><a href="javascript:;">风险类型</a></dd>
-                            <dd><a href="javascript:;">随机贴士</a></dd>
                             <dd><a href="javascript:;" lay-id="findQuestionAnswerHtml">分析题库</a></dd>
                         </dl>
                     </li>
@@ -156,6 +155,8 @@
                     case 'findQuestionAnswerHtml': directPage = 'questionAnswer/findQuestionAnswerHtml'; break;
                     case 'findRank': directPage = 'rank/findRankHtml'; break;
                     case 'findPersonaLogo': directPage = 'personalLogo/findPersonalLogoHtml'; break;
+                    case 'findProductType': directPage = 'productType/findProductTypeHtml'; break;
+                    case 'findProductUnit': directPage = 'productUnit/findProductUnitHtml'; break;
                 }
 
                 //响应导航栏添加Tab

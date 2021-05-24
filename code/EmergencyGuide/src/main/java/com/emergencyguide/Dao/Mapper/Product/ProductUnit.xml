@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.emergencyguide.Dao.Product.ProductUnitDao">
+
+    <select id="selectAllList" resultType="com.emergencyguide.Entity.ProductUnit">
+        SELECT * FROM t_productUnit t1
+        where 1=1
+        <if test="params.productUnitName != null and params.productUnitName != '' " >
+            and t1.productUnitName LIKE '%${params.productUnitName}%'
+        </if>
+        limit #{page},#{limit}
+    </select>
+
+    <select id="selectListCount" resultType="Integer">
+        select count(t1.id)
+        from t_productUnit t1
+        where 1=1
+        <if test="params.productUnitName != null and params.productUnitName != '' " >
+            and t1.productUnitName LIKE '%${params.productUnitName}%'
+        </if>
+    </select>
+    <update id="updateById"  parameterType="com.emergencyguide.Entity.ProductUnit">
+        update t_productUnit
+        <set>
+            <if test="productUnitName!=null and productUnitName !=''">
+                productUnitName=#{productUnitName},
+            </if>
+            <if test="remark!=null and remark !=''">
+                remark=#{remark},
+            </if>
+        </set>
+        where id=#{id}
+    </update>
+
+    <insert id="productUnitAdd"  parameterType="com.emergencyguide.Entity.ProductUnit">
+        insert  into t_productUnit (productUnitName,remark) values (#{productUnitName}, #{remark})
+    </insert>
+</mapper>
