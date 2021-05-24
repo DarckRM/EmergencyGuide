@@ -9,4 +9,5 @@ import com.emergencyguide.Service.BaseService;
  * @Description
  */
 public interface PostService extends BaseService<Post> {
+    public int changeLike(String operate, int postid);
 }

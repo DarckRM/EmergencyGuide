@@ -78,7 +78,7 @@
                         <a class="navFather" href="javascript:;">社区管理</a>
                         <dl class="layui-nav-child">
                             <dd><a href="javascript:;" lay-id="postPage">发帖记录</a></dd>
-                            <dd><a href="javascript:;">回复记录</a></dd>
+                            <dd><a href="javascript:;" lay-id="commentPage">回复记录</a></dd>
                             <dd><a href="javascript:;" lay-id="customerInfo">客户信息</a></dd>
                             <dd><a href="javascript:;">救助站</a></dd>
                         </dl>
@@ -151,6 +151,7 @@
                     case 'customerInfo': directPage = 'customer/page'; break;
                     case 'findMainHtml': directPage = 'disaster/findMainHtml'; break;
                     case 'postPage': directPage = 'post/page'; break;
+                    case 'commentPage': directPage = 'comment/page'; break;
                 }
 
                 //响应导航栏添加Tab

@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.emergencyguide.Dao.Community.CustomerDao;
 import com.emergencyguide.Entity.Customer;
 import com.emergencyguide.Service.Community.CustomerService;
+import com.emergencyguide.Utils.EasyGeneraterParams;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,21 +27,15 @@ public class CustomerServiceImpl implements CustomerService {
     @Autowired
     private CustomerDao customerDao;
 
+    @Autowired
+    private EasyGeneraterParams easyGeneraterParams;
+
     @Override
     public List<Customer> selectList(int page, int limit, String searchParams) {
 
-        String nickname = "";
-        String email = "";
-        if (searchParams != null) {
-            JSONObject json = JSONObject.parseObject(searchParams);
-            nickname = json.getString("nickname");
-            email = json.getString("email");
-        }
-
         Map<String, Object> params = new HashMap<>();
 
-        params.put("nickname", nickname.isEmpty() ? null : nickname);
-        params.put("email", email.isEmpty() ? null : email);
+        params = easyGeneraterParams.easySearchParams(searchParams);
 
         List<Customer> customer = customerDao.selectList(page, limit, params);
         logger.info(customer.toString());
@@ -51,18 +46,9 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public int selectListCount(String searchParams) {
 
-        String nickname = "";
-        String email = "";
-        if (searchParams != null) {
-            JSONObject json = JSONObject.parseObject(searchParams);
-            nickname = json.getString("nickname");
-            email = json.getString("email");
-        }
-
         Map<String, Object> params = new HashMap<>();
 
-        params.put("username", nickname.isEmpty() ? null : nickname);
-        params.put("email", email.isEmpty() ? null : email);
+        params = easyGeneraterParams.easySearchParams(searchParams);
 
         return customerDao.selectListCount(params);
     }

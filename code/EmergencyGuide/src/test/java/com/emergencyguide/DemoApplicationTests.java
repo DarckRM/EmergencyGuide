@@ -1,13 +1,16 @@
 package com.emergencyguide;
 
+import com.emergencyguide.Dao.Community.CommentDao;
 import com.emergencyguide.Dao.Community.CustomerDao;
 import com.emergencyguide.Dao.Community.PostDao;
 import com.emergencyguide.Dao.System.RoleDao;
 import com.emergencyguide.Dao.System.UserDao;
 import com.emergencyguide.Dao.SystemConfigDao;
+import com.emergencyguide.Entity.Comment;
 import com.emergencyguide.Entity.Post;
 import com.emergencyguide.Entity.Role;
 import com.emergencyguide.Entity.User;
+import com.emergencyguide.Service.Community.CommentService;
 import com.emergencyguide.Service.Community.PostService;
 import com.emergencyguide.Service.System.RoleService;
 import com.emergencyguide.Service.SystemConfigService;
@@ -21,6 +24,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @SpringBootTest
@@ -32,7 +36,9 @@ class DemoApplicationTests {
     @Autowired
     RedisUtil redisUtil;
     @Autowired
-    PostDao postDao;
+    CommentDao commentDao;
+    @Autowired
+    CommentService commentService;
 
     @Test
     void contextLoads() {
@@ -40,11 +46,11 @@ class DemoApplicationTests {
         Date date = new Date();
         Timestamp timestamp = new Timestamp(date.getTime());
 
-        Post post = new Post();
-        post.setPostid(5);
-        post.setCustomerid(2);
-        post.setTopic("测试主题");
-        post.setContent("测试");
+        Comment post = new Comment();
+        post.setCommentid(3);
+        post.setCustomerid(0);
+        post.setReplyid(2);
+        post.setContent("毛，我之前用过，根本就不对");
         post.setTime(timestamp);
         post.setStatus("关闭");
         post.setLikes(1);
@@ -53,11 +59,17 @@ class DemoApplicationTests {
 
         //System.out.println(post);
         Map<String, Object> params = new HashMap<>();
-        params.put("topic","测试");
+        params.put("replytopic","");
+        params.put("replyid","");
 
-        int s = postDao.selectListCount(params);
-        System.out.println(s);
+        List<Comment> S = commentDao.selectByCustomerId(0);
+        System.out.println(S);
 
+    }
+
+    @Test
+    void SecondRs() {
+        commentService.selectList(1,1,"{'replyid':'', replytopic:'摸鱼'}");
     }
 
 }
