@@ -28,6 +28,8 @@ mybatis:
   mapper-locations: classpath:com/emergencyguide/Dao/Mapper/System/*.xml,
                     classpath:com/emergencyguide/Dao/Mapper/EmergencyInformation/*.xml,
                     classpath:com/emergencyguide/Dao/Mapper/Logo/*.xml,
-                    classpath:com/emergencyguide/Dao/Mapper/*.xml,
                     classpath:com/emergencyguide/Dao/Mapper/Community/*.xml
+                    classpath:com/emergencyguide/Dao/Mapper/Product/*.xml,
+                    classpath:com/emergencyguide/Dao/Mapper/*.xml
+
   config-location: classpath:mybatis-config.xml
