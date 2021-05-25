@@ -3,6 +3,7 @@ package com.emergencyguide.Controller.api;
 import com.emergencyguide.Entity.Customer;
 import com.emergencyguide.Entity.Result;
 import com.emergencyguide.Service.Community.CustomerService;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,6 +17,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("api/customer")
+@Api(value = "客户信息接口", tags = "客户信息API")
 public class customerApiController {
 
     @Autowired
