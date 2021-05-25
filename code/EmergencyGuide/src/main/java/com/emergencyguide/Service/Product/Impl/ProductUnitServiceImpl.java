@@ -64,7 +64,7 @@ public class ProductUnitServiceImpl implements ProductUnitService {
     }
 
     @Override
-    public List<ProductUnit> selectAllList() {
-        return productUnitDao.selectAllList();
+    public List<ProductUnit> getProductUnit() {
+        return productUnitDao.getProductUnit();
     }
 }
