@@ -9,8 +9,12 @@
 </head>
 <body>
 <div class="layui-form" id="curForm" style="padding-top: 20px; padding-right: 120px">
-    <!--用于接收上一层所查询的结果的id-->
+    <!--用于接收上一层所查询的结果但不予显示-->
     <input type="hidden" name="postid" th:value="${data.postid}">
+    <input type="hidden" name="status" th:value="${data.status}">
+    <input type="hidden" name="likes" th:value="${data.likes}">
+    <input type="hidden" name="dislike" th:value="${data.dislike}">
+    <input type="hidden" name="reply" th:value="${data.reply}">
 
     <div class="layui-form-item layui-row" id="pwdForm">
         <div class="layui-col-md3">
@@ -24,10 +28,13 @@
     </div>
     <div class="layui-form-item layui-row">
         <div class="layui-col-md3">
-            <label class="required layui-form-label">请输入主题内容</label>
-            <div class="layui-input-block">
-                <input type="text" name="content" placeholder="请输入主题内容" th:value="${data.content}"
-                       class="layui-input">
+            <label class="required layui-form-label">主题内容</label>
+            <div id="editor" class="layui-input-block"></div>
+
+            <div class="layui-form-item layui-form-text" style="display: none">
+                <textarea lay-vertify="required" id="content" type="text" name="content"
+                          placeholder="请输入主题内容" th:text="${data.content}"
+                          class="layui-textarea"></textarea>
             </div>
         </div>
     </div>
@@ -44,13 +51,89 @@
 
 
 <script src="../layui/layui.js"></script>
+<script src="../layui/wangEditor/wangEditor.js"></script>
 <script th:inline="javascript">
 
-    layui.use(['element', 'layer', 'form'], function() {
+    layui.use(['element', 'layer', 'form', 'upload'], function() {
         var element = layui.element,
             layer = layui.layer,
             form = layui.form,
-            $ = layui.$;
+            $ = layui.$,
+            upload = layui.upload;
+
+        //wangEditor富文本编辑器
+        var E = window.wangEditor;
+
+        //执行图片上传实例
+        //普通图片上传
+        var uploadInst = upload.render({
+            elem: '.uploadFileBtn',
+            url: '/file/upload/image',//改成您自己的上传接口
+            field:'image',
+            before: function(obj){
+
+                //预读本地文件示例，不支持ie8
+                obj.preview(function(index, file, result){
+                    $('#image1').attr('src', result); //图片链接（base64）
+                });
+
+            },
+            done: function(res){
+                //如果上传失败
+                if(res.code != 0){
+                    return layer.msg('上传失败');
+                }else{
+                    //上传成功
+                    console.log("上传成功");
+
+                    for(var i=0;i<res.data.length;i++){
+                        $('#liveQRcode').val(res.data[i]);
+                    }
+
+                }
+            }
+            ,error: function(){
+                //演示失败状态，并实现重传
+                var demoText = $('#demoText');
+                demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-xs demo-reload">重试</a>');
+                demoText.find('.demo-reload').on('click', function(){
+                    uploadInst.upload();
+                });
+            }
+        });
+
+        var editor = new E('#editor');
+        editor.customConfig.uploadImgServer = "/file/upload/image";
+        editor.customConfig.uploadFileName = 'image';
+        editor.customConfig.pasteFilterStyle = false;
+        editor.customConfig.uploadImgMaxLength = 5;
+        editor.customConfig.uploadImgHooks = {
+            // 上传超时
+            timeout: function (xhr, editor) {
+                layer.msg('上传超时！')
+            },
+            // 如果服务器端返回的不是 {errno:0, data: [...]} 这种格式，可使用该配置
+            customInsert: function (insertImg, result, editor) {
+                console.log(result);
+                if (result.code == 0) {
+                    var url = result.data;
+                    url.forEach(function (e) {
+                        insertImg(e);
+                    })
+                } else {
+                    layer.msg(result.msg);
+                }
+            }
+        };
+        editor.customConfig.onchange = function (html) {
+            // 监控变化，同步更新到 textarea
+            $('#content').val(html)
+        }
+        editor.customConfig.customAlert = function (info) {
+            layer.msg(info);
+        };
+        editor.create();
+        editor.txt.html($('#content').val());
 
         //获取表单初始数据 用于判断是否修改表单
         var formInit = $("#curForm").serializeArray();

@@ -46,30 +46,6 @@ class DemoApplicationTests {
         Date date = new Date();
         Timestamp timestamp = new Timestamp(date.getTime());
 
-        Comment post = new Comment();
-        post.setCommentid(3);
-        post.setCustomerid(0);
-        post.setReplyid(2);
-        post.setContent("毛，我之前用过，根本就不对");
-        post.setTime(timestamp);
-        post.setStatus("关闭");
-        post.setLikes(1);
-        post.setReply(22);
-        post.setDislike(1);
-
-        //System.out.println(post);
-        Map<String, Object> params = new HashMap<>();
-        params.put("replytopic","");
-        params.put("replyid","");
-
-        List<Comment> S = commentDao.selectByCustomerId(0);
-        System.out.println(S);
-
-    }
-
-    @Test
-    void SecondRs() {
-        commentService.selectList(1,1,"{'replyid':'', replytopic:'摸鱼'}");
     }
 
 }

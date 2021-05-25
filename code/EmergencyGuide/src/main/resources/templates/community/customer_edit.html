@@ -22,6 +22,24 @@
             </div>
         </div>
     </div>
+
+    <div class="layui-row">
+        <div class="layui-col-md5">
+            <div class="layui-form-item">
+                <label class="layui-form-label required">头像</label>
+                <div class="layui-upload layui-inline">
+                    <div style="margin: 10px 0">
+                        <img class="layui-upload-img" id="demo1" width="200px" height="200px" th:src="${data.avatar}">
+                        <p id="demoText"></p>
+                    </div>
+                    <input id="avatar" type="hidden" name="avatar" th:value="${data.avatar}"
+                           class="layui-input">
+                    <button type="button" class="layui-btn uploadFileBtn" id="uploadImage" style="width: 200px">上传图片</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="layui-form-item layui-row">
         <div class="layui-col-md3">
             <label class="required layui-form-label">真实姓名</label>
@@ -85,11 +103,50 @@
 <script src="../layui/layui.js"></script>
 <script th:inline="javascript">
 
-    layui.use(['element', 'layer', 'form'], function() {
+    layui.use(['element', 'layer', 'form', 'upload'], function() {
         var element = layui.element,
             layer = layui.layer,
             form = layui.form,
+            upload = layui.upload,
             $ = layui.$;
+
+        //执行图片上传实例
+        //普通图片上传
+        var uploadInst = upload.render({
+            elem: '.uploadFileBtn',
+            url: '/file/upload/image',//改成您自己的上传接口
+            field:'image',
+            before: function(obj){
+
+                //预读本地文件示例，不支持ie8
+                obj.preview(function(index, file, result){
+                    $('#uploadImage').attr('src', result); //图片链接（base64）
+                });
+
+            },
+            done: function(res){
+                //如果上传失败
+                if(res.code != 0){
+                    return layer.msg('上传失败');
+                }else{
+                    //上传成功
+                    console.log("上传成功");
+
+                    for(var i=0;i<res.data.length;i++){
+                        $('#avatar').val(res.data[i]);
+                    }
+
+                }
+            }
+            ,error: function(){
+                //演示失败状态，并实现重传
+                var demoText = $('#demoText');
+                demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-xs demo-reload">重试</a>');
+                demoText.find('.demo-reload').on('click', function(){
+                    uploadInst.upload();
+                });
+            }
+        });
 
         //获取表单初始数据 用于判断是否修改表单
         var formInit = $("#curForm").serializeArray();

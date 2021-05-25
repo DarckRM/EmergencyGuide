@@ -49,7 +49,7 @@ public class Post {
         return likes;
     }
 
-    public void setLikes(int like) {
+    public void setLikes(int likes) {
         this.likes = likes;
     }
 
