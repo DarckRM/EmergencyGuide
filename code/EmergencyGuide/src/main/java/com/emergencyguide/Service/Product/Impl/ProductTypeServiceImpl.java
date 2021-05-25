@@ -64,7 +64,7 @@ public class ProductTypeServiceImpl  implements ProductTypeService {
     }
 
     @Override
-    public List<ProductType> selectAllList() {
-        return productTypeDao.selectAllList();
+    public List<ProductType> getProductType() {
+        return productTypeDao.getProductType();
     }
 }

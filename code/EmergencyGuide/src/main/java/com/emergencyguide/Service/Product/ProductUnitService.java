@@ -15,5 +15,5 @@ public interface ProductUnitService {
     public int productUnitAdd(ProductUnit productUnit);
 
     public int productUnitDelete(int id);
-    public List<ProductUnit> selectAllList();
+    public List<ProductUnit> getProductUnit();
 }

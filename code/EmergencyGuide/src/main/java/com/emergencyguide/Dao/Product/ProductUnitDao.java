@@ -22,6 +22,7 @@ public interface ProductUnitDao {
 
     @Delete("delete  from t_productUnit where id=#{id}")
     public int productUnitDelete(int id);
+
     @Select("select *from t_productUnit ")
-    public List<ProductUnit> selectAllList();
+    public List<ProductUnit> getProductUnit();
 }

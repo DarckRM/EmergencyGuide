@@ -11,5 +11,5 @@ public interface ProductTypeService {
     public int updateById(ProductType productType);
     public  int productTypeAdd(ProductType productType);
     public  int productTypeDelete(int id);
-    public List<ProductType> selectAllList();
+    public List<ProductType> getProductType();
 }

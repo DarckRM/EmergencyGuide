@@ -21,6 +21,8 @@ public interface ProductTypeDao {
 
     @Delete("delete  from t_productType where id=#{id}")
     public int productTypeDelete(int id);
+
+
     @Select("select * from t_productType")
-    public List<ProductType> selectAllList();
+    public List<ProductType> getProductType();
 }

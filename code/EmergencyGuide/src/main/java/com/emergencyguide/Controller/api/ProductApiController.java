@@ -1,6 +1,7 @@
 package com.emergencyguide.Controller.api;
 
 import com.alibaba.fastjson.JSONObject;
+import com.emergencyguide.Controller.UploadController;
 import com.emergencyguide.Entity.Product;
 import com.emergencyguide.Entity.ProductType;
 import com.emergencyguide.Entity.ProductUnit;
@@ -38,6 +39,7 @@ public class ProductApiController {
         Result result = new Result();
         JSONObject jsonObject = JSONObject.parseObject(jsonStr);
         Product product=new Product();
+        UploadController uploadController=new UploadController();
         product.setProductTypeId(jsonObject.getInteger("productTypeId"));
         product.setProductUnitId(jsonObject.getInteger("productUnitId"));
         product.setProductCreateTime(jsonObject.getTimestamp("productCreateTime"));
@@ -62,7 +64,7 @@ public class ProductApiController {
     public  String getProductType()
     {
         Result<ProductType> result=new Result<>();
-        List<ProductType> data=productTypeService.selectAllList();
+        List<ProductType> data=productTypeService.getProductType();
         result.setData(data);
         return result.toString();
     }
@@ -71,7 +73,7 @@ public class ProductApiController {
     public  String getProductUnit()
     {
         Result<ProductUnit> result=new Result<>();
-        List<ProductUnit> data=productUnitService.selectAllList();
+        List<ProductUnit> data=productUnitService.getProductUnit();
         result.setData(data);
         return result.toString();
     }
