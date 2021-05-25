@@ -62,4 +62,9 @@ public class ProductUnitServiceImpl implements ProductUnitService {
     public int productUnitDelete(int id) {
         return productUnitDao.productUnitDelete(id);
     }
+
+    @Override
+    public List<ProductUnit> selectAllList() {
+        return productUnitDao.selectAllList();
+    }
 }

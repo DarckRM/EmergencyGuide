@@ -14,6 +14,6 @@ public interface ProductUnitService {
 
     public int productUnitAdd(ProductUnit productUnit);
 
-    @Delete("delete  from t_productUnit where id=#{id}")
     public int productUnitDelete(int id);
+    public List<ProductUnit> selectAllList();
 }

@@ -5,6 +5,7 @@ import com.emergencyguide.Entity.ProductUnit;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 import java.util.Map;
@@ -21,4 +22,6 @@ public interface ProductUnitDao {
 
     @Delete("delete  from t_productUnit where id=#{id}")
     public int productUnitDelete(int id);
+    @Select("select *from t_productUnit ")
+    public List<ProductUnit> selectAllList();
 }
