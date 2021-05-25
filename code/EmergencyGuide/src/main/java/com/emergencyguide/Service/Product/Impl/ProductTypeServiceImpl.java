@@ -62,4 +62,9 @@ public class ProductTypeServiceImpl  implements ProductTypeService {
     public int productTypeDelete(int id) {
         return productTypeDao.productTypeDelete(id);
     }
+
+    @Override
+    public List<ProductType> selectAllList() {
+        return productTypeDao.selectAllList();
+    }
 }
