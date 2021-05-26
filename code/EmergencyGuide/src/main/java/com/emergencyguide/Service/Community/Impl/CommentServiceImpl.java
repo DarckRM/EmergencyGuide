@@ -39,7 +39,7 @@ public class CommentServiceImpl implements CommentService {
         Map<String, Object> params = new HashMap<>();
 
         params = easyGeneraterParams.easySearchParams(searchParams);
-
+        page = (page - 1) * limit;
         List<Comment> comments = commentDao.selectList(page, limit, params);
         logger.info(comments.toString());
 

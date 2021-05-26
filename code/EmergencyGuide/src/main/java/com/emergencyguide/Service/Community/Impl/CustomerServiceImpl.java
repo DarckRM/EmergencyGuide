@@ -36,7 +36,7 @@ public class CustomerServiceImpl implements CustomerService {
         Map<String, Object> params = new HashMap<>();
 
         params = easyGeneraterParams.easySearchParams(searchParams);
-
+        page = (page - 1) * limit;
         List<Customer> customer = customerDao.selectList(page, limit, params);
         logger.info(customer.toString());
 
@@ -61,6 +61,11 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public Customer selectById(long id) {
         return customerDao.selectById(id);
+    }
+
+    @Override
+    public Customer selectByOpenId(String openid) {
+        return customerDao.selectByOpenId(openid);
     }
 
     @Override

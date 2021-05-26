@@ -6,12 +6,12 @@
     </resultMap>
 
     <sql id="Base_SQL">
-        postid, topic, content, likes, dislike, reply, status, time, customerid,
-        (SELECT nickname FROM t_customer WHERE t_customer.id = t1.customerid) AS customername
+        postid, topic, content, likes, dislike, reply, status, time, openid,
+        (SELECT nickname FROM t_customer WHERE t_customer.openid = t1.openid) AS customername
     </sql>
 
     <sql id="Base_MyBatis_Var">
-        #{postid}, #{topic}, #{content}, #{likes}, #{dislike}, #{reply}, #{status}, #{time}, #{customerid}
+        #{postid}, #{topic}, #{content}, #{likes}, #{dislike}, #{reply}, #{status}, #{time}, #{openid}
     </sql>
 
     <select id="selectList" resultMap="BaseResultMap">
@@ -23,6 +23,10 @@
         <if test="params.postid != null and params.postid!='' " >
             AND t1.postid = '${params.postid}'
         </if>
+        <if test="params.openid != null and params.openid!='' " >
+            AND t1.openid = '${params.openid}'
+        </if>
+        limit #{page},#{limit}
     </select>
 
     <select id="selectListCount" resultType="int">
@@ -47,8 +51,8 @@
     </update>
 
     <update id="insert" parameterType="com.emergencyguide.Entity.Post">
-        INSERT INTO t_post (postid, topic, content, likes, dislike, reply, status, time, customerid)
-        VALUES (#{postid}, #{topic}, #{content}, #{likes}, #{dislike}, #{reply}, #{status}, #{time}, #{customerid})
+        INSERT INTO t_post (postid, topic, content, likes, dislike, reply, status, time, openid)
+        VALUES (#{postid}, #{topic}, #{content}, #{likes}, #{dislike}, #{reply}, #{status}, #{time}, #{openid})
     </update>
 
 </mapper>

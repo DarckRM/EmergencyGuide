@@ -20,7 +20,7 @@ import java.util.List;
  */
 @RequestMapping("comment")
 @RestController
-public class commentController {
+public class CommentController {
 
     @Autowired
     private CommentService commentService;

@@ -16,9 +16,6 @@ import java.util.Map;
 @Mapper
 public interface PostDao {
 
-    @Select("SELECT * FROM t_post WHERE customerid = #{customerId}")
-    public List<Post> selectByCustomerid(int customerId);
-
     public List<Post> selectAllList();
 
     public int selectListCount(@Param("params") Map<String, Object> params);

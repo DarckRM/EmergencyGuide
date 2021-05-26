@@ -18,7 +18,7 @@ public class Post {
     private int reply;
     private String status;
     private Timestamp time;
-    private int customerid;
+    private int openid;
     private String customername;
 
     public int getPostid() {
@@ -85,12 +85,12 @@ public class Post {
         this.time = time;
     }
 
-    public int getCustomerid() {
-        return customerid;
+    public int getOpenid() {
+        return openid;
     }
 
-    public void setCustomerid(int customerid) {
-        this.customerid = customerid;
+    public void setOpenid(int openid) {
+        this.openid = openid;
     }
 
     public String getCustomername() {
@@ -112,7 +112,7 @@ public class Post {
                 ", reply=" + reply +
                 ", status='" + status + '\'' +
                 ", time=" + time +
-                ", customerid=" + customerid +
+                ", openid=" + openid +
                 ", customername=" + customername +
                 '}';
     }

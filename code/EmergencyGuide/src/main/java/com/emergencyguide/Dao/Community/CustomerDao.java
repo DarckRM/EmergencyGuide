@@ -29,11 +29,19 @@ public interface CustomerDao {
     @Select("SELECT * FROM t_customer WHERE id = #{id}")
     public Customer selectById(long id);
 
+    @Select("SELECT * FROM t_customer WHERE openid = #{openid}")
+    public Customer selectByOpenId(String openid);
+
     public int insert(Customer customer);
 
     public int updateById(Customer customer);
 
+    public int updateByOpenId(Customer customer);
+
     @Delete("DELETE FROM t_customer WHERE id = #{id}")
     public int delete(long id);
+
+    @Delete("DELETE FROM t_customer WHERE openid = #{openid}")
+    public int deleteByOpenId(String openid);
 
 }

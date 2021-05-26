@@ -46,4 +46,16 @@
         WHERE id = #{id};
     </update>
 
+    <update id="updateByOpenId" parameterType="com.emergencyguide.Entity.Customer">
+        UPDATE t_customer SET
+        realname = #{realname},
+        nickname = #{nickname},
+        gender = #{gender},
+        avatar = #{avatar},
+        mobilephone = #{mobilephone},
+        email = #{email},
+        profession = #{profession}
+        WHERE openid = #{openid};
+    </update>
+
 </mapper>

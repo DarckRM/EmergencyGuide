@@ -41,7 +41,7 @@ public class PostServiceImpl implements PostService {
         Map<String, Object> params = new HashMap<>();
 
         params = easyGeneraterParams.easySearchParams(searchParams);
-
+        page = (page - 1) * limit;
         List<Post> post = postDao.selectList(page, limit, params);
         logger.info(post.toString());
 
@@ -84,7 +84,7 @@ public class PostServiceImpl implements PostService {
         //给主题添加默认信息
 
         //设置默认发表用户
-        post.setCustomerid(0);
+        post.setOpenid(0);
         //获取当前时间
         Date date = new Date();
         Timestamp timestamp = new Timestamp(date.getTime());
