@@ -144,7 +144,7 @@
             } else if (obj.event === 'delete') {
                 layer.confirm('真的删除行么', function (index) {
                     $.ajax({
-                        url : '/customer/delete?id='+data.id,
+                        url : '/post/delete?postid='+data.postid,
                         method : 'get',
                         dataType : 'JSON',
                         success : function(res) {
