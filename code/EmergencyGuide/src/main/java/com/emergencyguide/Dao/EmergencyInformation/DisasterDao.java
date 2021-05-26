@@ -21,4 +21,7 @@ public interface DisasterDao {
 
     @Delete("delete  from t_disaster where id=#{id}")
     public int disasterDelete(int id);
+
+    @Select("select * from t_disaster where id=#{id}")
+    public Disaster selectById(int id);
 }

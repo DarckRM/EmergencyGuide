@@ -20,7 +20,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("api/disaster")
-@Api(value = "灾难接口Controller", tags = { "灾难API接口" })
+@Api(value = "紧急情况接口Controller", tags = { "紧急情况API接口" })
 public class DisasterApiController {
     @Autowired
     private DisasterService disasterService;

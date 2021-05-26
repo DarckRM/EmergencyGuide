@@ -59,4 +59,9 @@ public class DisasterServiceImpl implements DisasterService {
         return disasterDao.disasterDelete(id);
     }
 
+    @Override
+    public Disaster selectById(int id) {
+        return disasterDao.selectById(id);
+    }
+
 }

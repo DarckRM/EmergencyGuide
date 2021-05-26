@@ -63,6 +63,7 @@
 
         <script type="text/html" id="currentTableBar">
             <a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="findDisasterType">详情</a>
+            <a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="edit">编辑</a>
             <a class="layui-btn layui-btn-danger layui-btn-xs data-count-edit" lay-event="delete">删除</a>
             <!--<input type="checkbox" name="close" checked=true lay-skin="switch" lay-text="启用|禁用" lay-event="isDisable">-->
             <!--<a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">删除</a>-->
@@ -173,6 +174,7 @@
             return false;
         });
         table.on('toolbar(currentTableFilter)', function (obj) {
+            var data=obj.data;
             if (obj.event==='add'){
                 var index = layer.open({
                                  title: '添加灾难',
@@ -183,181 +185,13 @@
                                  area: ['700px', '400px'],
                                  content: '/disaster/findAddDisasterHtml'
                              });
-                             $(window).on("resize", function () {
+
                                  layer.full(index);
-                             });
+
             }
 
+
         });
-        // table.on('radio(currentTableFilter)',function(obj){
-        //
-        //     if (obj.checked) {
-        //         $("#kkBar").find('button').each(function (i, n) {
-        //             var $this = $(n);
-        //             $this.removeClass('layui-btn-disabled')
-        //             $this.addClass('layui-btn-normal');
-        //         });
-        //     }else if(!obj.checked){
-        //         $("#kkBar").find('button').each(function (i, n) {
-        //             //正确用法
-        //             var $this = $(n);
-        //             $this.removeClass('layui-btn-normal')
-        //             $this.addClass('layui-btn-disabled');
-        //         });
-        //     }
-        //
-        // });
-        // table.on('toolbar(currentTableFilter)', function (obj) {
-        //
-        //     var checkdata = table.checkStatus('currentTableId');
-        //     if (!checkdata.data[0]) {
-        //         layer.msg("请选择一条记录");
-        //         return;
-        //     }
-        //     var checkData = checkdata.data[0];
-        //     if (obj.event === 'doctorSetting') {
-        //         var index = layer.open({
-        //             title: '医生设置',
-        //             type: 2,
-        //             shade: 0.2,
-        //             maxmin: true,
-        //             shadeClose: true,
-        //             area: ['700px', '400px'],
-        //             content: '/customer/editDoctor?id=' + checkData.id,
-        //             //url:'/customer/editDoctor',
-        //             //content: '/user/toEdit?id=0',
-        //         });
-        //         $(window).on("resize", function () {
-        //             layer.full(index);
-        //         });
-        //
-        //     }
-        //     else if (obj.event === 'serviceSetting') {
-        //         //
-        //         // var inde = layer.open({
-        //         //     title: '客服设置',
-        //         //     type: 2,
-        //         //     shade: 0.2,
-        //         //     maxmin: true,
-        //         //     shadeClose: true,
-        //         //     area: ['50%', '250px'],
-        //         //     content: '/customer/editService?id=' + checkData.id,
-        //         //     //url:'/customer/editDoctor',
-        //         //     //content: '/user/toEdit?id=0',
-        //         // });
-        //         // $(window).on("resize", function () {
-        //         //     layer.full(inde);
-        //         // });
-        //         var customerdata = new Object();
-        //         customerdata.id = new String(checkData.id);
-        //         customerdata.type = '客服';
-        //         $.ajax({
-        //             url: '/customer/save',
-        //             method: 'post',
-        //             data: JSON.stringify(customerdata),
-        //             contentType: 'application/json',
-        //             dataType: 'JSON',
-        //             success: function (res) {
-        //                 if (res.code = '0') {
-        //                     var index = layer.alert(res.msg, function () {
-        //                         // 关闭弹出层
-        //                         layer.close(index);
-        //                     });
-        //                 } else {
-        //                     layer.alert(res.msg)
-        //                 }
-        //             },
-        //             error: function (data) {
-        //                 layer.alert(JSON.stringify(data))
-        //             }
-        //         });
-        //         return false;
-        //     }
-        //     else if (obj.event === 'customerSetting') {
-        //         var customerdata = new Object();
-        //         customerdata.id = new String(checkData.id);
-        //         customerdata.type = '客户';
-        //         $.ajax({
-        //             url: '/customer/save',
-        //             method: 'post',
-        //             data: JSON.stringify(customerdata),
-        //             contentType: 'application/json',
-        //             dataType: 'JSON',
-        //             success: function (res) {
-        //                 if (res.code = '0') {
-        //                     var index = layer.alert(res.msg, function () {
-        //                         // 关闭弹出层
-        //                         layer.close(index);
-        //                     });
-        //                 } else {
-        //                     layer.alert(res.msg)
-        //                 }
-        //             },
-        //             error: function (data) {
-        //                 layer.alert(JSON.stringify(data))
-        //             }
-        //         });
-        //         return false;
-        //
-        //     }
-        //     else if (obj.event === 'delete') {
-        //         // 监听删除操作
-        //         var checkStatus = table.checkStatus('currentTableId')
-        //             , data = checkStatus.data;
-        //         layer.alert(JSON.stringify(data));
-        //     }
-        //     else if (obj.event === 'PayRecord') {
-        //         var ind = layer.open({
-        //             title: '支付记录',
-        //             type: 2,
-        //             shade: 0.2,
-        //             maxmin: true,
-        //             shadeClose: true,
-        //             area: ['80%', '80%'],
-        //             content: '/customerPayRecord/openCustomerPayRecord?openid=' + checkData.openId,
-        //
-        //         });
-        //         $(window).on("resize", function () {
-        //             layer.full(ind);
-        //         });
-        //     }
-        //     else if (obj.event === 'RefundRecord') {
-        //         var indexl = layer.open({
-        //             title: '退款记录',
-        //             type: 2,
-        //             shade: 0.2,
-        //             maxmin: true,
-        //             shadeClose: true,
-        //             area: ['80%', '80%'],
-        //             content: '/customerRefundRecord/openCustomerRefundRecord?openid=' + checkData.openId,
-        //
-        //         });
-        //         $(window).on("resize", function () {
-        //             layer.full(indexl);
-        //         });
-        //     }
-        //     else if (obj.event === 'changePublicDoctor') {
-        //         console.log(checkData.doctorType);
-        //         if (checkData.doctorType == 'Public') {
-        //             var changeDoctor = layer.open({
-        //                 title: '更换公共医生',
-        //                 type: 2,
-        //                 shade: 0.2,
-        //                 maxmin: true,
-        //                 shadeClose: true,
-        //                 area: ['80%', '80%'],
-        //                 content: '/customer/changePublicDoctor?hospitalName=' + checkData.hospitalName,
-        //
-        //             });
-        //             $(window).on("resize", function () {
-        //                 layer.full(changeDoctor);
-        //             });
-        //         }
-        //         else {
-        //             layer.msg("请选择公共医生")
-        //         }
-        //     }
-        // });
         table.on('tool(currentTableFilter)', function (obj) {
             //console.log(obj);
             var data = obj.data;
@@ -376,6 +210,20 @@
                     layer.full(index);
               
                 return false;
+            }
+            else if (obj.event==='edit'){
+                var index = layer.open({
+                    title: '编辑',
+                    type: 2,
+                    shade: 0.2,
+                    maxmin: true,
+                    shadeClose: true,
+                    area: ['700px', '400px'],
+                    content: '/disaster/findDisasterEditHtml?id='+data.id,
+                });
+
+                layer.full(index);
+
             }
             else if (obj.event==='delete'){
                 layer.confirm('真的删除行么', function (index) {

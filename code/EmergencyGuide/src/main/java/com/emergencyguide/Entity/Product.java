@@ -1,16 +1,51 @@
 package com.emergencyguide.Entity;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.sql.Timestamp;
+import java.util.Date;
 
 public class Product {
     private int id;
     private String productName;
     private int productTypeId;
+    private String productTypeName;
+    private String productUnitName;
+
+    public String getProductTypeName() {
+        return productTypeName;
+    }
+
+    public void setProductTypeName(String productTypeName) {
+        this.productTypeName = productTypeName;
+    }
+
+    public String getProductUnitName() {
+        return productUnitName;
+    }
+
+    public void setProductUnitName(String productUnitName) {
+        this.productUnitName = productUnitName;
+    }
+
     private int productNumber;
     private int productUnitId;
-    private Timestamp productInsertTime;
-    private Timestamp productCreateTime;
-    private Timestamp productExpirationTime;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date productInsertTime;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date productCreateTime;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+
+    private Date productExpirationTime;
+    private String customerOpenId;
+
+    public String getCustomerOpenId() {
+        return customerOpenId;
+    }
+
+    public void setCustomerOpenId(String customerOpenId) {
+        this.customerOpenId = customerOpenId;
+    }
 
     public int getId() {
         return id;
@@ -52,27 +87,27 @@ public class Product {
         this.productUnitId = productUnitId;
     }
 
-    public Timestamp getProductInsertTime() {
+    public Date getProductInsertTime() {
         return productInsertTime;
     }
 
-    public void setProductInsertTime(Timestamp productInsertTime) {
+    public void setProductInsertTime(Date productInsertTime) {
         this.productInsertTime = productInsertTime;
     }
 
-    public Timestamp getProductCreateTime() {
+    public Date getProductCreateTime() {
         return productCreateTime;
     }
 
-    public void setProductCreateTime(Timestamp productCreateTime) {
+    public void setProductCreateTime(Date productCreateTime) {
         this.productCreateTime = productCreateTime;
     }
 
-    public Timestamp getProductExpirationTime() {
+    public Date getProductExpirationTime() {
         return productExpirationTime;
     }
 
-    public void setProductExpirationTime(Timestamp productExpirationTime) {
+    public void setProductExpirationTime(Date productExpirationTime) {
         this.productExpirationTime = productExpirationTime;
     }
 

@@ -2,5 +2,65 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.emergencyguide.Dao.Product.ProductDao">
 
+    <resultMap id="BaseResultMap" type="com.emergencyguide.Entity.Product">
+        <id column="id" property="id" />
+        <result column="customerOpenId" property="customerOpenId" />
+        <result column="productTypeId" property="productTypeId" />
+        <result column="productUnitId" property="productUnitId" />
+        <result column="productNumber" property="productNumber" />
+        <result column="productName" property="productName" />
+        <result column="productInsertTime" property="productInsertTime" />
+        <result column="productCreateTime" property="productCreateTime" />
+        <result column="productExpirationTime" property="productExpirationTime" />
+        <result column="productPhoto" property="productPhoto" />
+        <result column="remark" property="remark" />
 
+        <result column="productTypeName" property="productTypeName" />
+        <result column="ProductUnitName" property="ProductUnitName" />
+    </resultMap>
+
+
+
+        <select id="getCustomerProduct" resultMap="BaseResultMap">
+            select t1.*,t2.productTypeName,t3.productUnitName
+             from t_product t1
+             left join t_productType t2 on t1.productTypeId=t2.id
+             left join t_productUnit t3 on t1.productUnitId=t3.id
+             <if test="customerOpenId !=null and customerOpenId !=''">
+                where t1.customerOpenId=#{customerOpenId}
+             </if>
+        </select>
+    <update id="updateCustomerProduct" parameterType="com.emergencyguide.Entity.Product">
+        update t_product
+        <set>
+            <if  test="productTypeId !=null and productTypeId !=''">
+                productTypeId=#{productTypeId},
+            </if>
+            <if  test="productUnitId !=null and productUnitId !=''">
+                productUnitId=#{productUnitId},
+            </if>
+            <if  test="productCreateTime !=null ">
+                productCreateTime=#{productCreateTime},
+            </if>
+            <if  test="productInsertTime !=null ">
+                productInsertTime=#{productInsertTime},
+            </if>
+            <if  test="productExpirationTime !=null ">
+                productExpirationTime=#{productExpirationTime},
+            </if>
+            <if  test="productName !=null and productName !=''">
+                productName=#{productName},
+            </if>
+            <if  test="remark !=null and remark !=''">
+                remark=#{remark},
+            </if>
+            <if  test="productNumber !=null and productNumber !=''">
+                productNumber=#{productNumber},
+            </if>
+            <if  test="productPhoto !=null and productPhoto !=''">
+                productPhoto=#{productPhoto},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
 </mapper>

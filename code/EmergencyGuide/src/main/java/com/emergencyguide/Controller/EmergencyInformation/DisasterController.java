@@ -52,6 +52,15 @@ public class DisasterController {
         modelAndView.setViewName("EmergencyInformation/disasterAdd");
         return modelAndView;
     }
+    @RequestMapping("/findDisasterEditHtml")
+    public ModelAndView findDisasterEditHtml(int id) {
+        ModelAndView modelAndView = new ModelAndView();
+        Disaster disaster=new Disaster();
+        disaster=disasterService.selectById(id);
+        modelAndView.addObject("disaster",disaster);
+        modelAndView.setViewName("EmergencyInformation/disasterEdit");
+        return modelAndView;
+    }
     @RequestMapping("/disasterAdd")
     @ResponseBody
     public String disasterAdd(@RequestBody Disaster disaster){
