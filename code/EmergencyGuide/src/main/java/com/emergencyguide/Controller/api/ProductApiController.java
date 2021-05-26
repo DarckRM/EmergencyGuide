@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 @Controller
@@ -38,17 +39,30 @@ public class ProductApiController {
     public Object newProduct(@RequestBody String jsonStr){
         Result result = new Result();
         JSONObject jsonObject = JSONObject.parseObject(jsonStr);
+//        Product product=new Product();
+//        product.setProductTypeId(jsonObject.getInteger("productTypeId"));
+//        product.setProductUnitId(jsonObject.getInteger("productUnitId"));
+//        product.setProductCreateTime(jsonObject.getTimestamp("productCreateTime"));
+//        product.setProductInsertTime(jsonObject.getTimestamp("productInsertTime"));
+//        product.setProductExpirationTime(jsonObject.getTimestamp("productExpirationTime"));
+//        product.setProductName(jsonObject.getString("productName"));
+//        product.setRemark(jsonObject.getString("remark"));
+//        product.setProductNumber(jsonObject.getInteger("productNumber"));
+//        product.setProductPhoto(jsonObject.getString("productPhoto"));
         Product product=new Product();
-        UploadController uploadController=new UploadController();
-        product.setProductTypeId(jsonObject.getInteger("productTypeId"));
-        product.setProductUnitId(jsonObject.getInteger("productUnitId"));
-        product.setProductCreateTime(jsonObject.getTimestamp("productCreateTime"));
-        product.setProductInsertTime(jsonObject.getTimestamp("productInsertTime"));
-        product.setProductExpirationTime(jsonObject.getTimestamp("productExpirationTime"));
-        product.setProductName(jsonObject.getString("productName"));
-        product.setRemark(jsonObject.getString("remark"));
-        product.setProductNumber(jsonObject.getInteger("productNumber"));
-        int n=productService.newProduct(product);
+        product.setProductTypeId(1);
+        product.setProductUnitId(1);
+        String kk="2021-05-24 21:17:10";
+        Timestamp ts = Timestamp.valueOf(kk);
+        product.setProductCreateTime(ts);
+        product.setProductInsertTime(ts);
+        product.setProductExpirationTime(ts);
+        product.setProductName("productName");
+        product.setRemark("remark");
+        product.setProductNumber(1);
+        product.setProductPhoto("productPhoto");
+        int n= productService.newProduct(product);
+        System.out.println(n);
         if (n > 0){
             result.setModel(product);
             result.setMsg("操作成功");
