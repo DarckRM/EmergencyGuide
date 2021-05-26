@@ -17,14 +17,15 @@
 <body>
 <div class="layui-form layuimini-form">
 
-        <div class="layui-row">
-            <div class="layui-form-item layui-col-md10">
-                <label class="layui-form-label required">灾难类型</label>
-                <div class="layui-input-block">
-                    <input type="text" name="disasterType"  class="layui-input">
-                </div>
+    <div class="layui-row">
+        <div class="layui-form-item layui-col-md10">
+            <label class="layui-form-label required">灾难类型</label>
+            <div class="layui-input-block">
+                <input type="text" name="disasterType" th:value="${disaster.disasterType}" class="layui-input">
+                <input  type="hidden" name="id"   th:value="${disaster.id}" class="layui-input">
             </div>
         </div>
+    </div>
 
     <div class="layui-row">
         <div class="layui-col-md10">
@@ -34,9 +35,9 @@
             <div class="layui-form-item layui-form-text" style="display: none;">
                 <label class="layui-form-label required">解决方案</label>
                 <div class="layui-input-block" >
-                <textarea lay-verify="required" id="content" name="solution"
+                <textarea lay-verify="required" id="content" name="solution" th:text="${disaster.solution}"
                           class="layui-textarea" placeholder="请输入项目描述"
-                          ></textarea>
+                ></textarea>
                 </div>
             </div>
         </div>
@@ -135,7 +136,7 @@
         //监听提交
         form.on('submit(saveBtn)', function (data) {
             $.ajax({
-                url: '/disaster/disasterAdd',
+                url: '/disaster/save',
                 method: 'post',
                 data: JSON.stringify(data.field),
                 contentType: 'application/json',
@@ -160,7 +161,7 @@
             });
             return false;
         });
-        });
+    });
 </script>
 </body>
 </html>

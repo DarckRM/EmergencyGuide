@@ -10,4 +10,5 @@ public interface DisasterService {
     public int updateById(Disaster disaster);
     public  int disasterAdd(Disaster disaster);
     public  int disasterDelete(int id);
+    public Disaster selectById(int id);
 }
