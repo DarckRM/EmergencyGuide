@@ -63,8 +63,8 @@ public class ProductApiController {
     }
 
     @PostMapping("/getCustomerProduct")
-    @ApiOperation(value="用户物资查询")
-    @ApiImplicitParam(name = "jsonStr", value = "{\"customerOpenId\":\"用户OpenId\"}", paramType = "body",required = true, dataType =  "string")
+    @ApiOperation(value="用户物资查询 ")
+    @ApiImplicitParam(name = "jsonStr", value = "{\"customerOpenId\":\"用户OpenId:1\"}", paramType = "body",required = true, dataType =  "string")
     public  String  getCustomerProduct(@RequestBody String jsonStr){
         try {
             Result result = new Result();
@@ -84,7 +84,7 @@ public class ProductApiController {
 
     @PostMapping("/updateCustomerProduct")
     @ApiOperation(value="用户物资修改")
-    @ApiImplicitParam(name = "jsonStr", value = "{\"id\":\"用户物资id\",\\\"productTypeId\\\":\\\"物资类别Id\\\",\\\"productName\\\":\\\"物资名\\\",\\\"productNumber\\\":\\\"物资数量\\\",\" +\n" +
+    @ApiImplicitParam(name = "jsonStr", value = "{\"id\":\"用户物资\",\\\"productTypeId\\\":\\\"物资类别Id\\\",\\\"productName\\\":\\\"物资名\\\",\\\"productNumber\\\":\\\"物资数量\\\",\" +\n" +
             "            \"\\\"productUnitId\\\":\\\"物资单位Id\\\",\\\"productInsertTime\\\":\\\"物资存入时间\\\",\\\"productCreateTime\\\":\\\"物资生产时间\\\",\\\"productExpirationTime\\\":\\\"物资过期时间\\\",\" +\n" +
             "            \"\\\"productPhoto\\\":\\\"物资图片\\\",\\\"remark\\\":\\\"备注\\\"}",
             paramType = "body", required = true, dataType =  "string")
@@ -113,7 +113,7 @@ public class ProductApiController {
     @PostMapping("/customerProductDelete")
 
     @ApiOperation(value="用户物资删除")
-    @ApiImplicitParam(name = "id", value = "{\"id\":\"用户物资id\"}", required = true,dataType = "int")
+    @ApiImplicitParam(name = "id", value = "id", required = true,dataType = "int")
     public String customerProductDelete(@RequestBody Integer id)
     {
         System.out.println(id);
