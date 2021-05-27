@@ -1,5 +1,6 @@
 package com.emergencyguide;
 
+import com.emergencyguide.Controller.api.PostApiController;
 import com.emergencyguide.Dao.Community.CommentDao;
 import com.emergencyguide.Dao.Community.CustomerDao;
 import com.emergencyguide.Dao.Community.PostDao;
@@ -38,13 +39,12 @@ class DemoApplicationTests {
     @Autowired
     CommentDao commentDao;
     @Autowired
-    CommentService commentService;
+    PostApiController postApiController;
 
     @Test
     void contextLoads() {
 
-        Date date = new Date();
-        Timestamp timestamp = new Timestamp(date.getTime());
+        System.out.println(postApiController.myPost("{'limit':9,'page':1,'searchParams':'{'customerid':1}'}"));
 
     }
 

@@ -9,4 +9,5 @@ import com.emergencyguide.Service.BaseService;
  * @Description
  */
 public interface CustomerService extends BaseService<Customer> {
+    public Customer selectByOpenId(String openid);
 }

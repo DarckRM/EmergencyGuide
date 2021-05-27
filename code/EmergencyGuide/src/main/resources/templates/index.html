@@ -55,7 +55,11 @@
                             <dd><a href="javascript:;" lay-id="userManagement">用户管理</a></dd>
                             <dd><a href="javascript:;" lay-id="authorityInfo">权限信息</a></dd>
                             <dd><a href="javascript:;" lay-id="configInfo">配置信息</a></dd>
+<<<<<<< HEAD
                             <dd><a href="javascript:;" lay-id="configInfo">小程序用户</a></dd>
+=======
+                            <dd><a href="javascript:;" lay-id="apiInfo">接口信息</a></dd>
+>>>>>>> fe7910c344a5d2746d1035ef0029873e64343b82
                         </dl>
                     </li>
                     <li class="layui-nav-item">
@@ -171,12 +175,14 @@
                     case 'findProductType': directPage = 'productType/findProductTypeHtml'; break;
                     case 'findProductUnit': directPage = 'productUnit/findProductUnitHtml'; break;
                     case 'findGoodsHtml': directPage = 'goods/findGoodsHtml'; break;
+                    case 'apiInfo': directPage = '/swagger-ui.html#'; break;
+
                 }
 
                 //响应导航栏添加Tab
                 element.tabAdd('mainTabs', {
                     title: title,
-                    content: '<iframe frameborder="0" src= "'+directPage+'" scrolling="no" height="100%" width="100%"></iframe>', //支持传入html
+                    content: '<iframe frameborder="0" src= "'+directPage+'" height="100%" width="100%"></iframe>', //支持传入html
                     id: data.attr("lay-id")
                 });
                 //切换到刚刚创建的Tab页

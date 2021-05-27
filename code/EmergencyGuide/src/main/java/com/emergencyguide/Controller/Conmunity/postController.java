@@ -18,7 +18,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("post")
-public class postController {
+public class PostController {
 
     @Autowired
     private PostService postService;
@@ -81,11 +81,11 @@ public class postController {
     }
 
     @RequestMapping("/delete")
-    public String delete(long id) {
+    public String delete(long postid) {
 
         Result<Post> result = new Result<>();
 
-        result.setCount(postService.deleteById(id));
+        result.setCount(postService.deleteById(postid));
         result.setMsg("删除成功");
         return result.toString();
 
