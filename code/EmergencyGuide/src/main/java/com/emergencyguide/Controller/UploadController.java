@@ -31,7 +31,7 @@ public class UploadController {
     private Logger logger = LoggerFactory.getLogger(UploadController.class);
 
     //上传路径
-    @Value("C:/Emeguide")
+    @Value("/Emeguide")
     private String uploadFilePath;
 
     /**
@@ -50,7 +50,7 @@ public class UploadController {
             String suffixName = fileName.substring(fileName.lastIndexOf("." )+ 1); //获取后缀名
             fileName = "Image_" + DateUtil.formatDateByFormat(new Date(),"yyyyMMddHHmmsssss") + "_" + UUIDGenerateUtil.generateShortUuid() + "." + suffixName;
 
-            File dest = new File(uploadFilePath +'/'+ fileName);
+            File dest = new File(new File(uploadFilePath).getAbsolutePath() +'/'+ fileName);
             if (!dest.getParentFile().exists()) {
                 dest.getParentFile().mkdirs();
             }

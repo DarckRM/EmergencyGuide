@@ -10,8 +10,8 @@ import java.util.List;
 import java.util.Map;
 @Mapper
 public interface PersonalLogoDao {
-    public List<PersonalLogo> selectAllList(@Param("page") int page, @Param("limit") int limit,
-                                    @Param("params") Map<String, Object> params);
+    public List<PersonalLogo> selectAllList(@Param("page") int page, @Param("limit") int limit, @Param("params") Map<String, Object> params);
+
     public int selectListCount( @Param("params")Map<String, Object> params);
 
     public int updateById(PersonalLogo personalLogo);

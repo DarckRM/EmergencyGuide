@@ -17,7 +17,7 @@ public class Customer {
     private String mobilephone;
     private Date registertime;
     private String email;
-    private String profession;
+    private int profession;
 
     public long getId() {
         return id;
@@ -91,11 +91,11 @@ public class Customer {
         this.email = email;
     }
 
-    public String getProfession() {
+    public int getProfession() {
         return profession;
     }
 
-    public void setProfession(String profession) {
+    public void setProfession(int profession) {
         this.profession = profession;
     }
 

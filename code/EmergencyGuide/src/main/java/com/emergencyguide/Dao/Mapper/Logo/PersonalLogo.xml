@@ -6,8 +6,11 @@
     <select id="selectAllList" resultType="com.emergencyguide.Entity.PersonalLogo">
         SELECT * FROM t_personalLogo t1
         where 1=1
-        <if test="params.personalLogoName != null and params.personalLogoName != '' " >
-            and t1.personalLogoName LIKE '%${params.personalLogoName}%'
+        <if test="params.basicLogo!=null and params.basicLogo !=''">
+            and t1.basicLogo = '%${params.basicLogo}%',
+        </if>
+        <if test="params.subLogo != null and params.subLogo != '' " >
+            and t1.subLogo = '%${params.subLogo}%'
         </if>
         limit #{page},#{limit}
     </select>
@@ -16,24 +19,30 @@
         select count(t1.id)
         from t_personalLogo t1
         where 1=1
-        <if test="params.personalLogoName != null and params.personalLogoName != '' " >
-            and t1.personalLogoName LIKE '%${params.personalLogoName}%'
+        <if test="params.basicLogo!=null and params.basicLogo !=''">
+            and t1.basicLogo = '%${params.basicLogo}%',
+        </if>
+        <if test="params.subLogo != null and params.subLogo != '' " >
+            and t1.subLogo = '%${params.subLogo}%'
         </if>
     </select>
     <update id="updateById"  parameterType="com.emergencyguide.Entity.PersonalLogo">
         update t_personalLogo
         <set>
-            <if test="personalLogoName!=null and personalLogoName !=''">
-                personalLogoName=#{personalLogoName},
+            <if test="params.basicLogo!=null and params.basicLogo !=''">
+                basicLogo='%${params.basicLogo}%',
             </if>
-            <if test="description!=null and description !=''">
-                description=#{description},
+            <if test="params.subLogo!=null and params.subLogo !=''">
+                subLogo='%${params.subLogo}%',
+            </if>
+            <if test="params.description!=null and params.description !=''">
+                description='%${params.description}%',
             </if>
         </set>
         where id=#{id}
     </update>
 
     <insert id="personalLogoAdd"  parameterType="com.emergencyguide.Entity.PersonalLogo">
-        insert  into t_personalLogo (personalLogoName,description) values (#{personalLogoName}, #{description})
+        insert  into t_personalLogo (basicLogo,subLogo,description) values (#{basicLogo},#{subLogo}, #{description})
     </insert>
 </mapper>

@@ -9,8 +9,9 @@
 </head>
 <body>
 <div class="layui-form" id="curForm" style="padding-top: 20px; padding-right: 120px">
-    <!--用于接收上一层所查询的结果的id-->
+    <!--用于接收上一层所查询的结果的openid以及id-->
     <input type="hidden" name="openid" th:value="${data.openid}">
+    <input type="hidden" name="id" th:value="${data.id}">
 
     <div class="layui-form-item layui-row" id="pwdForm">
         <div class="layui-col-md3">
@@ -63,9 +64,9 @@
             <label class="required layui-form-label">职业</label>
             <div class="layui-input-block">
                 <select name="profession" placeholder="请选择职业" class="layui-select">
-                    <option th:selected="${data.profession eq '学生'}" value="学生">学生</option>
-                    <option th:selected="${data.profession eq '公司狗'}" value="公司狗">公司狗</option>
-                    <option th:selected="${data.profession eq '歌手'}" value="歌手">歌手</option>
+                    <option th:selected="${data.profession eq '学生'}" value="0">学生</option>
+                    <option th:selected="${data.profession eq '公司狗'}" value="1">公司狗</option>
+                    <option th:selected="${data.profession eq '歌手'}" value="2">歌手</option>
                 </select>
             </div>
         </div>

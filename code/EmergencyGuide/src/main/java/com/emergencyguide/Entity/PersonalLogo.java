@@ -2,7 +2,8 @@ package com.emergencyguide.Entity;
 
 public class PersonalLogo {
     private int id;
-    private String personalLogoName;
+    private String basicLogo;
+    private String subLogo;
     private String description;
 
     public int getId() {
@@ -13,12 +14,12 @@ public class PersonalLogo {
         this.id = id;
     }
 
-    public String getPersonalLogoName() {
-        return personalLogoName;
+    public String getBasicLogo() {
+        return basicLogo;
     }
 
-    public void setPersonalLogoName(String personalLogoName) {
-        this.personalLogoName = personalLogoName;
+    public void setBasicLogo(String basicLogo) {
+        this.basicLogo = basicLogo;
     }
 
     public String getDescription() {
@@ -27,5 +28,23 @@ public class PersonalLogo {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getSubLogo() {
+        return subLogo;
+    }
+
+    public void setSubLogo(String subLogo) {
+        this.subLogo = subLogo;
+    }
+
+    @Override
+    public String toString() {
+        return "PersonalLogo{" +
+                "id=" + id +
+                ", basicLogo='" + basicLogo + '\'' +
+                ", subLogo='" + subLogo + '\'' +
+                ", description='" + description + '\'' +
+                '}';
     }
 }

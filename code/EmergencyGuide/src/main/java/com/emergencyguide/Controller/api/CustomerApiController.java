@@ -47,7 +47,7 @@ public class CustomerApiController {
     }
 
     @ApiOperation(value = "客户登录，包含第一次登录的初始化操作）")
-    @ApiImplicitParam(name = "jsonStr", value = "{\"openId\":\"openId\",\"nickname\":\"昵称\",\"gender\":\"性别\",\"photo\":\"头像\"}", required = true, dataType = "string")
+    @ApiImplicitParam(name = "jsonStr", value = "{\"openId\":\"openId\",\"nickName\":\"昵称\",\"gender\":\"性别\",\"photo\":\"头像\"}", required = true, dataType = "string")
     @PostMapping("/customerLogin")
     public String customerLogin(@RequestBody String jsonStr) {
 
@@ -60,7 +60,7 @@ public class CustomerApiController {
             String openId = jsonObject.getString("openId");
             Integer gender = jsonObject.getInteger("gender"); //性别 0：未知、1：男、2：女
             customer.setOpenid(openId);
-            customer.setNickname(jsonObject.getString("nickname"));
+            customer.setNickname(jsonObject.getString("nickName"));
             customer.setGender(gender == 0 ? "未知" : gender == 1 ? "男" : "女");
             customer.setAvatar(jsonObject.getString("photo"));
 

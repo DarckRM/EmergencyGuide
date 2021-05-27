@@ -96,4 +96,30 @@ public class PostApiController {
 
     }
 
+    @ApiOperation(value="修改当前用户的某条帖子")
+    @PostMapping("/editpost")
+    @ApiImplicitParam(name = "jsonStr", value = "类似发帖的json字符串，不过要加上postid确认是修改哪个帖子 {'postid':'帖子ID','topic':'修改后的标题','content':'修改后的内容'}", required = true, dataType = "int")
+    public String editPost(@RequestBody String jsonStr) {
+
+        Result<Post> result = new Result<>();
+        Post post = new Post();
+
+        try
+        {
+            JSONObject jsonObject = JSONObject.parseObject(jsonStr);
+            post.setTopic(jsonObject.getString("topic"));
+            post.setContent(jsonObject.getString("content"));
+            post.setPostid(jsonObject.getInteger("postid"));
+            postService.insert(post);
+            result.setMsg("请求成功");
+
+        } catch (Exception e)
+        {
+            result.setMsg("请求失败" + e.getMessage());
+            return result.toString();
+        }
+        return result.toString();
+
+    }
+
 }

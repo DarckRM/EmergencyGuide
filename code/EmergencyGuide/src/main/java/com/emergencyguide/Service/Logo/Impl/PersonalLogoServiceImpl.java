@@ -6,6 +6,7 @@ import com.emergencyguide.Dao.Logo.RankDao;
 import com.emergencyguide.Entity.PersonalLogo;
 import com.emergencyguide.Entity.Rank;
 import com.emergencyguide.Service.Logo.PersonalLogoService;
+import com.emergencyguide.Utils.EasyGeneraterParams;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,18 +19,16 @@ public class PersonalLogoServiceImpl implements PersonalLogoService {
     @Autowired
     private PersonalLogoDao personalLogoDao;
 
+    @Autowired
+    private EasyGeneraterParams easyGeneraterParams;
+
     @Override
     public List<PersonalLogo> selectAllList(int page, int limit, String searchParams) {
-        String personalLogoName = "";
 
-        if (searchParams != null) {
-            JSONObject json = JSONObject.parseObject(searchParams);
-            personalLogoName = json.getString("personalLogoName");
-
-        }
-        page = (page - 1) * limit;
         Map<String, Object> params = new HashMap<>();
-        params.put("personalLogoName", personalLogoName);
+        params = easyGeneraterParams.easySearchParams(searchParams);
+        page = (page - 1) * limit;
+
         List<PersonalLogo> list = personalLogoDao.selectAllList(page, limit, params);
         return list;
     }
@@ -37,14 +36,8 @@ public class PersonalLogoServiceImpl implements PersonalLogoService {
     @Override
     public int selectListCount(String searchParams) {
         String personalLogoName = "";
-
-        if (searchParams != null) {
-            JSONObject json = JSONObject.parseObject(searchParams);
-            personalLogoName = json.getString("personalLogoName");
-
-        }
         Map<String, Object> params = new HashMap<>();
-        params.put("personalLogoName", personalLogoName);
+        params = easyGeneraterParams.easySearchParams(searchParams);
         return  personalLogoDao.selectListCount(params);
     }
 
