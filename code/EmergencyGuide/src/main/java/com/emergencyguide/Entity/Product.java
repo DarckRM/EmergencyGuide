@@ -10,6 +10,7 @@ public class Product {
     private String productName;
     private int productTypeId;
     private String productTypeName;
+
     private String productUnitName;
 
     public String getProductTypeName() {

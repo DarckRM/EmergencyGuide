@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>layui</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="../chenjielayuiLib/lib/layui-v2.5.5/css/layui.css" media="all">
+    <link rel="stylesheet" href="../chenjielayuiLib/css/public.css" media="all">
+</head>
+<body>
+<div class="layuimini-container">
+    <div class="layuimini-main">
+
+        <fieldset class="table-search-fieldset">
+            <legend>搜索信息</legend>
+            <div style="margin: 10px 10px 10px 10px">
+                <form class="layui-form layui-form-pane" action="">
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label">物品名</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="goodsName" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <button type="submit" class="layui-btn layui-btn-primary checkIsSelec"  lay-submit lay-filter="data-search-btn"><i class="layui-icon"></i> 搜 索</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </fieldset>
+        <!--  <button class="layui-btn layui-btn-sm layui-btn-danger data-delete-btn" lay-event="delete"> 删除 </button> -->
+        <!--<script type="text/html" id="toolbarDemo">-->
+        <!--<div class="layui-btn-container " id="kkBar">-->
+        <!--&lt;!&ndash;<button class="checkIsSelect layui-btn  data-add-btn  " lay-event="add"> 医生设置 </button>&ndash;&gt;-->
+        <!--<button type="button" class="checkIsSelect layui-btn layui-btn-disabled"lay-event="doctorSetting" >医生设置</button>-->
+        <!--<button type="button" class="checkIsSelect layui-btn layui-btn-disabled"lay-event="serviceSetting" >客服设置</button>-->
+        <!--<button type="button" class="checkIsSelect layui-btn layui-btn-disabled"lay-event="customerSetting" >客户设置</button>-->
+        <!--<button type="button" class="checkIsSelect layui-btn layui-btn-disabled"lay-event="PayRecord" >支付记录</button>-->
+        <!--<button type="button" class="checkIsSelect layui-btn layui-btn-disabled"lay-event="RefundRecord" >退款记录</button>-->
+        <!--<button type="button" class="checkIsSelect layui-btn layui-btn-disabled"lay-event="changePublicDoctor" >更换公共医生</button>-->
+        <!--&lt;!&ndash;<button type="button" class="checkIsSelect layui-btn "lay-event="add" >医生设置</button>&ndash;&gt;-->
+        <!--&lt;!&ndash;<button type="button" class="checkIsSelect layui-btn "lay-event="ad" >客服设置</button>&ndash;&gt;-->
+        <!--&lt;!&ndash;<button type="button" class="checkIsSelect layui-btn "lay-event="PayRecord" >支付记录</button>&ndash;&gt;-->
+        <!--&lt;!&ndash;<button type="button" class="checkIsSelect layui-btn "lay-event="RefundRecord" >退款记录</button>&ndash;&gt;-->
+        <!--&lt;!&ndash;<button type="button" class="layui-btn layui-btn-primary"lay-event="add">医生设置</button>&ndash;&gt;-->
+        <!--&lt;!&ndash;<button type="button" class="layui-btn"lay-event="add">客服设置</button>&ndash;&gt;-->
+        <!--</div>-->
+        <!--<div class="layui-btn-container">-->
+        <!--<button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="add"> 客服设置 </button>-->
+        <!--</div>-->
+        <script type="text/html" id="toolbarDemo">
+            <div class="layui-btn-container" id="kkBar">
+                <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="add"> 添加 </button>
+            </div>
+
+        </script>
+
+
+        <table class="layui-hide" id="currentTableId" lay-filter="currentTableFilter"></table>
+
+        <script type="text/html" id="currentTableBar">
+            <a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="edit">编辑</a>
+            <a class="layui-btn layui-btn-danger layui-btn-xs data-count-edit" lay-event="delete">删除</a>
+            <!--<input type="checkbox" name="close" checked=true lay-skin="switch" lay-text="启用|禁用" lay-event="isDisable">-->
+            <!--<a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">删除</a>-->
+            <!--<a class="layui-btn layui-btn-xs layui-btn-danger " lay-event="recommand">推荐 </a>-->
+        </script>
+
+    </div>
+</div>
+<script src="../chenjielayuiLib/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
+<script type="text/javascript"  th:inline="none">
+
+    layui.use(['form', 'table'], function () {
+        var $ = layui.jquery,
+            form = layui.form,
+            table = layui.table,
+            disableData,
+            rowDisableData;
+        table.render({
+            elem: '#currentTableId',
+            url: '/goods/findAll',
+            toolbar: '#toolbarDemo',
+            cellMinWidth: 60,
+            defaultToolbar: ['filter', 'exports', 'print', {
+                title: '提示',
+                layEvent: 'LAYTABLE_TIPS',
+                icon: 'layui-icon-tips'
+            }],
+            cols: [[
+                {type:'numbers'},
+                // {type: 'checkbox'},
+                {type:'radio'},
+                {field: 'id', title: 'ID', hide:true},
+                {field: 'goodsName',edit:'goodsName',  width:100,title: '物品名'},
+                // {field: 'openId', width: 100, title: '公众号id'},
+                {field: 'goodsDescription', edit:'goodsDescription', title: '物品描述'},
+                {field: 'goodsOriginalPrice', edit:'goodsOriginalPrice', title: '原价'},
+                {field: 'goodsCurrentPrice', edit:'goodsCurrentPrice', title: '现价'},
+                {field: 'goodsPhoto', edit:'goodsPhoto', title: '物品图'},
+                // {field: 'gender', width: 50,title: '性别'},
+                // // {field: 'photo', width: 50, title: '头像', },
+                // {field: 'realName',  title: '真实姓名',},
+                // {field: 'companyName',  title: '单位名称',},
+                // {field: 'mobilephone',  title: '手机号'},
+                // {field: 'registerTime', title: '注册时间'},
+                // //{field: 'email', width: 100, title: '电子邮箱'},
+                // {field: 'type', title: '客户类型'},
+                // {field: 'doctorType',  title: '医生类型'},
+                // {field:'hospitalName',title:'工作医院单位',hide:true},
+                // //{field: 'hospitalId', minwidth: 100, title: '所属医院'},
+                // //{field: 'title', minwidth: 50, title: '职称'},
+                // //{field: 'department', minwidth: 50, title: '科室'},
+                // //{field: 'specialty', minwidth: 50, title: '特长'},
+                // {field: 'isRecommend', title: '是否推荐'},
+                // //{field: 'chatId', minwidth: 200, title: '环信聊天id'},
+                // //{field: 'userId', minwidth: 100, title: '用户id'},
+                // {field: 'isPayCourse',  title: '是否购买付费课程'},
+                // //{field: 'isDisable', title: '是否禁用'},
+                {title: '操作', width:200, toolbar: '#currentTableBar', align: "center"}
+            ]],
+            limits: [20, 50, 100,500],
+            limit: 50,
+            page: true,
+            done:function (res, curr, count) {
+                disableData = res.data;
+            }
+            //skin: 'row'
+            //even:true
+        });
+        table.on('edit(currentTableFilter)', function(obj){
+            var value = obj.value //得到修改后的值
+                ,data = obj.data //得到所在行所有键值
+                ,field = obj.field; //得到字段
+            $.ajax({
+                url: '/goods/save',
+                method: 'post',
+                data: JSON.stringify(data),
+                contentType: 'application/json',
+                dataType: 'JSON',
+                success: function (res) {
+                    if (res.code = '0') {
+                        var index = layer.alert(res.msg, function () {
+                            // 关闭弹出层
+                            layer.close(index);
+                        });
+                    } else {
+                        layer.alert(res.msg)
+                    }
+                },
+                error: function (data) {
+                    layer.alert(JSON.stringify(data))
+                }
+            });
+        });
+
+        // 监听搜索操作
+        form.on('submit(data-search-btn)', function (data) {
+            console.log(disableData);
+            var result = JSON.stringify(data.field);
+            //layer.alert(result, {
+            //    title: '最终的搜索信息'
+            //});
+            //执行搜索重载
+            table.reload('currentTableId', {
+                page: {
+                    curr: 1
+                }
+                , where: {
+                    searchParams: result
+                }
+            }, 'data');
+            return false;
+        });
+        table.on('toolbar(currentTableFilter)', function (obj) {
+            var data=obj.data;
+            if (obj.event==='add'){
+                var index = layer.open({
+                    title: '添加物品',
+                    type: 2,
+                    shade: 0.2,
+                    maxmin: true,
+                    shadeClose: true,
+                    area: ['700px', '400px'],
+                    content: '/goods/findAddGoodsHtml?id=0'
+                });
+
+                layer.full(index);
+
+            }
+
+
+        });
+        table.on('tool(currentTableFilter)', function (obj) {
+            //console.log(obj);
+            var data = obj.data;
+            if (obj.event==='edit'){
+                var index = layer.open({
+                    title: '编辑',
+                    type: 2,
+                    shade: 0.2,
+                    maxmin: true,
+                    shadeClose: true,
+                    area: ['700px', '400px'],
+                    content: '/goods/findAddGoodsHtml?id='+data.id,
+                });
+
+                layer.full(index);
+
+            }
+            else if (obj.event==='delete'){
+                layer.confirm('真的删除行么', function (index) {
+                    $.ajax({
+                        url : '/goods/goodsDelete?id='+data.id,
+                        method : 'get',
+                        dataType : 'JSON',
+                        success : function(res) {
+                            if (res.code = '0') {
+                                var index = layer.alert(res.msg, function() {
+                                    obj.del();
+                                    layer.close(index);
+                                });
+                            } else {
+                                layer.alert(res.msg)
+                            }
+                        },
+                        error : function(data) {
+                            layer.alert(JSON.stringify(data))
+                        }
+                    });
+
+                });
+
+
+            }
+
+        });
+
+
+    });
+</script>
+
+</body>
+</html>

@@ -19,28 +19,60 @@
 
     <div class="layui-row">
         <div class="layui-form-item layui-col-md10">
-            <label class="layui-form-label required">灾难类型</label>
+            <label class="layui-form-label required">物品名</label>
             <div class="layui-input-block">
-                <input type="text" name="disasterType" th:value="${disaster.disasterType}" class="layui-input">
-                <input  type="hidden" name="id"   th:value="${disaster.id}" class="layui-input">
+                <input type="hidden" name="id" th:value="${goods.id}"class="layui-input">
+                <input type="text" name="goodsName" th:value="${goods.goodsName}"class="layui-input">
             </div>
         </div>
     </div>
-
     <div class="layui-row">
         <div class="layui-col-md10">
-            <label class="layui-form-label required">解决方案</label>
+            <label class="layui-form-label required">物品描述</label>
             <div id="editor" class="layui-input-block"></div>
 
             <div class="layui-form-item layui-form-text" style="display: none;">
-                <label class="layui-form-label required">解决方案</label>
+                <label class="layui-form-label required">物品描述</label>
                 <div class="layui-input-block" >
-                <textarea lay-verify="required" id="content" name="solution" th:text="${disaster.solution}"
+                <textarea lay-verify="required" id="content" name="goodsDescription" th:text="${goods.goodsDescription}"
                           class="layui-textarea" placeholder="请输入项目描述"></textarea>
                 </div>
             </div>
         </div>
     </div>
+    <div class="layui-row">
+        <div class="layui-col-md5">
+            <div class="layui-form-item">
+                <label class="layui-form-label required">物品图像</label>
+                <div class="layui-upload layui-inline">
+                    <div style="margin: 10px 0">
+                        <img class="layui-upload-img" id="demo1" width="200px" height="200px" th:src="${goods.goodsPhoto}">
+                        <p id="demoText"></p>
+                    </div>
+                    <input id="goodsPhoto" type="hidden" name="goodsPhoto" th:src="${goods.goodsPhoto}"
+                           class="layui-input">
+                    <button type="button" class="layui-btn uploadFileBtn" id="uploadImage" style="width: 200px">上传图片</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="layui-row">
+        <div class="layui-form-item layui-col-md10">
+            <label class="layui-form-label required">原价</label>
+            <div class="layui-input-block">
+                <input type="text" name="goodsOriginalPrice"  class="layui-input" th:value="${goods.goodsOriginalPrice}">
+            </div>
+        </div>
+    </div>
+    <div class="layui-row">
+        <div class="layui-form-item layui-col-md10">
+            <label class="layui-form-label required">现价</label>
+            <div class="layui-input-block">
+                <input type="text" name="goodsCurrentPrice"  class="layui-input" th:value="${goods.goodsCurrentPrice}">
+            </div>
+        </div>
+    </div>
+
 
     <div class="layui-form-item">
         <div class="layui-input-block">
@@ -64,6 +96,8 @@
 
         //执行图片上传实例
         //普通图片上传
+        //执行图片上传实例
+        //普通图片上传
         var uploadInst = upload.render({
             elem: '.uploadFileBtn',
             url: '/file/upload/image',//改成您自己的上传接口
@@ -72,7 +106,7 @@
 
                 //预读本地文件示例，不支持ie8
                 obj.preview(function(index, file, result){
-                    $('#image1').attr('src', result); //图片链接（base64）
+                    $('#uploadImage').attr('src', result); //图片链接（base64）
                 });
 
             },
@@ -85,7 +119,7 @@
                     console.log("上传成功");
 
                     for(var i=0;i<res.data.length;i++){
-                        $('#liveQRcode').val(res.data[i]);
+                        $('#goodsPhoto').val(res.data[i]);
                     }
 
                 }
@@ -99,7 +133,6 @@
                 });
             }
         });
-
         var editor = new E('#editor');
         editor.customConfig.uploadImgServer = "/file/upload/image";
         editor.customConfig.uploadFileName = 'image';
@@ -135,7 +168,7 @@
         //监听提交
         form.on('submit(saveBtn)', function (data) {
             $.ajax({
-                url: '/disaster/save',
+                url: '/goods/save',
                 method: 'post',
                 data: JSON.stringify(data.field),
                 contentType: 'application/json',

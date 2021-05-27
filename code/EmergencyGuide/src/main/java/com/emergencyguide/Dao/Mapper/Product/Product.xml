@@ -16,13 +16,13 @@
         <result column="remark" property="remark" />
 
         <result column="productTypeName" property="productTypeName" />
-        <result column="ProductUnitName" property="ProductUnitName" />
+        <result column="productUnitName" property="productUnitName" />
     </resultMap>
 
 
 
         <select id="getCustomerProduct" resultMap="BaseResultMap">
-            select t1.*,t2.productTypeName,t3.productUnitName
+            select t1.*,(t2.productTypeName) as productTypeName,(t3.productUnitName)as productUnitName
              from t_product t1
              left join t_productType t2 on t1.productTypeId=t2.id
              left join t_productUnit t3 on t1.productUnitId=t3.id

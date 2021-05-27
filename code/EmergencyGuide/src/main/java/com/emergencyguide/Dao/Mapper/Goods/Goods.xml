@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.emergencyguide.Dao.Goods.GoodsDao">
+
+
+    <select id="selectAllList" resultType="com.emergencyguide.Entity.Goods">
+        SELECT * FROM t_goods t1
+        where 1=1
+        <if test="params.goodsName != null and params.goodsName != '' " >
+            and t1.goodsName LIKE '%${params.goodsName}%'
+        </if>
+        limit #{page},#{limit}
+    </select>
+
+    <select id="selectListCount" resultType="Integer">
+        select count(t1.id)
+        from t_goods t1
+        where 1=1
+        <if test="params.goodsName != null and params.goodsName != '' " >
+            and t1.goodsName LIKE '%${params.goodsName}%'
+        </if>
+    </select>
+    <update id="updateById"  parameterType="com.emergencyguide.Entity.Goods">
+        update t_goods
+        <set>
+            <if test="goodsName!=null and goodsName !=''">
+                goodsName=#{goodsName},
+            </if>
+            <if test="goodsDescription!=null and goodsDescription !=''">
+                goodsDescription=#{goodsDescription},
+            </if>
+            <if test="goodsOriginalPrice!=null and goodsOriginalPrice !=''">
+                goodsOriginalPrice=#{goodsOriginalPrice},
+            </if>
+            <if test="goodsCurrentPrice!=null and goodsCurrentPrice !=''">
+                goodsCurrentPrice=#{goodsCurrentPrice},
+            </if>
+            <if test="goodsPhoto!=null and goodsPhoto !=''">
+                goodsPhoto=#{goodsPhoto},
+            </if>
+        </set>
+        where id=#{id}
+    </update>
+
+    <insert id="goodsAdd"  parameterType="com.emergencyguide.Entity.Goods">
+        insert  into t_goods (goodsName,goodsDescription,goodsOriginalPrice,goodsCurrentPrice,goodsPhoto) values (#{goodsName}, #{goodsDescription},#{goodsOriginalPrice}, #{goodsCurrentPrice},#{goodsPhoto})
+    </insert>
+
+
+    <!--<insert id="newOrder"  parameterType="com.emergencyguide.Entity.Order" useGeneratedKeys="true" keyProperty="id" keyColumn="id" >-->
+        <!--insert  into t_order (orderCustomerOpenId,orderGoodsId,orderGoodsNumber,orderStatus,orderCreateTime,orderWholePrice) values (#{orderCustomerOpenId}, #{orderGoodsId},#{orderGoodsNumber}, #{orderStatus},#{orderCreateTime},#{orderWholePrice})-->
+    <!--</insert>-->
+    <update id="updateOrder"  parameterType="com.emergencyguide.Entity.Order">
+        update t_order
+        <set>
+            <if test="orderFinishTime!=null ">
+                orderFinishTime=#{orderFinishTime},
+            </if>
+            <if test="orderCancelTime!=null ">
+                orderCancelTime=#{orderCancelTime},
+            </if>
+            <if test="orderStatus!=null and orderStatus !=''">
+                orderStatus=#{orderStatus},
+            </if>
+        </set>
+        where id=#{id}
+    </update>
+    <select id="findCustomerOrder" resultType="com.emergencyguide.Entity.Order">
+        select t1.*,(t2.goodsName),(t2.goodsDescription),(t2.goodsOriginalPrice),(t2.goodsCurrentPrice),(t2.goodsPhoto)
+        from t_order t1
+        left join  t_goods t2 on t1.orderGoodsId=t2.id
+        where orderCustomerOpenId=#{orderCustomerOpenId}
+    </select>
+</mapper>
