@@ -50,9 +50,9 @@
         WHERE postid = #{postid};
     </update>
 
-    <update id="insert" parameterType="com.emergencyguide.Entity.Post">
+    <insert id="insert" parameterType="com.emergencyguide.Entity.Post">
         INSERT INTO t_post (postid, topic, content, likes, dislike, reply, status, time, openid)
         VALUES (#{postid}, #{topic}, #{content}, #{likes}, #{dislike}, #{reply}, #{status}, #{time}, #{openid})
-    </update>
+    </insert>
 
 </mapper>

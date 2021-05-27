@@ -33,6 +33,14 @@
             AND t1.email = '${params.email}'
         </if>
     </select>
+
+    <insert id="insert" parameterType="com.emergencyguide.Entity.Customer">
+        INSERT INTO t_customer (
+        <include refid="Base_SQL"></include>
+        ) VALUES (
+        <include refid="Base_MyBatis_Var"></include>
+        )
+    </insert>
     
     <update id="updateById" parameterType="com.emergencyguide.Entity.Customer">
         UPDATE t_customer SET
