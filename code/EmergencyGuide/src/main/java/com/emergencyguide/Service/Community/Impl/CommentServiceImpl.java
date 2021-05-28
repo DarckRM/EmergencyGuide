@@ -85,9 +85,6 @@ public class CommentServiceImpl implements CommentService {
     public int insert(Comment comment) {
 
         //给评论添加默认信息
-
-        //设置默认发表用户
-        comment.setCustomerid(0);
         //获取当前时间
         Date date = new Date();
         Timestamp timestamp = new Timestamp(date.getTime());

@@ -1,9 +1,11 @@
 package com.emergencyguide;
 
+import com.emergencyguide.Controller.Logo.PersonalLogoController;
 import com.emergencyguide.Controller.api.PostApiController;
 import com.emergencyguide.Dao.Community.CommentDao;
 import com.emergencyguide.Dao.Community.CustomerDao;
 import com.emergencyguide.Dao.Community.PostDao;
+import com.emergencyguide.Dao.Logo.PersonalLogoDao;
 import com.emergencyguide.Dao.System.RoleDao;
 import com.emergencyguide.Dao.System.UserDao;
 import com.emergencyguide.Dao.SystemConfigDao;
@@ -39,12 +41,12 @@ class DemoApplicationTests {
     @Autowired
     CommentDao commentDao;
     @Autowired
-    PostApiController postApiController;
+    PersonalLogoController personalLogoDao;
 
     @Test
     void contextLoads() {
 
-        System.out.println(postApiController.myPost("{'limit':9,'page':1,'searchParams':'{'customerid':1}'}"));
+        System.out.println(personalLogoDao.selectSubLogo("律师"));
 
     }
 
