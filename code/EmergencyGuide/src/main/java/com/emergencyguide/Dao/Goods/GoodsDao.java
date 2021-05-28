@@ -28,7 +28,7 @@ public interface GoodsDao {
     public Goods selectById(int id);
 
     @Options(useGeneratedKeys = true, keyProperty = "id", keyColumn = "id")
-    @Insert("insert  into t_order (orderCustomerOpenId,orderGoodsId,orderGoodsNumber,orderStatus,orderCreateTime,orderWholePrice) values (#{orderCustomerOpenId}, #{orderGoodsId},#{orderGoodsNumber}, #{orderStatus},#{orderCreateTime},#{orderWholePrice})")
+    @Insert("insert  into t_order (orderCustomerOpenId,orderGoodsId,orderGoodsNumber,orderStatus,orderCreateTime,orderWholePrice,orderAddressId,remark) values (#{orderCustomerOpenId}, #{orderGoodsId},#{orderGoodsNumber}, #{orderStatus},#{orderCreateTime},#{orderWholePrice},#{orderAddressId},#{remark})")
     public  int newOrder(Order order);
 
 

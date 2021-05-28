@@ -128,6 +128,15 @@ public class Product {
         this.productPhoto = productPhoto;
     }
 
+    public String getProductPercent() {
+        return productPercent;
+    }
+
+    public void setProductPercent(String productPercent) {
+        this.productPercent = productPercent;
+    }
+
     private String remark;
     private String productPhoto;
+    private String productPercent;
 }

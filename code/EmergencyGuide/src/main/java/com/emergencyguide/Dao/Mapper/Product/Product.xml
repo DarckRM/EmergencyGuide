@@ -30,6 +30,15 @@
                 where t1.customerOpenId=#{customerOpenId}
              </if>
         </select>
+    <select id="selectById" resultMap="BaseResultMap">
+        select t1.*,(t2.productTypeName) as productTypeName,(t3.productUnitName)as productUnitName
+        from t_product t1
+        left join t_productType t2 on t1.productTypeId=t2.id
+        left join t_productUnit t3 on t1.productUnitId=t3.id
+        <if test="id !=null and id !=''">
+            where t1.id=#{id}
+        </if>
+    </select>
     <update id="updateCustomerProduct" parameterType="com.emergencyguide.Entity.Product">
         update t_product
         <set>
@@ -63,4 +72,23 @@
         </set>
         where id = #{id}
     </update>
+
+
+    <select id="selectShelfLife" resultMap="BaseResultMap">
+        select t2.id,t2.productTypeName,count( t1.productName) as productNumber
+        from  t_productType t2 left join t_product t1 on t1.productTypeId=t2.id
+        <if test="customerOpenId !=null and customerOpenId !=''">
+            where t1.customerOpenId=#{customerOpenId}
+        </if>
+        GROUP BY t2.id
+    </select>
+
+    <select id="selectRichness" resultMap="BaseResultMap">
+        select t2.id,t2.productTypeName,count(DISTINCT t1.productName) as productNumber
+        from  t_productType t2 left join t_product t1 on t1.productTypeId=t2.id
+        <if test="customerOpenId !=null and customerOpenId !=''">
+            where t1.customerOpenId=#{customerOpenId}
+        </if>
+        GROUP BY t2.id
+    </select>
 </mapper>

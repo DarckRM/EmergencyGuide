@@ -29,4 +29,24 @@ public class ProductType {
     public void setRemark(String remark) {
         this.remark = remark;
     }
+
+    private int  productShelfLifeValue;
+
+    private int productRichnessValue;
+
+    public int getProductShelfLifeValue() {
+        return productShelfLifeValue;
+    }
+
+    public void setProductShelfLifeValue(int productShelfLifeValue) {
+        this.productShelfLifeValue = productShelfLifeValue;
+    }
+
+    public int getProductRichnessValue() {
+        return productRichnessValue;
+    }
+
+    public void setProductRichnessValue(int productRichnessValue) {
+        this.productRichnessValue = productRichnessValue;
+    }
 }

@@ -8,6 +8,15 @@ public class Order {
     private int orderGoodsId;
     private int orderGoodsNumber;
     private Timestamp orderFinishTime;
+    private String remark;
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
 
     public int getId() {
         return id;
@@ -130,7 +139,45 @@ public class Order {
     private  int goodsOriginalPrice;
     private  int goodsCurrentPrice;
     private  String goodsPhoto;
+
+    public int getOrderAddressId() {
+        return orderAddressId;
+    }
+
+    public void setOrderAddressId(int orderAddressId) {
+        this.orderAddressId = orderAddressId;
+    }
+
     private int orderWholePrice;
+    private int orderAddressId;
+
+    public String getRecipient() {
+        return recipient;
+    }
+
+    public void setRecipient(String recipient) {
+        this.recipient = recipient;
+    }
+
+    public String getMobilePhone() {
+        return mobilePhone;
+    }
+
+    public void setMobilePhone(String mobilePhone) {
+        this.mobilePhone = mobilePhone;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    private String recipient;
+    private String mobilePhone;
+    private String address;
 
 
 }

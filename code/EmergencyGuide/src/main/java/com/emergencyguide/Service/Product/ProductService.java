@@ -9,4 +9,7 @@ public interface ProductService {
     public List<Product> getCustomerProduct(Product product);
     public  int updateCustomerProduct(Product product);
     public  int  customerProductDelete( int id);
+    public  Product selectById(int id);
+    public  List<Product> selectShelfLife(Product product);
+    public  List<Product> selectRichness(Product product);
 }
