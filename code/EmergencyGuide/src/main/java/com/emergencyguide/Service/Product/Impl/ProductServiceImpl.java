@@ -33,4 +33,19 @@ public class ProductServiceImpl  implements ProductService {
     public int customerProductDelete(int id) {
         return productDao.customerProductDelete(id);
     }
+
+    @Override
+    public Product selectById(int id) {
+        return productDao.selectById(id);
+    }
+
+    @Override
+    public List<Product> selectShelfLife(Product product) {
+        return productDao.selectShelfLife(product);
+    }
+
+    @Override
+    public List<Product> selectRichness(Product product) {
+        return productDao.selectRichness(product);
+    }
 }

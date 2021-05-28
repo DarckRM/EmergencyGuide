@@ -37,4 +37,5 @@ public class DisasterType {
     public void setSolution(String solution) {
         this.solution = solution;
     }
+
 }

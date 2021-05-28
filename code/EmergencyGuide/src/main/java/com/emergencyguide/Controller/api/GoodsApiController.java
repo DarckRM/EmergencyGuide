@@ -53,7 +53,7 @@ public class GoodsApiController {
 
     @PostMapping("/orderCreate")
     @ApiOperation(value = "订单创建")
-    @ApiImplicitParam(name = "jsonStr", value = "{\"orderCustomerOpenId\":\"用户openId\",\"orderGoodsId\":\"购买商品的id\",\"orderGoodsNumber\":\"商品数量\",\"orderStatus\":\"支付状态\"}",
+    @ApiImplicitParam(name = "jsonStr", value = "{\"orderCustomerOpenId\":\"用户openId\",\"orderGoodsId\":\"购买商品的id\",\"orderGoodsNumber\":\"商品数量\",\"orderStatus\":\"支付状态\",\"orderAddressId\":\"地址id\",\"remark\":\"订单备注\"}",
             paramType = "body", required = true, dataType =  "string")
     public String orderDeal(@RequestBody String jsonStr){
         JSONObject jsonObject=JSON.parseObject(jsonStr);
@@ -64,8 +64,10 @@ public class GoodsApiController {
         order.setOrderCustomerOpenId(jsonObject.getString("orderCustomerOpenId"));
         order.setOrderCreateTime( new Timestamp(System.currentTimeMillis()));
         order.setOrderGoodsNumber(jsonObject.getInteger("orderGoodsNumber"));
+        order.setOrderAddressId(jsonObject.getInteger("orderAddressId"));
         Goods goods=goodsService.selectById(jsonObject.getInteger("orderGoodsId"));
         order.setOrderWholePrice(goods.getGoodsCurrentPrice()*order.getOrderGoodsNumber());
+        order.setRemark(jsonObject.getString("remark"));
         goodsService.newOrder(order);
         result.setModel(order);
         return  result.toString();

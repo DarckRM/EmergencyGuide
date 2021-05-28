@@ -26,4 +26,12 @@ public interface ProductDao {
 
     @Delete("delete from  t_product where id=#{id}")
     public  int customerProductDelete(int id);
+
+
+    public  Product selectById( int id);
+
+
+    public  List<Product> selectShelfLife(Product product);
+
+    public  List<Product> selectRichness(Product product);
 }

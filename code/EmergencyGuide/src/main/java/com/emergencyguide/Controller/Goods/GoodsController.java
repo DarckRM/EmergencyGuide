@@ -29,7 +29,7 @@ public class GoodsController {
         return modelAndView;
     }
 
-    @RequestMapping("findAll")
+    @RequestMapping("/findAll")
     @ResponseBody
     public String findAll(int page, int limit,  String searchParams)
     {
