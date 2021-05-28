@@ -61,12 +61,19 @@
     </div>
     <div class="layui-form-item layui-row">
         <div class="layui-col-md3">
-            <label class="required layui-form-label">职业</label>
+            <label class="required layui-form-label">基础类型</label>
             <div class="layui-input-block">
-                <select name="profession" placeholder="请选择职业" class="layui-select">
-                    <option th:selected="${data.profession eq '学生'}" value="0">学生</option>
-                    <option th:selected="${data.profession eq '公司狗'}" value="1">公司狗</option>
-                    <option th:selected="${data.profession eq '歌手'}" value="2">歌手</option>
+                <select name="basicLogo" lay-verify="required" lay-filter = "basicLogoSelect">
+                    <option th:each="Logo : ${basicLogoList}" th:value="${Logo.basicLogo}" th:text="${Logo.basicLogo}" th:selected="${data.basicLogo==Logo.basicLogo}"></option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="layui-form-item layui-row">
+        <div class="layui-col-md3">
+            <label class="required layui-form-label">细分职业</label>
+            <div class="layui-input-block">
+                <select id="profession" name="profession" lay-verify="required">
                 </select>
             </div>
         </div>
@@ -110,6 +117,30 @@
             form = layui.form,
             upload = layui.upload,
             $ = layui.$;
+
+        //基础类型选择框渲染
+        form.on('select(basicLogoSelect)', function (data) {
+
+            $('#profession').empty();
+
+            $.ajax({
+                url : '/personalLogo/selectSubLogo?basicLogo='+data.value,
+                method : 'post',
+                contentType : 'application/json',
+                dataType : 'JSON',
+                success : function(res) {
+                    vars = res.data;
+                    html = '';
+                    for(var i = 0; i < vars.length; i++) {
+                        $('#profession').append('<option value="'+ vars[i]['id']+'">'+ vars[i]['subLogo']+'</option>');
+                    }
+                    form.render();
+                },
+                error : function(data) {
+                }
+            });
+        })
+
 
         //执行图片上传实例
         //普通图片上传

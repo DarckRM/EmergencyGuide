@@ -17,6 +17,8 @@ public class Customer {
     private String mobilephone;
     private Date registertime;
     private String email;
+    private String basicLogo;
+    private String subLogo;
     private int profession;
 
     public long getId() {
@@ -91,6 +93,22 @@ public class Customer {
         this.email = email;
     }
 
+    public String getBasicLogo() {
+        return basicLogo;
+    }
+
+    public void setBasicLogo(String basicLogo) {
+        this.basicLogo = basicLogo;
+    }
+
+    public String getSubLogo() {
+        return subLogo;
+    }
+
+    public void setSubLogo(String subLogo) {
+        this.subLogo = subLogo;
+    }
+
     public int getProfession() {
         return profession;
     }
@@ -111,6 +129,8 @@ public class Customer {
                 ", mobilephone='" + mobilephone + '\'' +
                 ", registertime=" + registertime +
                 ", email='" + email + '\'' +
+                ", basicLogo='" + basicLogo + '\'' +
+                ", subLogo='" + subLogo + '\'' +
                 ", profession='" + profession + '\'' +
                 '}';
     }

@@ -18,7 +18,7 @@ public class Comment {
     private int reply;
     private String status;
     private Timestamp time;
-    private int customerid;
+    private String customerid;
     private String customername;
     private String replytopic;
 
@@ -86,11 +86,11 @@ public class Comment {
         this.time = time;
     }
 
-    public int getCustomerid() {
+    public String getCustomerid() {
         return customerid;
     }
 
-    public void setCustomerid(int customerid) {
+    public void setCustomerid(String customerid) {
         this.customerid = customerid;
     }
 

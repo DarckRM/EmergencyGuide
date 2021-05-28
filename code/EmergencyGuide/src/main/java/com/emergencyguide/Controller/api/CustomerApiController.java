@@ -33,8 +33,11 @@ public class CustomerApiController {
     public String findMyself(@RequestBody String openid) {
 
         Result result = new Result<>();
+        JSONObject jsonObject = JSONObject.parseObject(openid);
 
-        Customer data = customerService.selectByOpenId(openid);
+        String openId = jsonObject.getString("openid");
+
+        Customer data = customerService.selectByOpenId(openId);
         if (data != null) {
             result.setModel(data);
             result.setMsg("请求成功");
@@ -76,11 +79,6 @@ public class CustomerApiController {
                     return result.failed("操作失败").toString();
                 }
             } else {
-                //新逻辑，不再每次都更新用户信息
-                //customerExist.setNickName(customer.getNickName());
-                //customerExist.setGender(customer.getGender());
-                //customerExist.setPhoto(customer.getPhoto());
-                //customerService.updateById(customerExist);
 
                 result.setModel(customerExist);
                 result.setMsg("操作成功");
@@ -92,4 +90,41 @@ public class CustomerApiController {
         }
         return result.toString();
    }
+
+    @ApiOperation(value = "更新客户信息,json字符串")
+    @ApiImplicitParam(name = "jsonStr", value = "{'openId':'openId', 'nickName':'昵称', 'realname':'真实姓名', 'mobilephone':'手机号码', 'profession':'职业', 'gender':'性别', 'photo':'头像', 'email':'电子邮箱' }", required = true)
+    @PostMapping("/customerUpdate")
+    public String updateCustomerInfo(@RequestBody String jsonStr) {
+
+        Result result = new Result<>();
+        try {
+            Customer customer = new Customer();
+            JSONObject jsonObject = JSONObject.parseObject(jsonStr);
+
+            String openId = jsonObject.getString("openId");
+            Integer gender = jsonObject.getInteger("gender"); //性别 0：未知、1：男、2：女
+
+            customer.setOpenid(openId);
+            customer.setNickname(jsonObject.getString("nickName"));
+            customer.setRealname(jsonObject.getString("realname"));
+            customer.setMobilephone(jsonObject.getString("mobilephone"));
+            customer.setProfession(jsonObject.getInteger("profession"));
+            customer.setGender(gender == 0 ? "未知" : gender == 1 ? "男" : "女");
+            customer.setAvatar(jsonObject.getString("photo"));
+            customer.setEmail(jsonObject.getString("email"));
+
+            if (customerService.updateByOpenId(customer) > 0) {
+                result.setCount(1);
+                result.setMsg("更新成功");
+            } else {
+                result.setCount(0);
+                result.setMsg("更新失败");
+            }
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return result.toString();
+    }
+
 }

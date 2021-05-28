@@ -6,7 +6,8 @@
     </resultMap>
 
     <sql id="Base_SQL">
-        id, openid, nickname, realname, gender, avatar, mobilephone, email, registertime, profession
+        t1.id, openid, nickname, realname, gender, avatar, mobilephone, email, registertime, profession, t2.basicLogo, t2.subLogo FROM t_customer t1
+        LEFT JOIN t_personalLogo t2 ON t1.profession = t2.id
     </sql>
 
     <sql id="Base_MyBatis_Var">
@@ -14,7 +15,7 @@
     </sql>
 
     <select id="selectList" resultMap="BaseResultMap">
-        SELECT * FROM t_customer t1
+        SELECT <include refid="Base_SQL"></include>
         WHERE 1 = 1
         <if test="params.nickname != null and params.nickname != '' " >
             AND t1.nickname LIKE '%${params.nickname}%'

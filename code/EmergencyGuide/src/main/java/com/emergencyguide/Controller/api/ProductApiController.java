@@ -2,7 +2,6 @@ package com.emergencyguide.Controller.api;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.emergencyguide.Controller.UploadController;
 import com.emergencyguide.Entity.Product;
 import com.emergencyguide.Entity.ProductType;
 import com.emergencyguide.Entity.ProductUnit;
@@ -13,12 +12,9 @@ import com.emergencyguide.Service.Product.ProductUnitService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.Timestamp;
 import java.util.List;
 
 @RestController

@@ -51,8 +51,7 @@ public class PostApiController {
 
     @ApiOperation(value="为当前用户发帖")
     @PostMapping("/newpost")
-    @ApiImplicitParam(name = "jsonStr", value = "接收json字符串，包含三个属性int:topic, String:content, String:openid", required = true, dataType = "string")
-
+    @ApiImplicitParam(name = "jsonStr", value = "接收json字符串，包含三个属性String:topic, String:content, String:openid", required = true, dataType = "string")
     public String newPost(@RequestBody String jsonStr) {
 
         Result<Post> result = new Result<>();

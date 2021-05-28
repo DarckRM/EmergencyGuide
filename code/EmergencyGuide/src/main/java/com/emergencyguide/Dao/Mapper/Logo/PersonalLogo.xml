@@ -45,4 +45,5 @@
     <insert id="personalLogoAdd"  parameterType="com.emergencyguide.Entity.PersonalLogo">
         insert  into t_personalLogo (basicLogo,subLogo,description) values (#{basicLogo},#{subLogo}, #{description})
     </insert>
+
 </mapper>
