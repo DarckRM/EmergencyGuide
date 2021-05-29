@@ -9,7 +9,7 @@
         <result column="productUnitId" property="productUnitId" />
         <result column="productNumber" property="productNumber" />
         <result column="productName" property="productName" />
-        <result column="productInsertTime" property="productInsertTime" />
+        <result column="productInsertTime" property="productInsertTime"  />
         <result column="productCreateTime" property="productCreateTime" />
         <result column="productExpirationTime" property="productExpirationTime" />
         <result column="productPhoto" property="productPhoto" />
@@ -30,7 +30,7 @@
                 where t1.customerOpenId=#{customerOpenId}
              </if>
         </select>
-    <select id="selectById" resultMap="BaseResultMap">
+    <select id="selectById" resultType="com.emergencyguide.Entity.Product">
         select t1.*,(t2.productTypeName) as productTypeName,(t3.productUnitName)as productUnitName
         from t_product t1
         left join t_productType t2 on t1.productTypeId=t2.id

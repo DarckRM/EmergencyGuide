@@ -21,9 +21,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.sql.Timestamp;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.Date;
@@ -81,19 +83,25 @@ public class ProductApiController {
             JSONObject jsonObject= JSON.parseObject(jsonStr);
             product.setCustomerOpenId(jsonObject.getString("customerOpenId"));
             List<Product> data=productService.getCustomerProduct(product);
-            NumberFormat percentFormat =NumberFormat.getPercentInstance();
+
             List<Product> data1=new LinkedList<>();
             for(Product product1:data){
-
+                System.out.println(product1.getProductExpirationTime());
                 Date dateNow=new Date();
-                long betweenDay = DateUtil.between(product1.getProductExpirationTime(), product1.getProductCreateTime(), DateUnit.DAY);
-                long betweenDa = DateUtil.between(product1.getProductExpirationTime(), dateNow, DateUnit.DAY);
-                DecimalFormat df = new DecimalFormat("0.00");
-                String num = df.format((float)betweenDa/betweenDay);//返回的是String类型
-                String kl= percentFormat.format(Float.parseFloat(num));
-                product1.setProductPercent(kl);
-                data1.add(product1);
-
+                if (product1.getProductExpirationTime().equals(product1.getProductCreateTime())){
+                    product1.setProductPercent("0%");
+                    data1.add(product1);
+                }
+                else {
+                    double betweenDay = DateUtil.between(product1.getProductExpirationTime(), product1.getProductCreateTime(), DateUnit.DAY);
+                    double betweenDa = DateUtil.between(product1.getProductExpirationTime(), dateNow, DateUnit.DAY);
+                    NumberFormat nf = NumberFormat.getPercentInstance();
+                    nf.setMinimumFractionDigits(2);//设置保留小数位
+                    nf.setRoundingMode(RoundingMode.HALF_UP); //设置舍入模式
+                    String percent = nf.format(betweenDa / betweenDay);
+                    product1.setProductPercent(percent);
+                    data1.add(product1);
+                }
             }
             result.setData(data1);
             return result.toString();

@@ -1,5 +1,6 @@
 package com.emergencyguide.Entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.sql.Timestamp;
@@ -32,11 +33,15 @@ public class Product {
     private int productNumber;
     private int productUnitId;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     private Date productInsertTime;
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date productCreateTime;
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
+    private Date productCreateTime;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     private Date productExpirationTime;
     private String customerOpenId;
 

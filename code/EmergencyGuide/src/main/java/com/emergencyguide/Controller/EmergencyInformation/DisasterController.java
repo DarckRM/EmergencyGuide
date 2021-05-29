@@ -19,10 +19,10 @@ public class DisasterController {
     @Autowired
     private DisasterService disasterService;
 
-    @RequestMapping("/findMainHtml")
+    @RequestMapping("/findDisasterHtml")
     public ModelAndView findMainHtml(){
         ModelAndView modelAndView=new ModelAndView();
-        modelAndView.setViewName("EmergencyInformation/Main");
+        modelAndView.setViewName("EmergencyInformation/disaster");
         return modelAndView;
     }
     @RequestMapping("/findDisaster")
