@@ -144,4 +144,5 @@ public class Product {
     private String remark;
     private String productPhoto;
     private String productPercent;
+    private String productTypePhoto;
 }
