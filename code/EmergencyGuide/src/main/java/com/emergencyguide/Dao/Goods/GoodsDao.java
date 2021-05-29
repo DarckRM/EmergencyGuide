@@ -35,4 +35,10 @@ public interface GoodsDao {
     public int updateOrder(Order order);
 
     public List<Order> findCustomerOrder(Order order);
+
+
+    public List<Order> selectOrderAllList(@Param("page") int page, @Param("limit") int limit,
+                                     @Param("params") Map<String, Object> params);
+
+    public int selectOrderListCount( @Param("params") Map<String, Object> params);
 }

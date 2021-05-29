@@ -78,6 +78,7 @@
                         <a class="navFather" href="javascript:;">物资商城</a>
                         <dl class="layui-nav-child">
                             <dd><a href="javascript:;" lay-id="findGoodsHtml">商品管理</a></dd>
+                            <dd><a href="javascript:;" lay-id="findOrderHtml">订单管理</a></dd>
                         </dl>
                     </li>
                     <li class="layui-nav-item">
@@ -168,10 +169,11 @@
                     case 'findQuestionAnswerHtml': directPage = 'questionAnswer/findQuestionAnswerHtml'; break;
                     case 'findRank': directPage = 'rank/findRankHtml'; break;
                     case 'findPersonaLogo': directPage = 'personalLogo/findPersonalLogoHtml'; break;
-                    case 'findProductType': directPage = 'productType/findProductTypeHtml'; break;
-                    case 'findProductUnit': directPage = 'productUnit/findProductUnitHtml'; break;
+                    case 'findProductType': directPage = '/productType/findProductTypeHtml'; break;
+                    case 'findProductUnit': directPage = '/productUnit/findProductUnitHtml'; break;
                     case 'findGoodsHtml': directPage = 'goods/findGoodsHtml'; break;
                     case 'apiInfo': directPage = '/swagger-ui.html#'; break;
+                    case 'findOrderHtml': directPage = 'goods/findOrderHtml'; break;
                 }
 
                 //响应导航栏添加Tab
