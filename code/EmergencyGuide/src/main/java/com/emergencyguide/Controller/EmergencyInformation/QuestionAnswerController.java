@@ -26,7 +26,7 @@ public class QuestionAnswerController {
     @RequestMapping("/findQuestionAnswerHtml")
     public ModelAndView findMainHtml(){
         ModelAndView modelAndView=new ModelAndView();
-        modelAndView.setViewName("EmergencyInformation/questionAnswer");
+        modelAndView.setViewName("emergencyinformation/questionAnswer");
         return modelAndView;
     }
 
@@ -55,7 +55,7 @@ public class QuestionAnswerController {
     @RequestMapping("/findAddQuestionAnswerHtml")
     public ModelAndView findAddDisasterHtml() {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("EmergencyInformation/questionAnswerAdd");
+        modelAndView.setViewName("emergencyinformation/questionAnswerAdd");
         return modelAndView;
     }
     @RequestMapping("/questionAnswerAdd")

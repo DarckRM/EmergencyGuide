@@ -22,7 +22,7 @@ public class DisasterController {
     @RequestMapping("/findDisasterHtml")
     public ModelAndView findMainHtml(){
         ModelAndView modelAndView=new ModelAndView();
-        modelAndView.setViewName("EmergencyInformation/disaster");
+        modelAndView.setViewName("emergencyinformation/disaster");
         return modelAndView;
     }
     @RequestMapping("/findDisaster")
@@ -49,7 +49,7 @@ public class DisasterController {
     @RequestMapping("/findAddDisasterHtml")
     public ModelAndView findAddDisasterHtml() {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("EmergencyInformation/disasterAdd");
+        modelAndView.setViewName("emergencyinformation/disasterAdd");
         return modelAndView;
     }
     @RequestMapping("/findDisasterEditHtml")
@@ -58,7 +58,7 @@ public class DisasterController {
         Disaster disaster=new Disaster();
         disaster=disasterService.selectById(id);
         modelAndView.addObject("disaster",disaster);
-        modelAndView.setViewName("EmergencyInformation/disasterEdit");
+        modelAndView.setViewName("emergencyinformation/disasterEdit");
         return modelAndView;
     }
     @RequestMapping("/disasterAdd")
