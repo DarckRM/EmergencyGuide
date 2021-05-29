@@ -14,7 +14,6 @@
     <div class="layuimini-main">
 
         <fieldset class="table-search-fieldset">
-            <input  type="hidden" id="disasterNumber" th:value="${disasterNumber}">
             <legend>搜索信息</legend>
             <div style="margin: 10px 10px 10px 10px">
                 <form class="layui-form layui-form-pane" action="">
@@ -182,7 +181,7 @@
                     maxmin: true,
                     shadeClose: true,
                     area: ['700px', '400px'],
-                    content: '/questionAnswer/findAddQuestionAnswerHtml?disasterNumber',
+                    content: '/questionAnswer/findAddQuestionAnswerHtml',
                 });
                 $(window).on("resize", function () {
                     layer.full(index);
