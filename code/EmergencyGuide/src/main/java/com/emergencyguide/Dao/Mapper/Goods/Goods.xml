@@ -72,4 +72,28 @@
         left join  t_customerAddress t3 on  t1.orderAddressId=t3.id
         where orderCustomerOpenId=#{orderCustomerOpenId}
     </select>
+
+
+    <select id="selectOrderAllList" resultType="com.emergencyguide.Entity.Order">
+        select t1.*,(t2.goodsName),(t2.goodsDescription),(t2.goodsOriginalPrice),(t2.goodsCurrentPrice),(t2.goodsPhoto),(t3.recipient),(t3.mobilePhone),(t3.address)
+        from t_order t1
+        left join  t_goods t2 on t1.orderGoodsId=t2.id
+        left join  t_customerAddress t3 on  t1.orderAddressId=t3.id
+        where 1=1
+        <if test="params.goodsName != null and params.goodsName != '' " >
+             and t1.goodsName LIKE '%${params.goodsName}%'
+        </if>
+        limit #{page},#{limit}
+    </select>
+
+    <select id="selectOrderListCount" resultType="Integer">
+        select count(*)
+        from t_order t1
+        left join  t_goods t2 on t1.orderGoodsId=t2.id
+        left join  t_customerAddress t3 on  t1.orderAddressId=t3.id
+        where 1=1
+        <if test="params.goodsName != null and params.goodsName != '' " >
+            and t1.goodsName LIKE '%${params.goodsName}%'
+        </if>
+    </select>
 </mapper>

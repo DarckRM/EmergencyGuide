@@ -1,6 +1,7 @@
 package com.emergencyguide.Controller.Goods;
 
 import com.emergencyguide.Entity.Goods;
+import com.emergencyguide.Entity.Order;
 import com.emergencyguide.Entity.ProductType;
 import com.emergencyguide.Entity.Result;
 import com.emergencyguide.Service.Goods.GoodsService;
@@ -26,6 +27,12 @@ public class GoodsController {
     public ModelAndView findGoodsHtml(){
         ModelAndView modelAndView=new ModelAndView();
         modelAndView.setViewName("goods/goods");
+        return modelAndView;
+    }
+    @RequestMapping("/findOrderHtml")
+    public ModelAndView findOrderHtml(){
+        ModelAndView modelAndView=new ModelAndView();
+        modelAndView.setViewName("goods/order");
         return modelAndView;
     }
 
@@ -92,5 +99,16 @@ public class GoodsController {
         } else {
             return new Result<>().failed("操作失败").toString();
         }
+    }
+    @RequestMapping("/findOrder")
+    @ResponseBody
+    public String findOrder(int page, int limit,  String searchParams)
+    {
+
+        Result<Order> result=new Result<>();
+        List<Order> data=goodsService.selectOrderAllList(page,limit,searchParams);
+        result.setData(data);
+        result.setCount(goodsService.selectOrderListCount(searchParams));
+        return result.toString();
     }
 }

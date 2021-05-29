@@ -88,4 +88,34 @@ public class GoodsServiceImpl implements GoodsService {
     public List<Order> findCustomerOrder(Order order) {
         return goodsDao.findCustomerOrder(order);
     }
+
+    @Override
+    public List<Order> selectOrderAllList(int page, int limit, String searchParams) {
+        String goodsName = "";
+
+        if (searchParams != null) {
+            JSONObject json = JSONObject.parseObject(searchParams);
+            goodsName = json.getString("goodsName");
+
+        }
+        page = (page - 1) * limit;
+        Map<String, Object> params = new HashMap<>();
+        params.put("goodsName", goodsName);
+        List<Order> list = goodsDao.selectOrderAllList(page, limit, params);
+        return list;
+    }
+
+    @Override
+    public int selectOrderListCount(String searchParams) {
+        String goodsName = "";
+
+        if (searchParams != null) {
+            JSONObject json = JSONObject.parseObject(searchParams);
+            goodsName = json.getString("goodsName");
+
+        }
+        Map<String, Object> params = new HashMap<>();
+        params.put("goodsName", goodsName);
+        return  goodsDao.selectOrderListCount(params);
+    }
 }

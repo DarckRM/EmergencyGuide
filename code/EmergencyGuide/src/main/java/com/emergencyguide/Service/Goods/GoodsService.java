@@ -22,4 +22,6 @@ public interface GoodsService {
 
     public int updateOrder(Order order);
     List<Order> findCustomerOrder(Order order);
+    public List<Order> selectOrderAllList(int page, int limit, String searchParams);
+    public int selectOrderListCount( String searchParams);
 }
