@@ -21,6 +21,7 @@ public class Comment {
     private String customerid;
     private String customername;
     private String replytopic;
+    private String avatar;
 
     public long getCommentid() {
         return commentid;
@@ -110,6 +111,14 @@ public class Comment {
         this.replytopic = replytopic;
     }
 
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
     @Override
     public String toString() {
         return "Comment{" +
@@ -124,6 +133,7 @@ public class Comment {
                 ", customerid=" + customerid +
                 ", customername='" + customername + '\'' +
                 ", replytopic='" + replytopic + '\'' +
+                ", avatar='" + avatar + '\'' +
                 '}';
     }
 

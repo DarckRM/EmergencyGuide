@@ -6,7 +6,7 @@
     </resultMap>
 
     <sql id="Base_SQL">
-        commentid, replyid, t1.content, t1.likes, t1.dislike, t1.reply, t1.status, t1.time, t1.openid, t2.topic AS replytopic, t3.nickname AS customername FROM t_comment t1
+        commentid, replyid, t1.content, t1.likes, t1.dislike, t1.reply, t1.status, t1.time, t1.openid, t2.topic AS replytopic, t3.nickname AS customername, t3.avatar AS avatar FROM t_comment t1
         LEFT JOIN t_post t2 ON t1.replyid = t2.postid
         LEFT JOIN t_customer t3 ON t1.openid = t3.openid
     </sql>

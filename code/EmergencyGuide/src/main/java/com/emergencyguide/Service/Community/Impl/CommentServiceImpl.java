@@ -2,6 +2,7 @@ package com.emergencyguide.Service.Community.Impl;
 
 import com.alibaba.fastjson.JSONObject;
 import com.emergencyguide.Dao.Community.CommentDao;
+import com.emergencyguide.Dao.Community.PostDao;
 import com.emergencyguide.Entity.Comment;
 import com.emergencyguide.Entity.Customer;
 import com.emergencyguide.Service.Community.CommentService;
@@ -31,9 +32,11 @@ public class CommentServiceImpl implements CommentService {
     private CommentDao commentDao;
 
     @Autowired
+    private PostDao postDao;
+
+    @Autowired
     private EasyGeneraterParams easyGeneraterParams;
 
-    @Override
     public List<Comment> selectList(int page, int limit, String searchParams) {
 
         Map<String, Object> params = new HashMap<>();
@@ -46,7 +49,6 @@ public class CommentServiceImpl implements CommentService {
         return comments;
     }
 
-    @Override
     public int selectListCount(String searchParams) {
 
         Map<String, Object> params = new HashMap<>();
@@ -56,12 +58,10 @@ public class CommentServiceImpl implements CommentService {
         return commentDao.selectListCount(params);
     }
 
-    @Override
     public List<Comment> selectAllList() {
         return null;
     }
 
-    @Override
     public Comment selectById(long id) {
         return commentDao.selectById(id);
     }
@@ -71,17 +71,20 @@ public class CommentServiceImpl implements CommentService {
         return commentDao.selectByCustomerId(id);
     }
 
-    @Override
-    public int deleteById(long id) {
-        return commentDao.delete(id);
+    public int deleteById(int commentid) {
+
+        Comment comment = commentDao.selectById(commentid);
+        int replyid = comment.getReplyid();
+
+        //修改被评论帖的评论数
+        postDao.changereply(-1, replyid);
+        return commentDao.delete(commentid);
     }
 
-    @Override
     public int updateById(Comment comment) {
         return commentDao.updateById(comment);
     }
 
-    @Override
     public int insert(Comment comment) {
 
         //给评论添加默认信息
@@ -91,6 +94,8 @@ public class CommentServiceImpl implements CommentService {
         comment.setTime(timestamp);
         //设置默认审核状态
         comment.setStatus("未审核");
+        //修改被评论帖的发帖数
+        postDao.changereply(1, comment.getReplyid());
 
         return commentDao.insert(comment);
     }
@@ -99,7 +104,7 @@ public class CommentServiceImpl implements CommentService {
     public int changeLike(String operate, int commentid) {
 
         int status;
-        if (operate == "like") {
+        if (operate.equals("like")) {
             status = commentDao.like(commentid);
         } else {
             status = commentDao.dislike(commentid);

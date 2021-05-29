@@ -11,7 +11,14 @@ import java.util.Map;
  * @date 2021/5/24 18:39
  * @Description
  */
-public interface CommentService extends BaseService<Comment> {
+public interface CommentService {
     public List<Comment> selectByCustomerId(long id);
-    public int changeLike(String operate, int postid);
+    public int changeLike(String operate, int commentid);
+    public int insert(Comment comment);
+    public int updateById(Comment comment);
+    public Comment selectById(long id);
+    public List<Comment> selectAllList();
+    public int selectListCount(String searchParams);
+    public List<Comment> selectList(int page, int limit, String searchParams);
+    public int deleteById(int postid);
 }
