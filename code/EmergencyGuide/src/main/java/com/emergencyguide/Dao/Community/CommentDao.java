@@ -36,7 +36,7 @@ public interface CommentDao {
     @Delete("DELETE FROM t_comment WHERE commentid = #{commentid}")
     public int delete(long commentid);
 
-    @Update("UPDATE t_comment SET like = like + 1 WHERE commentid = #{commentid}")
+    @Update("UPDATE t_comment SET likes = likes + 1 WHERE commentid = #{commentid}")
     public int like(long commentid);
 
     @Update("UPDATE t_comment SET dislike = dislike + 1 WHERE commentid = #{commentid}")

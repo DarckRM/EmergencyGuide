@@ -139,7 +139,7 @@ public class PostApiController {
             result.setMsg("操作失败 错误信息"+e.getMessage());
 
         }
-        return "";
+        return result.toString();
     }
 
 }

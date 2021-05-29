@@ -20,6 +20,7 @@ public class Post {
     private Timestamp time;
     private int openid;
     private String customername;
+    private String avatar;
 
     public int getPostid() {
         return postid;
@@ -101,6 +102,14 @@ public class Post {
         this.customername = customername;
     }
 
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
     @Override
     public String toString() {
         return "Post{" +
@@ -114,6 +123,7 @@ public class Post {
                 ", time=" + time +
                 ", openid=" + openid +
                 ", customername=" + customername +
+                ", avatar=" + avatar +
                 '}';
     }
 }

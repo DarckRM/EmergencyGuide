@@ -102,4 +102,26 @@ public class CommentApiController {
 
     }
 
+    @ApiOperation(value="给某条评论点赞或点踩")
+    @PostMapping("/changelike")
+    @ApiImplicitParam(name = "jsonStr", value = "{'commentid':'点赞的评论的id','operate':'like或者dislike'}", required = true, dataType = "int")
+    public String like(@RequestBody String jsonStr) {
+        Result result = new Result();
+
+        JSONObject jsonObject = JSONObject.parseObject(jsonStr);
+        try {
+            commentService.changeLike(jsonObject.getString("operate"),jsonObject.getInteger("commentid"));
+            if (jsonObject.getString("operate") == "like") {
+                result.setMsg("成功点赞!");
+            } else {
+                result.setMsg("成功点踩!");
+            }
+        } catch (Exception e) {
+
+            result.setMsg("操作失败 错误信息"+e.getMessage());
+
+        }
+        return result.toString();
+    }
+
 }

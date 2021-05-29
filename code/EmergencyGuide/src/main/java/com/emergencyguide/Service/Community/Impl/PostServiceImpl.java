@@ -96,7 +96,8 @@ public class PostServiceImpl implements PostService {
     public int changeLike(String operate, int postid) {
 
         int status;
-        if (operate == "like") {
+
+        if (operate.equals("like")) {
             status = postDao.like(postid);
         } else {
             status = postDao.dislike(postid);
