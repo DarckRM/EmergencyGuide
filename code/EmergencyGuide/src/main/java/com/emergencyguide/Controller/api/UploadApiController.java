@@ -1,9 +1,12 @@
-package com.emergencyguide.Controller;
+package com.emergencyguide.Controller.api;
 
 import com.alibaba.fastjson.JSONObject;
 import com.emergencyguide.Controller.Util.DateUtil;
 import com.emergencyguide.Controller.Util.UUIDGenerateUtil;
 import com.emergencyguide.Entity.Result;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -25,13 +28,14 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("file")
-public class UploadController {
+@Api(value = "文件上传接口", tags = "文件上传Api")
+public class UploadApiController {
 
     //日志对象
-    private Logger logger = LoggerFactory.getLogger(UploadController.class);
+    private Logger logger = LoggerFactory.getLogger(UploadApiController.class);
 
     //上传路径
-    @Value("C:/Emeguide")
+    @Value("/Emeguide")
     private String uploadFilePath;
 
     /**
@@ -39,8 +43,10 @@ public class UploadController {
      * @param file
      * @return
      */
+    @ApiOperation(value="上传图片")
     @RequestMapping(value = "/upload/image", method = RequestMethod.POST, produces = "application/json")
     @ResponseBody
+    @ApiImplicitParam(name = "image", value = "接收图片文件", required = true, dataType = "string")
     public String uploadImage(@RequestParam("image") MultipartFile file) {
         JSONObject object = new JSONObject();
         System.out.println(file.getOriginalFilename());
@@ -50,7 +56,7 @@ public class UploadController {
             String suffixName = fileName.substring(fileName.lastIndexOf("." )+ 1); //获取后缀名
             fileName = "Image_" + DateUtil.formatDateByFormat(new Date(),"yyyyMMddHHmmsssss") + "_" + UUIDGenerateUtil.generateShortUuid() + "." + suffixName;
 
-            File dest = new File(uploadFilePath +'/'+ fileName);
+            File dest = new File(new File(uploadFilePath).getAbsolutePath() +'/'+ fileName);
             if (!dest.getParentFile().exists()) {
                 dest.getParentFile().mkdirs();
             }

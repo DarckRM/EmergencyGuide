@@ -1,5 +1,6 @@
 package com.emergencyguide.Controller.Logo;
 
+import com.emergencyguide.Entity.Customer;
 import com.emergencyguide.Entity.PersonalLogo;
 import com.emergencyguide.Entity.Rank;
 import com.emergencyguide.Entity.Result;
@@ -77,5 +78,20 @@ public class PersonalLogoController {
         } else {
             return new Result<>().failed("操作失败").toString();
         }
+    }
+
+    @RequestMapping("/selectSubLogo")
+    @ResponseBody
+    public String selectSubLogo(String basicLogo) {
+
+        // 获取系统配置
+        Result<PersonalLogo> results = new Result<>();
+
+        List<PersonalLogo> subLogoList = personalLogoService.selectSubLogo(basicLogo);
+        results.setCount(45);
+        results.setData(subLogoList);
+        results.setMsg("请求成功");
+        return results.toString();
+
     }
 }

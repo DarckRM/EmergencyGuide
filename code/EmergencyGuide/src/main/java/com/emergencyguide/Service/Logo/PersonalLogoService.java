@@ -11,4 +11,6 @@ public interface PersonalLogoService {
     public int updateById(PersonalLogo personalLogo);
     public  int personalLogoAdd(PersonalLogo personalLogo);
     public  int personalLogoDelete(int id);
+    public List<PersonalLogo> selectBasicLogo();
+    public List<PersonalLogo> selectSubLogo(String basicLogo);
 }

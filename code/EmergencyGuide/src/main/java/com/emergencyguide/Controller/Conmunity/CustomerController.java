@@ -1,8 +1,10 @@
 package com.emergencyguide.Controller.Conmunity;
 
 import com.emergencyguide.Entity.Customer;
+import com.emergencyguide.Entity.PersonalLogo;
 import com.emergencyguide.Entity.Result;
 import com.emergencyguide.Service.Community.CustomerService;
+import com.emergencyguide.Service.Logo.PersonalLogoService;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,6 +25,8 @@ public class CustomerController {
 
     @Autowired
     private CustomerService customerService;
+    @Autowired
+    private PersonalLogoService personalLogoService;
 
     @RequestMapping("/page")
     public ModelAndView userPage() {
@@ -32,7 +36,7 @@ public class CustomerController {
     }
 
     @RequestMapping("/toEdit")
-    public ModelAndView toEdit(@Param("id") int id) {
+    public ModelAndView toEdit(@Param("id") int id, @Param("basicLogo") String basicLogo) {
         Customer data = null;
         if (id != -1 && id != 0) {
             data = customerService.selectById(id);
@@ -42,6 +46,8 @@ public class CustomerController {
         ModelAndView mav = new ModelAndView();
         System.out.println(data);
         mav.setViewName("community/customer_edit");
+        mav.addObject("basicLogoList",personalLogoService.selectBasicLogo());
+        mav.addObject("subLogoList",personalLogoService.selectSubLogo(basicLogo));
         mav.addObject("data", data);
 
         return mav;

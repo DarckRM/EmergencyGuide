@@ -6,9 +6,9 @@
     </resultMap>
 
     <sql id="Base_SQL">
-        commentid, replyid, t1.content, t1.likes, t1.dislike, t1.reply, t1.status, t1.time, t1.customerid, t2.topic AS replytopic, t3.nickname AS customername FROM t_comment t1
+        commentid, replyid, t1.content, t1.likes, t1.dislike, t1.reply, t1.status, t1.time, t1.openid, t2.topic AS replytopic, t3.nickname AS customername FROM t_comment t1
         LEFT JOIN t_post t2 ON t1.replyid = t2.postid
-        LEFT JOIN t_customer t3 ON t1.customerid = t3.id
+        LEFT JOIN t_customer t3 ON t1.openid = t3.openid
     </sql>
 
     <sql id="Base_MyBatis_Var">
@@ -24,11 +24,14 @@
         <if test="params.customername != null and params.customername!='' " >
             AND t3.nickname LIKE '%${params.customername}%'
         </if>
+        <if test="params.openid != null and params.openid!='' " >
+            AND t1.openid = '${params.openid}'
+        </if>
     </select>
 
     <select id="selectByCustomerId" resultMap="BaseResultMap">
         SELECT <include refid="Base_SQL"></include>
-        WHERE customerid = #{customerid}
+        WHERE openid = #{customerid}
     </select>
 
     <select id="selectById" resultMap="BaseResultMap">
@@ -39,13 +42,16 @@
     <select id="selectListCount" resultType="int">
         SELECT COUNT(commentid) FROM t_comment t1
         LEFT JOIN t_post t2 ON t1.replyid = t2.postid
-        LEFT JOIN t_customer t3 ON t1.customerid = t3.id
+        LEFT JOIN t_customer t3 ON t1.openid = t3.openid
         WHERE 1=1
         <if test="params.replytopic != null and params.replytopic != '' ">
             AND t2.topic LIKE '%${params.replytopic}'
         </if>
         <if test="params.customername != null and params.customername != '' ">
             AND t3.nickname = '${params.customername}'
+        </if>
+        <if test="params.openid != null and params.openid != '' ">
+            AND t1.openid = '${params.openid}'
         </if>
     </select>
 
@@ -56,11 +62,11 @@
         dislike = #{dislike},
         reply = #{reply},
         status = #{status}
-        WHERE commentid = #{commentid};
+        WHERE openid = #{commentid};
     </update>
 
     <update id="insert" parameterType="com.emergencyguide.Entity.Comment">
-        INSERT INTO t_comment (commentid, replyid, content, likes, dislike, reply, status, time, customerid)
+        INSERT INTO t_comment (commentid, replyid, content, likes, dislike, reply, status, time, openid)
         VALUES (<include refid="Base_MyBatis_Var"></include>)
     </update>
 
