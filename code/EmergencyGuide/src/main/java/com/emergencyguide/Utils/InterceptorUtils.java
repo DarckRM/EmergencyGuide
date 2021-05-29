@@ -1,6 +1,5 @@
 package com.emergencyguide.Utils;
 
-import com.emergencyguide.Entity.User;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
