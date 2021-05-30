@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 public interface UserService extends BaseService<User> {
 
-    public int selectByName();
+    public User selectByName(String username);
 
     public String doLogin(User user, HttpServletResponse response, HttpServletRequest request);
 

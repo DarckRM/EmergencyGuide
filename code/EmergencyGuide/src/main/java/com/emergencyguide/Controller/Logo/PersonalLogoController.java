@@ -25,7 +25,7 @@ public class PersonalLogoController {
     @RequestMapping("/findPersonalLogoHtml")
     public ModelAndView findRankHtml(){
         ModelAndView modelAndView=new ModelAndView();
-        modelAndView.setViewName("Logo/personalLogo");
+        modelAndView.setViewName("logo/personalLogo");
         return modelAndView;
     }
 
@@ -54,7 +54,7 @@ public class PersonalLogoController {
     @RequestMapping("/findAddPersonalLogoHtml")
     public ModelAndView findAddDisasterHtml() {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("Logo/personalLogoAdd");
+        modelAndView.setViewName("logo/personalLogoAdd");
         return modelAndView;
     }
     @RequestMapping("/personalLogoAdd")

@@ -55,7 +55,7 @@ public class StationApiContoller {
 
     @ApiOperation(value="添加一个补给站")
     @PostMapping("/addstation")
-    @ApiImplicitParam(name = "jsonStr", value = "{'longitude':'经度:float(必要)','latitude':'纬度:float(必要)','openid':'添加者的openid:String(必要)','type':'补给站类型:int(0-4,0是默认类型,必要)','info':'说明信息:String(推荐必要)'}", required = true, dataType = "string")
+    @ApiImplicitParam(name = "jsonStr", value = "{'longitude':'经度:float(必要)','latitude':'纬度:float(必要)','openid':'添加者的openid:String(必要)','type':'补给站类型:int(0-4,0是默认类型,必要)','info':'说明信息:String(必要)','address':'具体地址:String(必要)'}", required = true, dataType = "string")
     public String addStation(@RequestBody String jsonStr) {
 
         Result result = new Result();
@@ -65,11 +65,23 @@ public class StationApiContoller {
         try {
 
             JSONObject jsonObject = JSONObject.parseObject(jsonStr);
+
+            //判断救助站数量
+            String openid = jsonObject.getString("openid");
+            int count = stationService.selectListCount("{'openid':'"+openid+"'}");
+            if (count > 4) {
+                result.setCount(4);
+                result.setMsg("您已经创建了4所救助站!");
+
+                return result.toString();
+            }
+
             station.setLongitude(jsonObject.getDouble("longitude"));
             station.setLatitude(jsonObject.getDouble("latitude"));
-            station.setOpenid(jsonObject.getString("openid"));
+            station.setOpenid(openid);
             station.setType(jsonObject.getInteger("type"));
             station.setInfo(jsonObject.getString("info"));
+            station.setAddress(jsonObject.getString("address"));
 
             int var = stationService.insert(station);
 
@@ -90,7 +102,7 @@ public class StationApiContoller {
 
     @ApiOperation(value="修改补给站信息")
     @PostMapping("/editstation")
-    @ApiImplicitParam(name = "jsonStr", value = "{'id':'补给站ID:int(必要)','longitude':'经度:float(必要)','latitude':'纬度:float(必要)','openid':'添加者的openid:String(必要)','type':'补给站类型:int(0-4,0是默认类型,必要)','info':'说明信息:String(推荐必要)'}", required = true, dataType = "string")
+    @ApiImplicitParam(name = "jsonStr", value = "{'id':'补给站ID:int(必要)','longitude':'经度:float(必要)','latitude':'纬度:float(必要)','openid':'添加者的openid:String(必要)','type':'补给站类型:int(0-4,0是默认类型,必要)','info':'说明信息:String(推荐必要)','address':'具体地址:String(必要)'}", required = true, dataType = "string")
     public String editStation(@RequestBody String jsonStr) {
 
         Result result = new Result();
@@ -106,6 +118,7 @@ public class StationApiContoller {
             station.setOpenid(jsonObject.getString("openid"));
             station.setType(jsonObject.getInteger("type"));
             station.setInfo(jsonObject.getString("info"));
+            station.setAddress(jsonObject.getString("address"));
 
             int var = stationService.updateById(station);
 
@@ -122,6 +135,32 @@ public class StationApiContoller {
         }
 
         return result.toString();
+    }
+
+    @ApiOperation(value="删除补给站信息")
+    @PostMapping("/delstation")
+    @ApiImplicitParam(name = "jsonStr", value = "{'id':'补给站ID:int(必要)'}", required = true, dataType = "string")
+    public String deleteStation(String jsonStr) {
+
+        Result result = new Result();
+
+        try {
+
+            JSONObject jsonObject = JSONObject.parseObject(jsonStr);
+            int id = jsonObject.getInteger("id");
+
+            if (stationService.deleteById(id) > 0) {
+                result.setMsg("删除成功");
+            } else {
+                result.setMsg("删除失败");
+            }
+
+        } catch (Exception e) {
+            result.setMsg("后台错误"+e.getMessage());
+        }
+
+        return result.toString();
+
     }
 
 }

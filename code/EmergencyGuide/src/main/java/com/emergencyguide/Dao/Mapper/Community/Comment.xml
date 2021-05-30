@@ -28,7 +28,7 @@
             AND t1.openid = '${params.openid}'
         </if>
         <if test="params.postid != null and params.postid!='' " >
-            AND t1.postid = '${params.postid}'
+            AND t2.postid = '${params.postid}'
         </if>
     </select>
 
@@ -57,7 +57,7 @@
             AND t1.openid = '${params.openid}'
         </if>
         <if test="params.postid != null and params.postid!='' " >
-            AND t1.postid = '${params.postid}'
+            AND t2.postid = '${params.postid}'
         </if>
     </select>
 

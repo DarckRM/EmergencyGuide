@@ -65,7 +65,7 @@
         //监听提交
         form.on('submit(saveBtn)', function (data) {
             $.ajax({
-                url: '/questionAnswer/questionAnswerAdd',
+                url: 'uestionAnswerAdd',
                 method: 'post',
                 data: JSON.stringify(data.field),
                 contentType: 'application/json',

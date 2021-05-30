@@ -10,10 +10,14 @@ public class Station {
     private String openid;
     //补给站类型
     private int type;
+    //补给站类型中文
+    private String typename;
     //补给站信息
     private String info;
     //补给站图标
     private String icon;
+    //具体地址
+    private String address;
 
     public int getId() {
         return id;
@@ -71,6 +75,14 @@ public class Station {
         this.icon = icon;
     }
 
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
     @Override
     public String toString() {
         return "Station{" +
@@ -81,6 +93,7 @@ public class Station {
                 ", type=" + type +
                 ", info='" + info + '\'' +
                 ", icon='" + icon + '\'' +
+                ", address='" + address + '\'' +
                 '}';
     }
 }

@@ -47,7 +47,7 @@
         //监听提交
         form.on('submit(saveBtn)', function (data) {
             $.ajax({
-                url: '/productType/productTypeAdd',
+                url: 'productTypeAdd',
                 method: 'post',
                 data: JSON.stringify(data.field),
                 contentType: 'application/json',

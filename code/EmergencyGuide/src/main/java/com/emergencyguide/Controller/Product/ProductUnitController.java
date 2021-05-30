@@ -25,7 +25,7 @@ public class ProductUnitController {
     @RequestMapping("/findProductUnitHtml")
     public ModelAndView findProductTypeHtml(){
         ModelAndView modelAndView=new ModelAndView();
-        modelAndView.setViewName("Product/productUnit");
+        modelAndView.setViewName("product/productUnit");
         return modelAndView;
     }
 
@@ -54,7 +54,7 @@ public class ProductUnitController {
     @RequestMapping("/findAddProductUnitHtml")
     public ModelAndView findAddProductUnitHtml() {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("Product/productUnitAdd");
+        modelAndView.setViewName("product/productUnitAdd");
         return modelAndView;
     }
     @RequestMapping("/productUnitAdd")
