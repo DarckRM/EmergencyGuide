@@ -62,7 +62,7 @@ public class PostApiController {
             JSONObject jsonObject = JSONObject.parseObject(jsonStr);
             post.setTopic(jsonObject.getString("topic"));
             post.setContent(jsonObject.getString("content"));
-            post.setOpenid(jsonObject.getInteger("openid"));
+            post.setOpenid(jsonObject.getString("openid"));
             postService.insert(post);
             result.setMsg("请求成功");
 
@@ -109,7 +109,7 @@ public class PostApiController {
             post.setTopic(jsonObject.getString("topic"));
             post.setContent(jsonObject.getString("content"));
             post.setPostid(jsonObject.getInteger("postid"));
-            postService.insert(post);
+            postService.updateById(post);
             result.setMsg("请求成功");
 
         } catch (Exception e)
@@ -122,13 +122,13 @@ public class PostApiController {
     }
     @ApiOperation(value="给某条帖子点赞或点踩")
     @PostMapping("/changelike")
-    @ApiImplicitParam(name = "jsonStr", value = "{'postid':'点赞的帖子的id','operate':'like或者dislike'}", required = true, dataType = "int")
+    @ApiImplicitParam(name = "jsonStr", value = "{'postid':'点赞的帖子的id','operate':'like或者dislike','numbers':'修改后的数量:int'}", required = true, dataType = "int")
     public String like(@RequestBody String jsonStr) {
         Result result = new Result();
 
         JSONObject jsonObject = JSONObject.parseObject(jsonStr);
         try {
-            postService.changeLike(jsonObject.getString("operate"),jsonObject.getInteger("postid"));
+            postService.changeLike(jsonObject.getString("operate"),jsonObject.getInteger("postid"),jsonObject.getInteger("numbers"));
             if (jsonObject.getString("operate") == "like") {
                 result.setMsg("成功点赞!");
             } else {

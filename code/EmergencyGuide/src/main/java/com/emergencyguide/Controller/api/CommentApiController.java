@@ -32,7 +32,7 @@ public class CommentApiController {
 
     @ApiOperation(value="分页查看当前用户的评论记录")
     @PostMapping("/mycomment")
-    @ApiImplicitParam(name = "jsonStr", value = "{'page':'页数:int', 'limit':'每页显示数:int', 'searchParams:json':'\\{'topic':'评论的主题','customername':'用户昵称','openid':'用户openid'}'} searchParams中三个参数可选择传递，一般传入openid", required = true, dataType = "string")
+    @ApiImplicitParam(name = "jsonStr", value = "{'page':'页数:int', 'limit':'每页显示数:int', 'searchParams':'\\{'topic':'评论的主题','customername':'用户昵称','openid':'用户openid', 'postid':'帖子ID:int'}:json(参数均可选)'} searchParams中三个参数可选择传递，一般传入openid", required = true, dataType = "string")
     public String myPost(@RequestBody String jsonStr) {
 
         Result<Comment> result = new Result<>();
@@ -104,13 +104,13 @@ public class CommentApiController {
 
     @ApiOperation(value="给某条评论点赞或点踩")
     @PostMapping("/changelike")
-    @ApiImplicitParam(name = "jsonStr", value = "{'commentid':'点赞的评论的id','operate':'like或者dislike'}", required = true, dataType = "int")
+    @ApiImplicitParam(name = "jsonStr", value = "{'commentid':'点赞的评论的id','operate':'like或者dislike','numbers':'修改后的数量:int'}", required = true, dataType = "int")
     public String like(@RequestBody String jsonStr) {
         Result result = new Result();
 
         JSONObject jsonObject = JSONObject.parseObject(jsonStr);
         try {
-            commentService.changeLike(jsonObject.getString("operate"),jsonObject.getInteger("commentid"));
+            commentService.changeLike(jsonObject.getString("operate"),jsonObject.getInteger("commentid"),jsonObject.getInteger("numbers"));
             if (jsonObject.getString("operate") == "like") {
                 result.setMsg("成功点赞!");
             } else {

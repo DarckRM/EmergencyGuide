@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.emergencyguide.Dao.Community.AddressDao">
+    <resultMap id="BaseResultMap" type="com.emergencyguide.Entity.Address">
+
+    </resultMap>
+
+    <sql id="Base_SQL">
+        id, openid, recipient, mobilephone, address, isdefault
+    </sql>
+
+    <sql id="Base_MyBatis_Var">
+        #{id}, #{openid}, #{recipient}, #{mobilephone}, #{address}, #{isdefault}
+    </sql>
+
+    <select id="selectList" resultMap="BaseResultMap">
+        SELECT <include refid="Base_SQL"></include> FROM t_customerAddress t1
+        WHERE 1 = 1
+        <if test="params.openid != null and params.openid!='' " >
+            AND t1.openid = '${params.openid}'
+        </if>
+        <if test="params.id != null and params.id!='' " >
+            AND t1.id = '${params.id}'
+        </if>
+        limit #{page},#{limit}
+    </select>
+
+    <select id="selectListCount" resultType="int">
+        SELECT COUNT(id) FROM t_customerAddress t1 WHERE 1=1
+        <if test="params.openid != null and params.openid!='' " >
+            AND t1.openid = '${params.openid}'
+        </if>
+    </select>
+
+    <update id="updateById" parameterType="com.emergencyguide.Entity.Address">
+        UPDATE t_customerAddress SET
+        recipient = #{recipient},
+        mobilephone = #{mobilephone},
+        address = #{address},
+        isdefault = #{isdefault}
+        WHERE id = #{id};
+    </update>
+
+    <insert id="insert" parameterType="com.emergencyguide.Entity.Address">
+        INSERT INTO t_customerAddress (openid, recipient, mobilephone, address, isdefault)
+        VALUES (#{openid}, #{recipient}, #{mobilephone}, #{address}, #{isdefault})
+    </insert>
+
+</mapper>

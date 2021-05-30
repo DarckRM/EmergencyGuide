@@ -37,9 +37,9 @@
 
     <insert id="insert" parameterType="com.emergencyguide.Entity.Customer">
         INSERT INTO t_customer (
-        <include refid="Base_SQL"></include>
+        openid, nickname, realname, gender, avatar, mobilephone, email, registertime, profession
         ) VALUES (
-        <include refid="Base_MyBatis_Var"></include>
+        #{openid}, #{nickname}, #{realname}, #{gender}, #{avatar}, #{mobilephone}, #{email}, #{registertime}, #{profession}
         )
     </insert>
     

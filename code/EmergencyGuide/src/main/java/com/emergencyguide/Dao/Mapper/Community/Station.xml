@@ -6,23 +6,20 @@
     </resultMap>
 
     <sql id="Base_SQL">
-        t1.id, longitude, latitude, t1.openid, t1.type, t1.info, t2.nickname, t3.typename FROM t_station t1
+        t1.id, longitude, latitude, t1.openid, t1.type, t1.info, t2.nickname, t3.typename, t3.icon FROM t_station t1
         LEFT JOIN t_customer t2 ON t1.openid = t2.openid
         LEFT JOIN t_stationtype t3 ON t1.type = t3.id
     </sql>
 
     <sql id="Base_MyBatis_Var">
-        #{longitudu}, #{latitude}, #{openid}, #{dislike}, #{reply}, #{status}, #{time}, #{openid}
+        #{longitude}, #{latitude}, #{openid}, #{type}, #{info}
     </sql>
 
     <select id="selectList" resultMap="BaseResultMap">
-        SELECT <include refid="Base_SQL"></include> FROM t_post t1
+        SELECT <include refid="Base_SQL"></include>
         WHERE 1 = 1
-        <if test="params.topic != null and params.topic != '' " >
-            AND t1.topic LIKE '%${params.topic}%'
-        </if>
-        <if test="params.postid != null and params.postid!='' " >
-            AND t1.postid = '${params.postid}'
+        <if test="params.type != null and params.type != '' " >
+            AND t1.type = '%${params.type}%'
         </if>
         <if test="params.openid != null and params.openid!='' " >
             AND t1.openid = '${params.openid}'
@@ -31,29 +28,35 @@
     </select>
 
     <select id="selectListCount" resultType="int">
-        SELECT COUNT(postid) FROM t_post t1 WHERE 1=1
-        <if test="params.topic != null and params.topic != '' ">
-            AND t1.topic LIKE '%${params.topic}'
+        SELECT COUNT(id) FROM t_station t1 WHERE 1=1
+        <if test="params.type != null and params.type != '' " >
+            AND t1.type = '%${params.type}%'
         </if>
-        <if test="params.postid != null and params.postid != '' ">
-            AND t1.postid = '${params.postid}'
+        <if test="params.openid != null and params.openid!='' " >
+            AND t1.openid = '${params.openid}'
         </if>
     </select>
+    
+    <select id="selectById" resultMap="BaseResultMap" parameterType="int">
+        SELECT <include refid="Base_SQL"></include>
+        WHERE t1.id = #{id}
+    </select>
 
-    <update id="updateById" parameterType="com.emergencyguide.Entity.Post">
-        UPDATE t_post SET
-        topic = #{topic},
-        content = #{content},
-        likes = #{likes},
-        dislike = #{dislike},
-        reply = #{reply},
-        status = #{status}
-        WHERE postid = #{postid};
+    <update id="updateById" parameterType="com.emergencyguide.Entity.Station">
+        UPDATE t_station SET
+        longitude = #{longitude},
+        latitude = #{latitude},
+        openid = #{openid},
+        type = #{type},
+        info = #{info}
+        WHERE id = #{id};
     </update>
 
-    <insert id="insert" parameterType="com.emergencyguide.Entity.Post">
-        INSERT INTO t_post (postid, topic, content, likes, dislike, reply, status, time, openid)
-        VALUES (#{postid}, #{topic}, #{content}, #{likes}, #{dislike}, #{reply}, #{status}, #{time}, #{openid})
+    <insert id="insert" parameterType="com.emergencyguide.Entity.Station">
+        INSERT INTO t_station (longitude, latitude, openid, type, info)
+        VALUES (
+        <include refid="Base_MyBatis_Var"></include>
+        )
     </insert>
 
 </mapper>

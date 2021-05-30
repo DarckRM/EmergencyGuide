@@ -12,6 +12,8 @@ public class Station {
     private int type;
     //补给站信息
     private String info;
+    //补给站图标
+    private String icon;
 
     public int getId() {
         return id;
@@ -61,6 +63,14 @@ public class Station {
         this.info = info;
     }
 
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
+    }
+
     @Override
     public String toString() {
         return "Station{" +
@@ -70,6 +80,7 @@ public class Station {
                 ", openid='" + openid + '\'' +
                 ", type=" + type +
                 ", info='" + info + '\'' +
+                ", icon='" + icon + '\'' +
                 '}';
     }
 }

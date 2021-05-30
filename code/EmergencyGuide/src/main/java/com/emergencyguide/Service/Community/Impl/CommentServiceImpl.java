@@ -101,13 +101,13 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public int changeLike(String operate, int commentid) {
+    public int changeLike(String operate, int commentid, int numbers) {
 
         int status;
         if (operate.equals("like")) {
-            status = commentDao.like(commentid);
+            status = commentDao.like(commentid,numbers);
         } else {
-            status = commentDao.dislike(commentid);
+            status = commentDao.dislike(commentid,numbers);
         }
         return status;
     }

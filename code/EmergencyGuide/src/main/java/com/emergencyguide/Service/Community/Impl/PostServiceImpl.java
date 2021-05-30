@@ -93,14 +93,14 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public int changeLike(String operate, int postid) {
+    public int changeLike(String operate, int postid, int numbers) {
 
         int status;
 
         if (operate.equals("like")) {
-            status = postDao.like(postid);
+            status = postDao.like(postid, numbers);
         } else {
-            status = postDao.dislike(postid);
+            status = postDao.dislike(postid, numbers);
         }
         return status;
     }

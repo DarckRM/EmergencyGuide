@@ -33,11 +33,11 @@ public interface PostDao {
     @Delete("DELETE FROM t_post WHERE postid = #{postid}")
     public int delete(long postid);
 
-    @Update("UPDATE t_post SET likes = likes + 1 WHERE postid = #{postid}")
-    public int like(long postid);
+    @Update("UPDATE t_post SET likes = #{numbers} WHERE postid = #{postid}")
+    public int like(long postid, int numbers);
 
-    @Update("UPDATE t_post SET dislike = dislike + 1 WHERE postid = #{postid}")
-    public int dislike(long postid);
+    @Update("UPDATE t_post SET dislike = #{numbers} WHERE postid = #{postid}")
+    public int dislike(long postid, int numbers);
 
     @Update("UPDATE t_post SET reply = reply + #{var} WHERE postid = #{postid}")
     public int changereply(int var, int postid);

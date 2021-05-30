@@ -18,7 +18,7 @@ public class Post {
     private int reply;
     private String status;
     private Timestamp time;
-    private int openid;
+    private String openid;
     private String customername;
     private String avatar;
 
@@ -86,11 +86,11 @@ public class Post {
         this.time = time;
     }
 
-    public int getOpenid() {
+    public String getOpenid() {
         return openid;
     }
 
-    public void setOpenid(int openid) {
+    public void setOpenid(String openid) {
         this.openid = openid;
     }
 
