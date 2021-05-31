@@ -68,7 +68,7 @@
         dislike = #{dislike},
         reply = #{reply},
         status = #{status}
-        WHERE openid = #{commentid};
+        WHERE commentid = #{commentid};
     </update>
 
     <update id="insert" parameterType="com.emergencyguide.Entity.Comment">
