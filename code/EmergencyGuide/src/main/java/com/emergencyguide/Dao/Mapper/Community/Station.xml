@@ -48,7 +48,7 @@
         latitude = #{latitude},
         openid = #{openid},
         type = #{type},
-        info = #{info}
+        info = #{info},
         address = #{address}
         WHERE id = #{id};
     </update>

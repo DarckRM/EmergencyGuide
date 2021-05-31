@@ -5,6 +5,7 @@ import com.emergencyguide.Entity.Customer;
 import com.emergencyguide.Entity.Post;
 import com.emergencyguide.Entity.Result;
 import com.emergencyguide.Service.Community.CustomerService;
+import com.emergencyguide.Utils.CheckIsNull;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
@@ -55,6 +56,7 @@ public class CustomerApiController {
     public String customerLogin(@RequestBody String jsonStr) {
 
         Result result = new Result<>();
+        CheckIsNull checkIsNull = new CheckIsNull();
 
         try {
             Customer customer = new Customer();
@@ -69,7 +71,15 @@ public class CustomerApiController {
 
             //初始化客户
             Customer customerExist = customerService.selectByOpenId(openId);
-            if (customerExist == null) {
+
+            if (customerExist != null) {
+
+                result.setModel(customerExist);
+                result.setMsg("操作成功");
+                return result.toString();
+
+            } else {
+
                 int n = customerService.insert(customer);
                 if (n > 0) {
                     customerExist = customerService.selectByOpenId(openId);
@@ -78,15 +88,11 @@ public class CustomerApiController {
                 } else {
                     return result.failed("操作失败").toString();
                 }
-            } else {
 
-                result.setModel(customerExist);
-                result.setMsg("操作成功");
-                return result.toString();
             }
 
         } catch (Exception e) {
-            System.out.println(e);
+            System.out.println("完了，全完了" + e);
         }
         return result.toString();
    }
