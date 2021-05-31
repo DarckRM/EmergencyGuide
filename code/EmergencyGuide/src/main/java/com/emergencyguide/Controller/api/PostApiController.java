@@ -62,7 +62,7 @@ public class PostApiController {
             JSONObject jsonObject = JSONObject.parseObject(jsonStr);
             post.setTopic(jsonObject.getString("topic"));
             post.setContent(jsonObject.getString("content"));
-            post.setOpenid(jsonObject.getInteger("openid"));
+            post.setOpenid(jsonObject.getString("openid"));
             postService.insert(post);
             result.setMsg("请求成功");
 
