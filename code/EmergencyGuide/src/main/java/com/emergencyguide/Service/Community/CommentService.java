@@ -13,7 +13,7 @@ import java.util.Map;
  */
 public interface CommentService {
     public List<Comment> selectByCustomerId(long id);
-    public int changeLike(String operate, int commentid);
+    public int changeLike(String operate, int commentid, int numbers);
     public int insert(Comment comment);
     public int updateById(Comment comment);
     public Comment selectById(long id);

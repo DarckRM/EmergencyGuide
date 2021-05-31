@@ -145,8 +145,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public int selectByName(){
-        return 0;
+    public User selectByName(String username){
+        return userDao.selectByUserName(username);
     }
 
     private void addCookie(HttpServletResponse response, String token, User user) {

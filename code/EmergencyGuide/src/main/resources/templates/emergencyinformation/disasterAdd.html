@@ -135,7 +135,7 @@
         //监听提交
         form.on('submit(saveBtn)', function (data) {
             $.ajax({
-                url: '/disaster/disasterAdd',
+                url: 'disasterAdd',
                 method: 'post',
                 data: JSON.stringify(data.field),
                 contentType: 'application/json',

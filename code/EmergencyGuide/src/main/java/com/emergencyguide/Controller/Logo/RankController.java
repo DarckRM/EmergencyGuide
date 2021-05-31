@@ -25,7 +25,7 @@ public class RankController {
     @RequestMapping("/findRankHtml")
     public ModelAndView findRankHtml(){
         ModelAndView modelAndView=new ModelAndView();
-        modelAndView.setViewName("Logo/rank");
+        modelAndView.setViewName("logo/rank");
         return modelAndView;
     }
 
@@ -54,7 +54,7 @@ public class RankController {
     @RequestMapping("/findAddRankHtml")
     public ModelAndView findAddDisasterHtml() {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("Logo/rankAdd");
+        modelAndView.setViewName("logo/rankAdd");
         return modelAndView;
     }
     @RequestMapping("/rankAdd")

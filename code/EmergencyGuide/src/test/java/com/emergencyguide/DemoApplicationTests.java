@@ -2,19 +2,16 @@ package com.emergencyguide;
 
 import com.emergencyguide.Controller.Logo.PersonalLogoController;
 import com.emergencyguide.Controller.api.PostApiController;
-import com.emergencyguide.Dao.Community.CommentDao;
-import com.emergencyguide.Dao.Community.CustomerDao;
-import com.emergencyguide.Dao.Community.PostDao;
+import com.emergencyguide.Dao.Community.*;
 import com.emergencyguide.Dao.Logo.PersonalLogoDao;
 import com.emergencyguide.Dao.System.RoleDao;
 import com.emergencyguide.Dao.System.UserDao;
 import com.emergencyguide.Dao.SystemConfigDao;
-import com.emergencyguide.Entity.Comment;
-import com.emergencyguide.Entity.Post;
-import com.emergencyguide.Entity.Role;
-import com.emergencyguide.Entity.User;
+import com.emergencyguide.Entity.*;
+import com.emergencyguide.Service.Community.AddressService;
 import com.emergencyguide.Service.Community.CommentService;
 import com.emergencyguide.Service.Community.PostService;
+import com.emergencyguide.Service.Community.StationService;
 import com.emergencyguide.Service.System.RoleService;
 import com.emergencyguide.Service.SystemConfigService;
 import com.emergencyguide.Utils.RedisUtil;
@@ -41,12 +38,25 @@ class DemoApplicationTests {
     @Autowired
     CommentDao commentDao;
     @Autowired
-    PersonalLogoController personalLogoDao;
+    AddressService addressService;
 
     @Test
     void contextLoads() {
 
-        System.out.println(personalLogoDao.selectSubLogo("律师"));
+        HashMap<String, Object> searchParams = new HashMap<>();
+
+        searchParams.put("id",4);
+
+        Address address = new Address();
+
+        address.setId(7);
+        address.setOpenid("oJMuB4uvA0V0-FdLqX4Szhqsjh5E");
+        address.setAddress("LIMBO");
+        address.setMobilephone("不存在的");
+        address.setRecipient("皇老人");
+        address.setIsdefault("否");
+
+        System.out.println(addressService.changeDefaultAddress(3));
 
     }
 

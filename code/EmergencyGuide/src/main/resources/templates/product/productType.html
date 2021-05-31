@@ -31,26 +31,6 @@
                 </form>
             </div>
         </fieldset>
-        <!--  <button class="layui-btn layui-btn-sm layui-btn-danger data-delete-btn" lay-event="delete"> 删除 </button> -->
-        <!--<script type="text/html" id="toolbarDemo">-->
-        <!--<div class="layui-btn-container " id="kkBar">-->
-        <!--&lt;!&ndash;<button class="checkIsSelect layui-btn  data-add-btn  " lay-event="add"> 医生设置 </button>&ndash;&gt;-->
-        <!--<button type="button" class="checkIsSelect layui-btn layui-btn-disabled"lay-event="doctorSetting" >医生设置</button>-->
-        <!--<button type="button" class="checkIsSelect layui-btn layui-btn-disabled"lay-event="serviceSetting" >客服设置</button>-->
-        <!--<button type="button" class="checkIsSelect layui-btn layui-btn-disabled"lay-event="customerSetting" >客户设置</button>-->
-        <!--<button type="button" class="checkIsSelect layui-btn layui-btn-disabled"lay-event="PayRecord" >支付记录</button>-->
-        <!--<button type="button" class="checkIsSelect layui-btn layui-btn-disabled"lay-event="RefundRecord" >退款记录</button>-->
-        <!--<button type="button" class="checkIsSelect layui-btn layui-btn-disabled"lay-event="changePublicDoctor" >更换公共医生</button>-->
-        <!--&lt;!&ndash;<button type="button" class="checkIsSelect layui-btn "lay-event="add" >医生设置</button>&ndash;&gt;-->
-        <!--&lt;!&ndash;<button type="button" class="checkIsSelect layui-btn "lay-event="ad" >客服设置</button>&ndash;&gt;-->
-        <!--&lt;!&ndash;<button type="button" class="checkIsSelect layui-btn "lay-event="PayRecord" >支付记录</button>&ndash;&gt;-->
-        <!--&lt;!&ndash;<button type="button" class="checkIsSelect layui-btn "lay-event="RefundRecord" >退款记录</button>&ndash;&gt;-->
-        <!--&lt;!&ndash;<button type="button" class="layui-btn layui-btn-primary"lay-event="add">医生设置</button>&ndash;&gt;-->
-        <!--&lt;!&ndash;<button type="button" class="layui-btn"lay-event="add">客服设置</button>&ndash;&gt;-->
-        <!--</div>-->
-        <!--<div class="layui-btn-container">-->
-        <!--<button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="add"> 客服设置 </button>-->
-        <!--</div>-->
         <script type="text/html" id="toolbarDemo">
             <div class="layui-btn-container" id="kkBar">
                 <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="add"> 添加 </button>
@@ -82,7 +62,7 @@
         var disasterNumber = $("#disasterNumber").val();
         table.render({
             elem: '#currentTableId',
-            url: '/productType/findAll',
+            url: 'findAll',
             toolbar: '#toolbarDemo',
             cellMinWidth: 60,
             defaultToolbar: ['filter', 'exports', 'print', {
