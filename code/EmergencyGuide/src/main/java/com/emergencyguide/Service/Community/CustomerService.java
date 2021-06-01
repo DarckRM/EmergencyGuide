@@ -11,4 +11,5 @@ import com.emergencyguide.Service.BaseService;
 public interface CustomerService extends BaseService<Customer> {
     public Customer selectByOpenId(String openid);
     public int updateByOpenId(Customer customer);
+    public int selectCountByOpenid(String openid);
 }

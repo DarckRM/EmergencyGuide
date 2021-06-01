@@ -20,7 +20,7 @@ public interface StationDao {
 
     public Station selectById(@Param("id") int id);
 
-    @Delete("DELETE * FROM t_staion WHERE id = #{id}")
+    @Delete("DELETE FROM t_staion WHERE id = #{id}")
     public int delete(int id);
 
     public int updateById(Station station);

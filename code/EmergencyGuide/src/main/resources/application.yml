@@ -27,6 +27,10 @@ spring:
 server:
   #服务器部署端口
   port: 8096
+  #SSL验证
+  ssl:
+    key-store: crf/5606707_chenjie.ink.pfx
+    key-store-password: mQ8xlHii
 mybatis:
   type-aliases-package: com.emergencyguide.Entity
   mapper-locations: classpath:com/emergencyguide/Dao/Mapper/System/*.xml,

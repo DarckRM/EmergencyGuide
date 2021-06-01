@@ -108,4 +108,9 @@ public class CustomerServiceImpl implements CustomerService {
         }
         return insert;
     }
+
+    @Override
+    public int selectCountByOpenid(String openid) {
+        return customerDao.selectCountByOpenId(openid);
+    }
 }

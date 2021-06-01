@@ -70,11 +70,11 @@ public class CustomerApiController {
             customer.setAvatar(jsonObject.getString("photo"));
 
             //初始化客户
-            Customer customerExist = customerService.selectByOpenId(openId);
+            int count = customerService.selectCountByOpenid(openId);
 
-            if (customerExist != null) {
+            if (count == 1) {
 
-                result.setModel(customerExist);
+                result.setModel(customerService.selectByOpenId(openId));
                 result.setMsg("操作成功");
                 return result.toString();
 
@@ -82,8 +82,7 @@ public class CustomerApiController {
 
                 int n = customerService.insert(customer);
                 if (n > 0) {
-                    customerExist = customerService.selectByOpenId(openId);
-                    result.setModel(customerExist);
+                    result.setModel(customerService.selectByOpenId(openId));
                     result.setMsg("操作成功");
                 } else {
                     return result.failed("操作失败").toString();

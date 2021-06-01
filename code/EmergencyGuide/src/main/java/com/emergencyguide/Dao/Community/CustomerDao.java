@@ -32,6 +32,9 @@ public interface CustomerDao {
     @Select("SELECT * FROM t_customer WHERE openid = #{openid}")
     public Customer selectByOpenId(String openid);
 
+    @Select("SELECT count(id) FROM t_customer WHERE openid = #{openid}")
+    public int selectCountByOpenId(String openid);
+
     public int insert(Customer customer);
 
     public int updateById(Customer customer);
