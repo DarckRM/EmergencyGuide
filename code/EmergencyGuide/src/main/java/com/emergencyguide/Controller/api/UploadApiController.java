@@ -179,18 +179,18 @@ public class UploadApiController {
     }
 
     /**
-     * 其他文件下载
+     * 默认文件下载
      * @param request
      * @param response
      * @return
      */
-    @GetMapping("/other/**")
+    @GetMapping("/images/defaultImages/**")
     @ResponseBody
     public String fileDownLoad(HttpServletRequest request,HttpServletResponse response){
         String url = request.getRequestURI();
         JSONObject object=new JSONObject();
-        String fileName = url.replace("/file/other/","");
-        File file = new File(uploadFilePath +"/other/"+ fileName);
+        String fileName = url.replace("/file/images/defaultImages/","");
+        File file = new File(uploadDefaultFilePath +"/"+ fileName);
         if(!file.exists()){
             object.put("success",2);
             object.put("result","下载文件不存在");

@@ -93,17 +93,12 @@
                 </ul>
                 <div class="layui-tab-content">
                     <div class="layui-tab-item layui-show">
-                        <iframe frameborder="0" src= "/content" width="100%" height="100%"></iframe>
+                        <iframe frameborder="0" src= "/content" width="100%" height="590px"></iframe>
                     </div>
                 </div>
             </div>
             <table class="layui-hide" id="userTable" lay-filter="userTableFilter"></table>
 
-        </div>
-
-        <div class="layui-footer" style="z-index: 0">
-            <!-- 底部固定区域 -->
-            底部固定区域
         </div>
     </div>
     <script src="layui/layui.js"></script>
@@ -164,35 +159,13 @@
                 //响应导航栏添加Tab
                 element.tabAdd('mainTabs', {
                     title: title,
-                    content: '<iframe frameborder="0" src= "'+directPage+'" height="100%" width="100%"></iframe>', //支持传入html
+                    content: '<iframe frameborder="0" src= "'+directPage+'" height="590px" width="100%" ></iframe>', //支持传入html
                     id: data.attr("lay-id")
                 });
                 //切换到刚刚创建的Tab页
                 element.tabChange('mainTabs',data.attr("lay-id"));
             });
         });
-    </script>
-    <script>
-        function SetWinHeight(obj)
-        {
-            var win=obj;
-            if (document.getElementById)
-            {
-                if (win && !window.opera)
-                {
-                    if (win.contentDocument && win.contentDocument.body.offsetHeight)
-                    {
-                        if(win.contentDocument.body.offsetHeight<500){
-                            win.height = 500;//设置最小高度
-                        }else{
-                            win.height = win.contentDocument.body.offsetHeight;
-                        }
-                    }
-                    else if(win.Document && win.Document.body.scrollHeight)
-                        win.height = win.Document.body.scrollHeight;
-                }
-            }
-        }
     </script>
 </body>
 </html>
