@@ -37,6 +37,9 @@ public class UploadApiController {
     //上传路径
     @Value("/Emeguide")
     private String uploadFilePath;
+    //上传路径
+    @Value("/Emeguide/DefaultImages")
+    private String uploadDefaultFilePath;
 
     /**
      * 上传图片
@@ -88,41 +91,49 @@ public class UploadApiController {
         }
     }
     /**
-     * 上传其它文件
+     * 上传系统设置默认图片
      * @param file
      * @return
      */
-    @RequestMapping(value = "/upload/other", method = RequestMethod.POST, produces="application/json")
+    @RequestMapping(value = "/upload/defaultImg", method = RequestMethod.POST, produces="application/json")
     @ResponseBody
-    public String handleFileUpload(@RequestParam("file") MultipartFile file) {
+    public String handleFileUpload(@RequestParam("image") MultipartFile file) {
         JSONObject object = new JSONObject();
         if (!file.isEmpty()) {
-            String fileName = file.getOriginalFilename();  // 文件名
-            String suffixName = fileName.substring(fileName.lastIndexOf(".")+1);//获取后缀名
-            fileName = suffixName+"_"+ DateUtil.formatDateByFormat(new Date(),"yyyyMMddHHmmsssss")+"_"+ UUIDGenerateUtil.generateShortUuid()+"."+suffixName;
-            File dest = new File(uploadFilePath +"/other/"+ fileName);
+
+            String fileName = file.getOriginalFilename(); //获取上传的文件名
+            String suffixName = fileName.substring(fileName.lastIndexOf("." )+ 1); //获取后缀名
+            fileName = "Image_" + DateUtil.formatDateByFormat(new Date(),"yyyyMMddHHmmsssss") + "_" + UUIDGenerateUtil.generateShortUuid() + "." + suffixName;
+
+            File dest = new File(new File(uploadDefaultFilePath).getAbsolutePath() +"/"+ fileName);
             if (!dest.getParentFile().exists()) {
                 dest.getParentFile().mkdirs();
             }
             try {
+
                 file.transferTo(dest);
-                String realUrl = "/file/other/"+fileName;
+                String realUrl = "/file/images/defaultImages/"+fileName;
                 Result<String> result= new Result<String>();
                 result = result.success("上传成功");
                 List<String> data = new ArrayList<>();
                 data.add(realUrl);
                 result.setData(data);
                 return result.toString();
+
             } catch (Exception e) {
+
                 e.printStackTrace();
                 object.put("success",2);
                 object.put("result","程序错误，请重新上传");
                 return object.toString();
+
             }
         } else {
+
             object.put("success",2);
             object.put("result","上传失败，因为文件是空的");
             return object.toString();
+
         }
     }
 

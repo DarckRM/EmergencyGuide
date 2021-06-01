@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" type="text/css" href="../layui/css/layui.css">
+    <link rel="stylesheet" type="text/css" href="../css/uniform.css">
+    <title>默认图片</title>
+</head>
+<div class="layui-card">
+    <div class="layui-card-body">
+        <fieldset class="divContainer">
+            <legend style="font-size: 19px">搜索信息</legend>
+            <form class="layui-form layui-form-pane" action="">
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <input type="text" name="id" class="layui-hide">
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">图片名称</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="imgname" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <button type="submit" class="layui-btn layui-btn-primary"  lay-submit lay-filter="data-search-btn"><i class="layui-icon"></i> 搜 索</button>
+                    </div>
+                </div>
+            </form>
+        </fieldset>
+    </div>
+    <div class="layui-card-body">
+        <table class="layui-hide" id="curTable" lay-filter="curTableFilter"></table>
+    </div>
+</div>
+
+<div id="displayTest" style="display: flex">
+</div>
+
+
+<script type="text/html" id="currentTableBar">
+    <a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="edit" style="height:24px; width:50px; border-radius: 15px">编辑</a>
+    <a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete" style="height:24px; width:50px; border-radius: 15px">删除</a>
+</script>
+
+<script type="text/html" id="curToolBar">
+<div class="layui-btn-container">
+    <button class="layui-btn layui-btn-radius layui-btn-normal" lay-event="add"> 上传图片 </button>
+</div>
+</script>
+
+<script src="../layui/layui.js"></script>
+<script th:inline="none">
+    //JavaScript代码区域
+    layui.use(['element', 'layer', 'table', 'form'], function(){
+        var element = layui.element,
+            layer = layui.layer,
+            form = layui.form,
+            table = layui.table,
+            $ = layui.$;
+
+        //卡片式渲染
+
+        $.ajax({
+            url : 'findall?page=1&limit=20',
+            method : 'post',
+            contentType : 'application/json',
+            dataType : 'JSON',
+            success : function(res) {
+                console.log("sadsadsa");
+                vars = res.data;
+                html = '';
+                for(var i = 0; i < vars.length; i++) {
+                    $('#displayTest').append(
+                        '<div style="height: 260px; width: 190px; min-width: 150px; background: white; margin: 10px; padding: 5px; border-radius: 5px">' +
+                        '<div class="Imgcontainer" style="background: url( '+vars[i].path + '); background-size: cover;"></div>' +
+                        '<div style="top: 10px; position:relative; text-align: center; color: #7e7e7e "> '+ vars[i].imgname +' </div>' +
+                        '<div class="copyBtn">复制路径</div>' +
+                        '</div>'
+                    );
+                }
+            },
+            error : function(data) {
+            }
+        });
+
+
+        //执行渲染
+        table.render({
+            elem: '#curTable',
+            toolbar: '#curToolBar',
+            url: 'findall',
+            page: 'true',
+            cols: [[
+                {field: 'id', title: 'ID', width:80},
+                {field: 'imgname', title: '图片名', width:180},
+                {field: 'path', title: '路径', width:180},
+                {field: 'info', title: '说明', width:150},
+                {title: '操作', toolbar: '#currentTableBar', width:150, align: 'center'}
+            ]] //设置表头
+        });
+
+        //执行搜索
+        form.on('submit(data-search-btn)', function (data) {
+            var result = JSON.stringify(data.field);
+
+            //执行搜索重载
+            table.reload('curTable', {
+                page: {
+                    curr: 1
+                }
+                , where: {
+                    searchParams: result
+                }
+            }, 'data');
+            return false;
+
+        });
+
+        table.on('toolbar(curTableFilter)', function (obj) {
+            if (obj.event === 'add') {  // 监听添加操作
+                var index = layer.open({
+                    title: '上传图片',
+                    type: 2,
+                    shade: 0.2,
+                    maxmin:true,
+                    shadeClose: true,
+                    area: ['600px', '350px'],
+                    content: '/defaultImg/toEdit?id=0',
+                    end:function () {
+                    }
+                });
+                $(window).on("resize", function () {
+                    layer.full(index);
+                });
+            };
+        })
+
+        /**
+         * toolbar监听事件
+         */
+        table.on('tool(curTableFilter)', function (obj) {
+
+            var data = obj.data;
+
+            if (obj.event === 'edit') {
+                var index = layer.open({
+                    title: '编辑图片',
+                    type: 2,
+                    shade: 0.2,
+                    maxmin:true,
+                    shadeClose: true,
+                    area: ['600px', '480px'],
+                    content: '/defaultImg/toEdit?id='+data.id,
+                    end:function () {
+                        return false;
+                    }
+                });
+                $(window).on("resize", function () {
+                });
+                return false;
+            } else if (obj.event === 'delete') {
+                layer.confirm('真的删除行么', function (index) {
+                    $.ajax({
+                        url : '/defaultImg/delete?id='+data.id,
+                        method : 'get',
+                        dataType : 'JSON',
+                        success : function(res) {
+                            if (res.code = '0') {
+                                var index = layer.alert(res.msg, function() {
+                                    obj.del();
+                                    layer.close(index);
+                                });
+                            } else {
+                                layer.alert(res.msg)
+                            }
+                        },
+                        error : function(data) {
+                            layer.alert(JSON.stringify(data))
+                        }
+                    });
+
+                });
+            }
+        });
+    });
+</script>
+</body>
+</html>

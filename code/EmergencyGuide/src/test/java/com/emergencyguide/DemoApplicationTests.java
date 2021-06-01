@@ -4,6 +4,7 @@ import com.emergencyguide.Controller.Logo.PersonalLogoController;
 import com.emergencyguide.Controller.api.PostApiController;
 import com.emergencyguide.Dao.Community.*;
 import com.emergencyguide.Dao.Logo.PersonalLogoDao;
+import com.emergencyguide.Dao.System.DefaultImgDao;
 import com.emergencyguide.Dao.System.RoleDao;
 import com.emergencyguide.Dao.System.UserDao;
 import com.emergencyguide.Dao.SystemConfigDao;
@@ -38,25 +39,22 @@ class DemoApplicationTests {
     @Autowired
     CommentDao commentDao;
     @Autowired
-    AddressService addressService;
+    DefaultImgDao defaultImgDao;
 
     @Test
     void contextLoads() {
 
         HashMap<String, Object> searchParams = new HashMap<>();
 
-        searchParams.put("id",4);
+        Image image = new Image();
 
-        Address address = new Address();
+        image.setImgname("客户默认头像");
+        image.setPath("/......");
+        image.setInfo("测试内容");
+        image.setId(2);
+        searchParams.put("id",1);
 
-        address.setId(7);
-        address.setOpenid("oJMuB4uvA0V0-FdLqX4Szhqsjh5E");
-        address.setAddress("LIMBO");
-        address.setMobilephone("不存在的");
-        address.setRecipient("皇老人");
-        address.setIsdefault("否");
-
-        System.out.println(addressService.changeDefaultAddress(3));
+        System.out.println(defaultImgDao.selectList(0,1,searchParams));
 
     }
 
