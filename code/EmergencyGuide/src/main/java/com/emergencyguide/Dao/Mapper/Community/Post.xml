@@ -55,5 +55,11 @@
         INSERT INTO t_post (postid, topic, content, likes, dislike, reply, status, time, openid)
         VALUES (#{postid}, #{topic}, #{content}, #{likes}, #{dislike}, #{reply}, #{status}, #{time}, #{openid})
     </insert>
+    
+    <select id="hotPost" resultMap="BaseResultMap">
+        SELECT <include refid="Base_SQL"></include> FROM t_post t1
+        WHERE 1 = 1
+        limit 2
+    </select>
 
 </mapper>

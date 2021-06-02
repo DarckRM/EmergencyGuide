@@ -42,4 +42,6 @@ public interface PostDao {
     @Update("UPDATE t_post SET reply = reply + #{var} WHERE postid = #{postid}")
     public int changereply(int var, int postid);
 
+    public List<Post> hotPost();
+
 }

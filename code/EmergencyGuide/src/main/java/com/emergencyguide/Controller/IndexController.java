@@ -2,6 +2,8 @@ package com.emergencyguide.Controller;
 
 import com.emergencyguide.Entity.Result;
 import com.emergencyguide.Entity.SystemConfig;
+import com.emergencyguide.Service.Community.CustomerService;
+import com.emergencyguide.Service.Community.PostService;
 import com.emergencyguide.Service.Impl.SystemConfigServiceImpl;
 import com.emergencyguide.Service.System.UserService;
 import com.emergencyguide.Service.SystemConfigService;
@@ -18,11 +20,22 @@ public class IndexController extends BaseController {
     private UserService userService;
 
     @Autowired
+    private CustomerService customerService;
+
+    @Autowired
+    private PostService postService;
+
+    @Autowired
     private SystemConfigService systemConfigService;
 
     //修改默认访问页面
     @RequestMapping("/")
     public String defaultPage() {
+        return "login";
+    }
+
+    @RequestMapping("/login")
+    public String loginPage() {
         return "login";
     }
 
@@ -44,7 +57,9 @@ public class IndexController extends BaseController {
         mav.setViewName("content");
         mav.addObject("curUserCount",userService.selectListCount("null"));
         mav.addObject("systemconfig", systemConfigService.selectSystemConfig());
+        mav.addObject("curCustomerCount", customerService.selectListCount("{}"));
         mav.addObject("curUsername", getCurUserName());
+        mav.addObject("curHotPost", postService.hotPost());
         return mav;
     }
 

@@ -45,9 +45,9 @@
                 <i class="layui-icon layui-icon-user" style="font-size: 90px; color: white"></i>
             </div>
             <div style="position: absolute; top: 0; left: 150px">
-                <div class="layui-card-header">系统用户总数</div>
+                <div class="layui-card-header">微信用户总数</div>
                 <div class="layui-card-body">
-                    <p style="padding: 5px; font-size: 38px" th:text="${curUserCount}"></p>
+                    <p style="padding: 5px; font-size: 38px" th:text="${curCustomerCount}"></p>
                 </div>
             </div>
         </div>
@@ -114,6 +114,24 @@
             </div>
         </div>
     </div>
+    <div class="layui-col-md4" style="margin: 10px">
+        <div class="layui-panel" style="margin-bottom: 10px">
+            <div class="layui-card-header">当前热门帖子</div>
+        </div>
+        <div th:each="post:${curHotPost}" class="layui-panel" style="margin-bottom: 10px">
+            <form>
+                <input class="postid" th:value="${post.postid}" type="hidden">
+                <div class="layui-card-header" style="padding: 15px">
+                    <img th:src="${post.avatar}" style="height: 40px; width: 40px; background-repeat: no-repeat; background-size: cover; border-radius: 20px; float: left;margin-right: 15px">
+                    <p th:text="${post.topic}"></p>
+                </div>
+                <div class="layui-card-body" th:text="${post.content}" style="height: 140px; overflow: hidden; margin-bottom: 10px"></div>
+                <div style="margin-bottom: 10px; margin-left: 20px">
+                    <button style="width: 150px" class="layui-btn" lay-submit lay-filter="postDetail">详细</button>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
 
 <script src="./layui/layui.js"></script>
@@ -124,6 +142,29 @@
             table = layui.table,
             form = layui.form,
             $ = layui.$;
+
+        //查看帖子信息
+        form.on('submit(postDetail)', function (obj) {
+
+            var postid = $(".postid").val();
+
+            console.log(postid);
+            var index = layer.open({
+                title: '编辑主题',
+                type: 2,
+                shade: 0.2,
+                maxmin:true,
+                shadeClose: true,
+                area: ['950px', '480px'],
+                content: '/post/toEdit?postid='+postid,
+                end:function () {
+                    return false;
+                }
+            });
+            $(window).on("resize", function () {
+            });
+            return false;
+        })
 
         //获取表单初始数据 用于判断是否修改表单
         var formInit = $("#systemConfigForm").serializeArray();

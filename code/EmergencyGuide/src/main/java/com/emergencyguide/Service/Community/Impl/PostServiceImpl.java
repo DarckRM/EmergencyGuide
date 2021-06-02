@@ -104,4 +104,9 @@ public class PostServiceImpl implements PostService {
         }
         return status;
     }
+
+    @Override
+    public List<Post> hotPost() {
+        return postDao.hotPost();
+    }
 }

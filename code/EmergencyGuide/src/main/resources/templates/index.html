@@ -93,7 +93,7 @@
                 </ul>
                 <div class="layui-tab-content">
                     <div class="layui-tab-item layui-show">
-                        <iframe frameborder="0" src= "/content" width="100%" height="590px"></iframe>
+                        <iframe frameborder="0" src= "/content" width="100%" height="680px"></iframe>
                     </div>
                 </div>
             </div>
@@ -118,6 +118,8 @@
                 if(data.attr("class") == 'navFather') {
                     return;
                 }
+
+                var Height = $(window).height()-200;
 
                 //判断点击的导航标签决定Tab展示页面
                 var directPage = data.attr("lay-id");
@@ -159,7 +161,7 @@
                 //响应导航栏添加Tab
                 element.tabAdd('mainTabs', {
                     title: title,
-                    content: '<iframe frameborder="0" src= "'+directPage+'" height="590px" width="100%" ></iframe>', //支持传入html
+                    content: '<iframe frameborder="0" src= "'+directPage+'" height=" '+Height+'px " width="100%" ></iframe>', //支持传入html
                     id: data.attr("lay-id")
                 });
                 //切换到刚刚创建的Tab页
