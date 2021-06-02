@@ -81,6 +81,11 @@ public class CommentServiceImpl implements CommentService {
         return commentDao.delete(commentid);
     }
 
+    @Override
+    public int deleteByPostid(int postid) {
+        return commentDao.deleteByPostid(postid);
+    }
+
     public int updateById(Comment comment) {
         return commentDao.updateById(comment);
     }

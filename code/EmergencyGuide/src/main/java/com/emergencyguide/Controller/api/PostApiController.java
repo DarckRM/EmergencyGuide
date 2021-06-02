@@ -3,6 +3,7 @@ package com.emergencyguide.Controller.api;
 import com.alibaba.fastjson.JSONObject;
 import com.emergencyguide.Entity.Post;
 import com.emergencyguide.Entity.Result;
+import com.emergencyguide.Service.Community.CommentService;
 import com.emergencyguide.Service.Community.PostService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -26,6 +27,9 @@ public class PostApiController {
 
     @Autowired
     private PostService postService;
+
+    @Autowired
+    private CommentService commentService;
 
     @ApiOperation(value="分页查看当前用户的发帖记录")
     @PostMapping("/mypost")
@@ -84,8 +88,9 @@ public class PostApiController {
 
         try
         {
+            int count = commentService.deleteByPostid(postid);
             postService.deleteById(postid);
-            result.setMsg("请求成功");
+            result.setMsg("请求成功，该贴下有"+count+"条回复被删除");
         } catch (Exception e)
         {
             result.setMsg("请求失败" + e.getMessage());

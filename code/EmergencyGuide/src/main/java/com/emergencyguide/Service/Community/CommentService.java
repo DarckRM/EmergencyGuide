@@ -20,5 +20,6 @@ public interface CommentService {
     public List<Comment> selectAllList();
     public int selectListCount(String searchParams);
     public List<Comment> selectList(int page, int limit, String searchParams);
-    public int deleteById(int postid);
+    public int deleteById(int commentid);
+    public int deleteByPostid(int postid);
 }
