@@ -69,3 +69,10 @@ iframe {
 .copyBtn:hover {
     border: 1px solid rgba(73, 125, 98, 0.87);
 }
+.insideNav {
+    display: none;
+}
+.insideFrame {
+    position: relative;
+    left: 0px;
+}

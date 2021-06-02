@@ -9,16 +9,15 @@
     <link rel="stylesheet" type="text/css" href="./css/uniform.css">
 </head>
 <body>
-<div class="layui-row" >
-    <div class="layui-col-md3" style="margin: 10px">
+<div class="layui-row" style="padding-left: 10px">
+    <div class="layui-col-md4" style="margin-right: 10px; margin-bottom: 10px">
         <div class="layui-panel">
-            <div style="width: 140px; height: 140px; background: url(./img/useravatar.jpg); background-size:cover; text-align: center; line-height: 140px">
+            <div style="width: 140px; height: 140px; background: url(./img/useravatar.jpg); background-size:cover; text-align: center; line-height: 140px; float: left">
                 <div style="height: inherit;background: rgba(0,0,0,0.5)">
                     <i class="layui-icon layui-icon-username" style="font-size: 90px; color: white"></i>
                 </div>
             </div>
-            <div style=""></div>
-            <div style="position: absolute; top: 0; left: 150px">
+            <div style="position: relative; height: 140px; margin-left: 140px">
                 <div class="layui-card-header">当前登录用户</div>
                 <div class="layui-card-body">
                     <p style="padding: 5px" th:text="${curUsername}"></p>
@@ -26,25 +25,25 @@
             </div>
         </div>
     </div>
-    <div class="layui-col-md3" style="margin: 10px">
+<!--    <div class="layui-col-md4">
         <div class="layui-panel">
-            <div style="width: 140px; height: 140px; background: #f4e310; text-align: center; line-height: 140px">
+            <div style="width: 140px; height: 140px; background: #f4e310; text-align: center; line-height: 140px; float: left">
                 <i class="layui-icon layui-icon-user" style="font-size: 90px; color: white"></i>
             </div>
-            <div style="position: absolute; top: 0; left: 150px">
+            <div style="position: relative; height: 140px; margin-left: 140px">
                 <div class="layui-card-header">系统用户总数</div>
                 <div class="layui-card-body">
                     <p style="padding: 5px; font-size: 38px" th:text="${curUserCount}"></p>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="layui-col-md3" style="margin: 10px">
+    </div>-->
+    <div class="layui-col-md4">
         <div class="layui-panel">
-            <div style="width: 140px; height: 140px; background: #f4e310; text-align: center; line-height: 140px">
+            <div style="width: 140px; height: 140px; background: #f4e310; text-align: center; line-height: 140px; float: left">
                 <i class="layui-icon layui-icon-user" style="font-size: 90px; color: white"></i>
             </div>
-            <div style="position: absolute; top: 0; left: 150px">
+            <div style="position: relative; height: 140px; margin-left: 140px">
                 <div class="layui-card-header">微信用户总数</div>
                 <div class="layui-card-body">
                     <p style="padding: 5px; font-size: 38px" th:text="${curCustomerCount}"></p>
