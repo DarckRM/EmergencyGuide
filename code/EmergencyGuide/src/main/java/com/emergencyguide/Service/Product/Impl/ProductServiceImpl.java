@@ -3,6 +3,7 @@ package com.emergencyguide.Service.Product.Impl;
 import com.emergencyguide.Dao.Product.ProductDao;
 import com.emergencyguide.Entity.Product;
 import com.emergencyguide.Service.Product.ProductService;
+import com.emergencyguide.Utils.EasyGeneraterParams;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

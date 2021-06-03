@@ -38,7 +38,7 @@
             </div>
         </div>
     </div>-->
-    <div class="layui-col-md4">
+    <div class="layui-col-md4" style="margin-right: 10px; margin-bottom: 10px">
         <div class="layui-panel">
             <div style="width: 140px; height: 140px; background: #f4e310; text-align: center; line-height: 140px; float: left">
                 <i class="layui-icon layui-icon-user" style="font-size: 90px; color: white"></i>
@@ -53,8 +53,8 @@
     </div>
 </div>
 <div class="layui-row" >
-    <div class="layui-col-md5" style="margin: 10px">
-        <div class="layui-panel">
+    <div class="layui-col-md3" style="margin-left: 10px;">
+        <div class="layui-panel" style=" min-height: 600px">
             <div>
                 <div class="layui-card-header">系统参数</div>
                 <div class="layui-card-body">
@@ -113,18 +113,18 @@
             </div>
         </div>
     </div>
-    <div class="layui-col-md4" style="margin: 10px">
+    <div class="layui-col-md4" style="margin-left: 10px">
         <div class="layui-panel" style="margin-bottom: 10px">
             <div class="layui-card-header">当前热门帖子</div>
         </div>
-        <div th:each="post:${curHotPost}" class="layui-panel" style="margin-bottom: 10px">
+        <div th:each="post:${curHotPost}" class="layui-panel" style="margin-bottom: 10px; height: 265px; overflow: hidden">
             <form>
                 <input class="postid" th:value="${post.postid}" type="hidden">
                 <div class="layui-card-header" style="padding: 15px">
                     <img th:src="${post.avatar}" style="height: 40px; width: 40px; background-repeat: no-repeat; background-size: cover; border-radius: 20px; float: left;margin-right: 15px">
                     <p th:text="${post.topic}"></p>
                 </div>
-                <div class="layui-card-body" th:text="${post.content}" style="height: 140px; overflow: hidden; margin-bottom: 10px"></div>
+                <div class="layui-card-body" th:text="${post.content}" style="height: 100px; overflow: hidden; margin-bottom: 10px"></div>
                 <div style="margin-bottom: 10px; margin-left: 20px">
                     <button style="width: 150px" class="layui-btn" lay-submit lay-filter="postDetail">详细</button>
                 </div>

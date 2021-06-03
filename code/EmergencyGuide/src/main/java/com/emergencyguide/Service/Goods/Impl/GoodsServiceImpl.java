@@ -7,6 +7,8 @@ import com.emergencyguide.Entity.Order;
 import com.emergencyguide.Entity.Product;
 import com.emergencyguide.Entity.ProductType;
 import com.emergencyguide.Service.Goods.GoodsService;
+import com.emergencyguide.Utils.EasyGeneraterParams;
+import com.emergencyguide.Utils.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +21,16 @@ public class GoodsServiceImpl implements GoodsService {
 
     @Autowired
     private GoodsDao goodsDao;
+    @Autowired
+    private RedisUtil redisUtil;
+    @Autowired
+    private EasyGeneraterParams easyGeneraterParams;
+    // 缓存集合Key值
+    private String REDISLISTKEY = "PRODUCTLIST_";
+    // 缓存单数据Key值
+    private String REDISINFOKEY = "PRODUCT_";
+    // 存放查询条件便于操作缓存
+    private String LISTNAME;
     @Override
     public List<Goods> selectAllList(int page, int limit, String searchParams) {
         String goodsName = "";

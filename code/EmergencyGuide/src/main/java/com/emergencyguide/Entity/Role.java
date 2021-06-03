@@ -1,11 +1,13 @@
 package com.emergencyguide.Entity;
 
+import java.io.Serializable;
+
 /**
  * @author DarckLH
  * @date 2021/5/11 1:20
  * @Description
  */
-public class Role {
+public class Role implements Serializable {
 
     private int id;
     private String role;

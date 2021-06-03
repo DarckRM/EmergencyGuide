@@ -5,6 +5,8 @@ import com.emergencyguide.Dao.System.RoleDao;
 import com.emergencyguide.Entity.Role;
 import com.emergencyguide.Entity.User;
 import com.emergencyguide.Service.System.RoleService;
+import com.emergencyguide.Utils.EasyGeneraterParams;
+import com.emergencyguide.Utils.RedisUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,32 +28,51 @@ public class RoleServiceImpl implements RoleService {
 
     @Autowired
     private RoleDao roleDao;
+    @Autowired
+    private RedisUtil redisUtil;
+    @Autowired
+    private EasyGeneraterParams easyGeneraterParams;
+
+    // 缓存集合Key值
+    private String REDISLISTKEY = "ROLELIST_";
+    // 缓存单数据Key值
+    private String REDISINFOKEY = "ROLE_";
 
     //这个方法用于写入Redis缓存
     @Override
     public List<Role> selectAllList() {
 
-        return roleDao.selectAllList();
+        Boolean hasKey = redisUtil.hasKey(REDISLISTKEY);
+        if (hasKey) {
+            System.out.println("已从Redis中取得权限数据");
+            List<Role> roles = redisUtil.getList(REDISLISTKEY, Role.class);
+            return roles;
+        }
+
+        List<Role> roles = roleDao.selectAllList();
+        // 存在到缓存中
+        redisUtil.set(REDISLISTKEY, roles);
+        logger.info(roles.toString());
+        return roles;
 
     }
 
     @Override
     public List<Role> selectList(int page, int limit, String searchParams) {
 
-        String role = "";
-        String authority = "";
-        if (searchParams != null) {
-            JSONObject json = JSONObject.parseObject(searchParams);
-            role = json.getString("role");
-            authority = json.getString("authority");
+        Map<String, Object> params = new HashMap<>();
+        params = easyGeneraterParams.easySearchParams(searchParams);
+
+        Boolean hasKey = redisUtil.hasKey(REDISLISTKEY);
+        if (hasKey) {
+            System.out.println("已从Redis中取得权限数据");
+            List<Role> roles = redisUtil.getList(REDISLISTKEY, Role.class);
+            return roles;
         }
 
-        Map<String, Object> params = new HashMap<>();
-
-        params.put("role", role.isEmpty() ? null : role);
-        params.put("authority", authority.isEmpty() ? null : authority);
-
         List<Role> roles = roleDao.selectList(params);
+        // 存在到缓存中
+        redisUtil.set(REDISLISTKEY, roles);
         logger.info(roles.toString());
         return roles;
     }

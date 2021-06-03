@@ -1,5 +1,6 @@
 package com.emergencyguide.Controller.System;
 
+import com.emergencyguide.Entity.Customer;
 import com.emergencyguide.Entity.Result;
 import com.emergencyguide.Entity.User;
 import com.emergencyguide.Service.System.RoleService;
@@ -106,6 +107,17 @@ public class UserController {
             result.setMsg("保存失败");
         }
         return result.toString();
+    }
+
+    @RequestMapping("/delete")
+    public String delete(long id) {
+
+        Result result = new Result<>();
+
+        result.setCount(userService.deleteById(id));
+        result.setMsg("删除成功");
+        return result.toString();
+
     }
 
 }

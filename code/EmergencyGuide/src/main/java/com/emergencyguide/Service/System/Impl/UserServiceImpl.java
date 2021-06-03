@@ -6,6 +6,7 @@ import com.emergencyguide.Config.ContextConfig;
 import com.emergencyguide.Dao.System.UserDao;
 import com.emergencyguide.Entity.User;
 import com.emergencyguide.Service.System.UserService;
+import com.emergencyguide.Utils.EasyGeneraterParams;
 import com.emergencyguide.Utils.RedisUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,33 +33,35 @@ public class UserServiceImpl implements UserService {
     private UserDao userDao;
     @Autowired
     private RedisUtil redisUtil;
+    @Autowired
+    private EasyGeneraterParams easyGeneraterParams;
     // 缓存集合Key值
-    private String REDISLISTKEY = "SYSTEMUSER_LIST";
+    private String REDISLISTKEY = "SYSTEMUSERLIST_";
     // 缓存单数据Key值
     private String REDISINFOKEY = "SYSTEMUSER_";
+    // 存放查询条件便于操作缓存
+    private String LISTNAME;
 
     @Override
     public List<User> selectList(int page, int limit, String searchParams) {
 
-        String username = "";
-        String realname = "";
-        String authority = "";
-        if (searchParams != null) {
-            JSONObject json = JSONObject.parseObject(searchParams);
-            username = json.getString("username");
-            realname = json.getString("realname");
-            authority = json.getString("authority");
-        }
-
         Map<String, Object> params = new HashMap<>();
+        LISTNAME = searchParams;
 
-        params.put("username", username.isEmpty() ? null : username);
-        params.put("realname", realname.isEmpty() ? null : realname);
-        params.put("authority", authority.isEmpty() ? null : authority);
+        params = easyGeneraterParams.easySearchParams(searchParams);
+        //判断该查询条件下缓存中是否存在
+        Boolean hasKey = redisUtil.hasKey(REDISLISTKEY+searchParams);
+        if (hasKey) {
+            System.out.println("已在"+searchParams+"查询条件下获取到用户列表");
+            List<User> redisList = redisUtil.getList(REDISLISTKEY+searchParams, User.class);
+            return redisList;
+        }
+        List<User> users = userDao.selectList(params);
+        // 存在到缓存中
+        redisUtil.set(REDISLISTKEY+searchParams, users);
+        logger.info(users.toString());
 
-        List<User> user = userDao.selectList(params);
-        logger.info(user.toString());
-        return user;
+        return users;
     }
 
     @Override
@@ -86,21 +89,30 @@ public class UserServiceImpl implements UserService {
     public User selectById(long id) {
 
         logger.debug(this.getClass() + "-selectById");
-        Boolean hasKey = redisUtil.hasKey(REDISLISTKEY+id);
+        Boolean hasKey = redisUtil.hasKey(REDISINFOKEY+id);
         if (hasKey) {
-            User user = redisUtil.getModel(REDISLISTKEY, User.class);
+            System.out.println("已从Redis中取得用户数据");
+            User user = redisUtil.getModel(REDISINFOKEY+id, User.class);
             return user;
         }
         User user = userDao.selectById(id);
         // 存在到缓存中
-        redisUtil.set(REDISLISTKEY, user);
+        redisUtil.set(REDISINFOKEY+id, user);
         return user;
 
     }
 
     @Override
     public int deleteById(long id) {
-        return 1;
+        String key = REDISINFOKEY + id;
+        int delete = userDao.delete(id);
+        if (delete > 0) {
+            //修改了数据库中的内容因此之前缓存的List也要移除
+            redisUtil.del(REDISLISTKEY);
+            redisUtil.del(key);
+            logger.debug(this.getClass() + ">>从缓存中删除编号 >>" + id);
+        }
+        return delete;
     }
 
     @Override
@@ -108,8 +120,11 @@ public class UserServiceImpl implements UserService {
         String key = REDISINFOKEY + user.getId();
         int update = userDao.updateById(user);
         if (update > 0) {
+            //修改了数据库中的内容因此之前缓存的List也要移除
+            redisUtil.del(REDISLISTKEY+LISTNAME);
             redisUtil.del(key);
-            logger.debug(this.getClass() + ">>从缓存中删除编号 >>" + user.getId());
+            System.out.println(this.getClass() + ">>从缓存中删除编号 >>" + user.getId());
+            System.out.println((this.getClass() + ">>从缓存中删除之前的列表 >>" + LISTNAME));
         }
         return update;
     }
@@ -120,7 +135,10 @@ public class UserServiceImpl implements UserService {
         user.setStatus("启用");
         int insert = userDao.insert(user);
         if (insert > 0) {
+            //修改了数据库中的内容因此之前缓存的List也要移除
             redisUtil.del(REDISLISTKEY);
+            redisUtil.del(REDISLISTKEY);
+            logger.debug(this.getClass() + ">>从缓存中删除编号 >>" + user.getId());
         }
         return insert;
     }

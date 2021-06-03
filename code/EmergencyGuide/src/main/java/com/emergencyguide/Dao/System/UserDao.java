@@ -1,10 +1,7 @@
 package com.emergencyguide.Dao.System;
 
 import com.emergencyguide.Entity.User;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 import java.util.Map;
@@ -31,4 +28,7 @@ public interface UserDao {
     public int insert(User user);
 
     public int updateById(User user);
+
+    @Delete("DELETE FROM t_systemuser WHERE id = #{id}")
+    public int delete(long id);
 }

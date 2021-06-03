@@ -140,7 +140,7 @@ public class StationApiContoller {
     @ApiOperation(value="删除补给站信息")
     @PostMapping("/delstation")
     @ApiImplicitParam(name = "jsonStr", value = "{'id':'补给站ID:int(必要)'}", required = true, dataType = "string")
-    public String deleteStation(String jsonStr) {
+    public String deleteStation(@RequestBody String jsonStr) {
 
         Result result = new Result();
 
@@ -156,7 +156,7 @@ public class StationApiContoller {
             }
 
         } catch (Exception e) {
-            result.setMsg("后台错误"+e.getMessage()+"前端传入的参数"+jsonStr);
+            result.setMsg("后台错误"+e.getMessage()+":前端传入的参数"+jsonStr);
         }
 
         return result.toString();
