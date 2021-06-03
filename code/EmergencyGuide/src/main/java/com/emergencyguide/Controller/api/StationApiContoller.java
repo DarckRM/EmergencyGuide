@@ -156,7 +156,7 @@ public class StationApiContoller {
             }
 
         } catch (Exception e) {
-            result.setMsg("后台错误"+e.getMessage());
+            result.setMsg("后台错误"+e.getMessage()+"前端传入的参数"+jsonStr);
         }
 
         return result.toString();
