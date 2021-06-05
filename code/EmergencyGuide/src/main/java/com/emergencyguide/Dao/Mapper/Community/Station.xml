@@ -19,7 +19,7 @@
         SELECT <include refid="Base_SQL"></include>
         WHERE 1 = 1
         <if test="params.type != null and params.type != '' " >
-            AND t1.type = '%${params.type}%'
+            AND t1.type = '${params.type}'
         </if>
         <if test="params.openid != null and params.openid!='' " >
             AND t1.openid = '${params.openid}'
@@ -30,7 +30,7 @@
     <select id="selectListCount" resultType="int">
         SELECT COUNT(id) FROM t_station t1 WHERE 1=1
         <if test="params.type != null and params.type != '' " >
-            AND t1.type = '%${params.type}%'
+            AND t1.type = '${params.type}'
         </if>
         <if test="params.openid != null and params.openid!='' " >
             AND t1.openid = '${params.openid}'
