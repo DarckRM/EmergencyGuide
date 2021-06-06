@@ -1,5 +1,6 @@
 package com.emergencyguide.Entity;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Date;
 
@@ -8,7 +9,7 @@ import java.util.Date;
  * @date 2021/5/24 11:52
  * @Description
  */
-public class Comment {
+public class Comment implements Serializable {
 
     private long commentid;
     private int replyid;

@@ -108,7 +108,7 @@ public class UserServiceImpl implements UserService {
         int delete = userDao.delete(id);
         if (delete > 0) {
             //修改了数据库中的内容因此之前缓存的List也要移除
-            redisUtil.del(REDISLISTKEY);
+            redisUtil.del(REDISLISTKEY + LISTNAME);
             redisUtil.del(key);
             logger.debug(this.getClass() + ">>从缓存中删除编号 >>" + id);
         }
@@ -121,7 +121,7 @@ public class UserServiceImpl implements UserService {
         int update = userDao.updateById(user);
         if (update > 0) {
             //修改了数据库中的内容因此之前缓存的List也要移除
-            redisUtil.del(REDISLISTKEY+LISTNAME);
+            redisUtil.del(REDISLISTKEY + LISTNAME);
             redisUtil.del(key);
             System.out.println(this.getClass() + ">>从缓存中删除编号 >>" + user.getId());
             System.out.println((this.getClass() + ">>从缓存中删除之前的列表 >>" + LISTNAME));
@@ -136,8 +136,7 @@ public class UserServiceImpl implements UserService {
         int insert = userDao.insert(user);
         if (insert > 0) {
             //修改了数据库中的内容因此之前缓存的List也要移除
-            redisUtil.del(REDISLISTKEY);
-            redisUtil.del(REDISLISTKEY);
+            redisUtil.del(REDISLISTKEY + LISTNAME);
             logger.debug(this.getClass() + ">>从缓存中删除编号 >>" + user.getId());
         }
         return insert;
