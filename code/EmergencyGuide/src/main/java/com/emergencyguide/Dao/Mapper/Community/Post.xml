@@ -44,9 +44,6 @@
         UPDATE t_post SET
         topic = #{topic},
         content = #{content},
-        likes = #{likes},
-        dislike = #{dislike},
-        reply = #{reply},
         status = #{status}
         WHERE postid = #{postid};
     </update>
