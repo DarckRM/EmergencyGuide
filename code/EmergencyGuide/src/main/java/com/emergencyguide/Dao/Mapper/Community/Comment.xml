@@ -30,6 +30,7 @@
         <if test="params.postid != null and params.postid!='' " >
             AND t2.postid = '${params.postid}'
         </if>
+        limit #{page},#{limit}
     </select>
 
     <select id="selectByCustomerId" resultMap="BaseResultMap">
